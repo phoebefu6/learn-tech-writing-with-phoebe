@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>learn tech writing with phoebe - docs people actually use</title>
+<link rel="stylesheet" href="assets/style.css?v=1">
+<style>
+  .stats-row { display: flex; gap: 2.4rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: .72rem; opacity: .85; text-transform: uppercase; letter-spacing: .09em; font-weight: 600; }
+
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .course-card {
+    border: 1px solid var(--hairline);
+    border-top: 4px solid var(--diff, #C2402A);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fff;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+    position: relative;
+  }
+  .course-card:hover { border-color: #D4664E; border-top-color: var(--diff, #C2402A); box-shadow: 0 8px 28px rgba(194,64,42,.14); transform: translateY(-3px); }
+  .course-card .cicon { font-size: 1.7rem; line-height: 1; }
+  .course-card .cnum { font-size: .72rem; font-weight: 700; color: #C2402A; text-transform: uppercase; letter-spacing: .1em; }
+  .course-card h3 { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+  .course-card p { font-size: .85rem; color: var(--muted); flex: 1; }
+  .course-card .meta { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+  .diff-legend { display: flex; gap: 1rem; margin-top: 1.6rem; font-size: .74rem; color: var(--muted); font-weight: 600; flex-wrap: wrap; }
+  .diff-legend i { display: inline-block; width: .85rem; height: .35rem; border-radius: 999px; margin-right: .35rem; vertical-align: middle; }
+
+  .paths { margin-top: 2.6rem; }
+  .paths h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .3rem; }
+  .paths .plede { color: var(--muted); font-size: .92rem; margin-bottom: .8rem; }
+  .path { display: flex; gap: .55rem; align-items: center; padding: .75rem 0; border-bottom: .5px solid var(--hairline); flex-wrap: wrap; }
+  .path:last-child { border-bottom: none; }
+  .path b { min-width: 15.5rem; font-size: .9rem; }
+  .path .pstep { background: #FAECE7; color: #7E2718; border-radius: 999px; padding: .16rem .68rem; font-weight: 700; font-size: .8rem; text-decoration: none; transition: all .12s ease; }
+  .path .pstep:hover { background: #C2402A; color: #fff; }
+  .path .parr { color: var(--faint); font-weight: 700; }
+
+  .mm-section { margin-top: 1.6rem; }
+  .mm-section h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .2rem; }
+  .mm-section .mm-lede { color: var(--muted); font-size: .92rem; margin-bottom: .4rem; }
+  .mm-wrap { border: 1px solid var(--hairline); border-radius: var(--radius); background: linear-gradient(180deg,#fff, #FCFAF4); padding: .6rem; overflow-x: auto; }
+  .mm-svg { width: 100%; height: auto; display: block; max-width: 60rem; margin: 0 auto; min-width: 34rem; }
+  .mm-link { cursor: pointer; text-decoration: none; }
+  .mm-node rect { transition: opacity .15s ease, filter .15s ease; }
+  .mm-node text { pointer-events: none; }
+  .mm-link:hover .mm-node rect { filter: brightness(1.06); }
+  .mm-edge { transition: opacity .15s ease; }
+
+  .noteband { margin-top: 2.4rem; background: #FAECE7; border: 1px solid var(--hairline); border-radius: var(--radius); padding: 1rem 1.2rem; font-size: .9rem; color: var(--ink); }
+  .noteband b { color: #7E2718; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe</div>
+    <h1>Docs people <span class="accent">actually use</span></h1>
+    <p class="sub">You know the pain: the undocumented repo, the on-call engineer guessing at 2am, the wiki page nobody reads twice. This course is the fix - a practitioner's technical-writing method for data and AI teams, built from the same free sources Google trains its own engineers on. Across eight sessions you document one real pipeline end to end, and walk away with a documented system plus a repeatable method. Every session is 45 minutes live, with self-study depth for after class.</p>
+    <div class="stats-row">
+      <div class="stat"><b data-count="8">8</b><span>sessions</span></div>
+      <div class="stat"><b data-count="4">4</b><span>deep dives</span></div>
+      <div class="stat"><b data-count="9">9</b><span>official sources</span></div>
+      <div class="stat"><b data-count="1">1</b><span>running project</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section">
+    <div class="noteband" style="margin-top:0">
+      <b>One project, eight sessions.</b> Every session documents <b>Pulse</b> - a small CSV-to-metrics pipeline that ships in this repo at <a href="https://github.com/phoebefu6/learn-tech-writing-with-phoebe/tree/main/pulse">pulse/</a> with working code and zero documentation, on purpose. Session by session it gains a README, a how-to, reference pages, ADRs, a changelog, Vale linting in CI, and an edited v1.0 doc set you'd be proud to inherit. <b>Honest about scope:</b> certificates and the facilitated in-class exercises stay with the free official sources, starting with <a href="https://developers.google.com/tech-writing">Google's technical writing courses</a>.
+    </div>
+
+    <div class="paths" style="margin-top:2rem">
+      <h2>The sessions ✍️ <span style="font-size:.85rem;font-weight:600;color:var(--muted)">· for practitioners · 8 x 45 min</span></h2>
+      <p class="plede">From the audience equation to a shipped v1.0 - each session teaches the craft on real source material, then applies it to Pulse in a build-along.</p>
+    </div>
+    <div class="course-grid">
+      <a class="course-card" href="courses/01-why-docs-fail.html" style="--diff:#34D399">
+        <span class="cicon">🎯</span>
+        <span class="cnum">Session 1 · start here</span>
+        <h3>Why docs fail: the audience equation</h3>
+        <p>The good-docs formula behind every writing decision, scope statements that win the 30-second scan, and your first look at Pulse.</p>
+        <span class="meta"><span class="pill amber">▶ Start here</span><span class="pill light">The formula</span></span>
+      </a>
+      <a class="course-card" href="courses/02-sentences-that-work.html" style="--diff:#34D399">
+        <span class="cicon">✂️</span>
+        <span class="cnum">Session 2 · easy</span>
+        <h3>Sentences that work</h3>
+        <p>Active voice, one idea per sentence, and the words to cut - then the rescue of Pulse's unreadable NOTES.txt.</p>
+        <span class="meta"><span class="pill light">Active voice</span></span>
+      </a>
+      <a class="course-card" href="courses/03-structure-readers-scan.html" style="--diff:#34D399">
+        <span class="cicon">📋</span>
+        <span class="cnum">Session 3 · easy</span>
+        <h3>Structure readers can scan</h3>
+        <p>Lists, tables, paragraphs, and headings - the shapes that let a busy reader find one answer without reading everything.</p>
+        <span class="meta"><span class="pill light">Lists + tables</span></span>
+      </a>
+      <a class="course-card" href="courses/04-the-readme.html" style="--diff:#FBBF24">
+        <span class="cicon">🚪</span>
+        <span class="cnum">Session 4 · core</span>
+        <h3>The README: milestone 1</h3>
+        <p>The project's front door, assembled from everything in Sessions 1-3: Pulse gets a full README a newcomer can actually follow.</p>
+        <span class="meta"><span class="pill light">Milestone 1</span></span>
+      </a>
+      <a class="course-card" href="courses/05-diataxis.html" style="--diff:#FBBF24">
+        <span class="cicon">🧭</span>
+        <span class="cnum">Session 5 · core</span>
+        <h3>Diátaxis: the four kinds of docs</h3>
+        <p>The map that ends "where does this go?" forever - tutorials, how-tos, reference, explanation - plus Pulse's first how-to guide.</p>
+        <span class="meta"><span class="pill light">The map</span></span>
+      </a>
+      <a class="course-card" href="courses/06-reference-adrs-changelogs.html" style="--diff:#FB923C">
+        <span class="cicon">🗄️</span>
+        <span class="cnum">Session 6 · deeper</span>
+        <h3>Reference, ADRs, changelogs: milestone 2</h3>
+        <p>The project's memory: a config reference, the decision records that explain "why UTC everywhere", and a changelog that keeps its promises.</p>
+        <span class="meta"><span class="pill light">Milestone 2</span></span>
+      </a>
+      <a class="course-card" href="courses/07-docs-as-code.html" style="--diff:#FB923C">
+        <span class="cicon">⚙️</span>
+        <span class="cnum">Session 7 · deeper</span>
+        <h3>Docs as code: milestone 3</h3>
+        <p>Docs in git, reviewed like code, linted by Vale in CI - the workflow that keeps a doc set alive after the enthusiasm fades.</p>
+        <span class="meta"><span class="pill light">Milestone 3</span></span>
+      </a>
+      <a class="course-card" href="courses/08-edit-and-ship.html" style="--diff:#F87171">
+        <span class="cicon">🚢</span>
+        <span class="cnum">Session 8 · full stack</span>
+        <h3>Edit like a pro, ship v1.0</h3>
+        <p>The self-editing pass, caption-first diagrams, where LLMs help and where they hurt - then Pulse's doc set ships as v1.0.</p>
+        <span class="meta"><span class="pill light">The final milestone</span></span>
+      </a>
+    </div>
+    <div class="diff-legend">
+      <span><i style="background:#34D399"></i>easy - sessions 1-3</span>
+      <span><i style="background:#FBBF24"></i>core - sessions 4-5</span>
+      <span><i style="background:#FB923C"></i>deeper - sessions 6-7</span>
+      <span><i style="background:#F87171"></i>full stack - session 8</span>
+      <span><i style="background:#A78BFA"></i>deep dives - anytime after session 5</span>
+    </div>
+
+    <div class="paths">
+      <h2>Deep dives 🔬 <span style="font-size:.85rem;font-weight:600;color:var(--muted)">· specialist topics · take anytime after Session 5</span></h2>
+      <p class="plede">Four standalone specials for the docs that hurt most when they're bad - each one applied to Pulse's real errors, real alerts, and real style choices.</p>
+    </div>
+    <div class="course-grid">
+      <a class="course-card" href="courses/91-error-messages.html" style="--diff:#A78BFA">
+        <span class="cicon">🚨</span>
+        <span class="cnum">Deep dive 1</span>
+        <h3>Writing helpful error messages</h3>
+        <p>Google's error-message rules - state what happened, why, and what to do next - applied to Pulse's real error output.</p>
+        <span class="meta"><span class="pill light">Google's rules</span></span>
+      </a>
+      <a class="course-card" href="courses/92-accessible-writing.html" style="--diff:#A78BFA">
+        <span class="cicon">♿</span>
+        <span class="cnum">Deep dive 2</span>
+        <h3>Accessible writing</h3>
+        <p>Alt text that carries meaning, contrast that passes, inclusive language - then a full accessibility audit of the Pulse doc set.</p>
+        <span class="meta"><span class="pill light">The a11y audit</span></span>
+      </a>
+      <a class="course-card" href="courses/93-runbooks.html" style="--diff:#A78BFA">
+        <span class="cicon">📟</span>
+        <span class="cnum">Deep dive 3</span>
+        <h3>Runbooks and ops docs</h3>
+        <p>The 2am doc, built to SRE grade: what the on-call reader needs, in the order they need it, when nothing else is working.</p>
+        <span class="meta"><span class="pill light">SRE grade</span></span>
+      </a>
+      <a class="course-card" href="courses/94-style-guide-face-off.html" style="--diff:#A78BFA">
+        <span class="cicon">⚖️</span>
+        <span class="cnum">Deep dive 4</span>
+        <h3>Style-guide face-off</h3>
+        <p>Google versus Microsoft, rule by rule - where they agree, where they fight, and how to pick one for your team without a war.</p>
+        <span class="meta"><span class="pill light">Google vs Microsoft</span></span>
+      </a>
+    </div>
+
+    <div class="paths">
+      <h2>Choose your path 🗺️</h2>
+      <p class="plede">Everyone starts at Session 1. The full journey ships Pulse v1.0; the fast-tracks fit a specific pain.</p>
+      <div class="path"><b>🚪 Ship a README this week</b>
+        <a class="pstep" href="courses/01-why-docs-fail.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/02-sentences-that-work.html">2</a><span class="parr">→</span>
+        <a class="pstep" href="courses/03-structure-readers-scan.html">3</a><span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-readme.html">4</a>
+      </div>
+      <div class="path"><b>📟 The on-call engineer</b>
+        <a class="pstep" href="courses/01-why-docs-fail.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/05-diataxis.html">5</a><span class="parr">→</span>
+        <a class="pstep" href="courses/93-runbooks.html">D3</a><span class="parr">→</span>
+        <a class="pstep" href="courses/91-error-messages.html">D1</a>
+      </div>
+      <div class="path"><b>✍️ Full practitioner journey</b>
+        <a class="pstep" href="courses/01-why-docs-fail.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/02-sentences-that-work.html">2</a><span class="parr">→</span>
+        <a class="pstep" href="courses/03-structure-readers-scan.html">3</a><span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-readme.html">4</a><span class="parr">→</span>
+        <a class="pstep" href="courses/05-diataxis.html">5</a><span class="parr">→</span>
+        <a class="pstep" href="courses/06-reference-adrs-changelogs.html">6</a><span class="parr">→</span>
+        <a class="pstep" href="courses/07-docs-as-code.html">7</a><span class="parr">→</span>
+        <a class="pstep" href="courses/08-edit-and-ship.html">8</a><span class="parr">→</span>
+        <a class="pstep" href="courses/91-error-messages.html">deep dives</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section mm-section">
+    <h2>The knowledge map 🧠</h2>
+    <p class="mm-lede">The whole course at a glance - hover a session to spotlight its concepts, click any node to jump in.</p>
+    <div class="mm-wrap"><div id="mindmap"></div></div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>learn-tech-writing-with-phoebe · by Phoebe Fu · sources: Google Technical Writing One + Two · diataxis.fr · writethedocs.org · Google + Microsoft style guides · vale.sh</span>
+    <span>Siblings: <a href="https://phoebefu6.github.io/learn-markdown-with-phoebe/">learn-markdown-with-phoebe</a> · <a href="https://phoebefu6.github.io/learn-github-with-phoebe/">learn-github-with-phoebe</a> · <a href="https://phoebefu6.github.io/learn-prompt-engineering-with-phoebe/">learn-prompt-engineering-with-phoebe</a></span>
+  </footer>
+</main>
+
+<script>
+window.MINDMAP_DATA = {
+  title: "Tech\nWriting",
+  centerColor: "#7E2718",
+  sessions: [
+    { label: "Why docs\nfail", href: "courses/01-why-docs-fail.html", color: "#34D399",
+      concepts: [
+        { label: "Good-docs formula", href: "courses/01-why-docs-fail.html" },
+        { label: "Scope statements", href: "courses/01-why-docs-fail.html" },
+        { label: "Meet Pulse", href: "courses/01-why-docs-fail.html" } ] },
+    { label: "Sentences", href: "courses/02-sentences-that-work.html", color: "#34D399",
+      concepts: [
+        { label: "Active voice", href: "courses/02-sentences-that-work.html" },
+        { label: "One idea per sentence", href: "courses/02-sentences-that-work.html" } ] },
+    { label: "Structure", href: "courses/03-structure-readers-scan.html", color: "#34D399",
+      concepts: [
+        { label: "Lists and tables", href: "courses/03-structure-readers-scan.html" },
+        { label: "Lead sentences", href: "courses/03-structure-readers-scan.html" } ] },
+    { label: "The README", href: "courses/04-the-readme.html", color: "#FBBF24",
+      concepts: [
+        { label: "README anatomy", href: "courses/04-the-readme.html" },
+        { label: "Code on the page", href: "courses/04-the-readme.html" } ] },
+    { label: "Diátaxis", href: "courses/05-diataxis.html", color: "#FBBF24",
+      concepts: [
+        { label: "Four quadrants", href: "courses/05-diataxis.html" },
+        { label: "The compass", href: "courses/05-diataxis.html" },
+        { label: "First how-to", href: "courses/05-diataxis.html" } ] },
+    { label: "Project\nmemory", href: "courses/06-reference-adrs-changelogs.html", color: "#FB923C",
+      concepts: [
+        { label: "Reference pattern", href: "courses/06-reference-adrs-changelogs.html" },
+        { label: "ADRs", href: "courses/06-reference-adrs-changelogs.html" },
+        { label: "Changelog", href: "courses/06-reference-adrs-changelogs.html" } ] },
+    { label: "Docs as\ncode", href: "courses/07-docs-as-code.html", color: "#FB923C",
+      concepts: [
+        { label: "The PR loop", href: "courses/07-docs-as-code.html" },
+        { label: "Vale linting", href: "courses/07-docs-as-code.html" } ] },
+    { label: "Edit and\nship", href: "courses/08-edit-and-ship.html", color: "#F87171",
+      concepts: [
+        { label: "Editing pass", href: "courses/08-edit-and-ship.html" },
+        { label: "Caption-first diagrams", href: "courses/08-edit-and-ship.html" },
+        { label: "Ship v1.0", href: "courses/08-edit-and-ship.html" } ] },
+    { label: "Deep\ndives", href: "courses/91-error-messages.html", color: "#A78BFA",
+      concepts: [
+        { label: "Error messages", href: "courses/91-error-messages.html" },
+        { label: "Accessibility", href: "courses/92-accessible-writing.html" },
+        { label: "Runbooks", href: "courses/93-runbooks.html" } ] }
+  ]
+};
+</script>
+<script src="assets/mindmap.js?v=1"></script>
+<script src="assets/app.js?v=1"></script>
+</body>
+</html>

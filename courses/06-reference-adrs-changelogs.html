@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 · Reference docs, ADRs, changelogs: milestone 2 - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 6 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 6 of 8</div>
+    <h1>Reference, ADRs, changelogs: <span class="accent">milestone 2</span></h1>
+    <p class="sub">Tutorials and how-tos serve the reader who is doing something right now. Today's three docs serve a quieter audience: the maintainer who arrives in a year and needs to know what every setting does, why the code is the way it is, and what changed since they last looked. This is the session where Pulse gets a memory.</p>
+    <div class="chip-row">
+      <span class="chip level">🟠 Deeper</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">Back in Session 1, <code>docs/AUDIENCE.md</code> named a third audience: future maintainers, including future us. They have been waiting patiently while we served analysts (README, Session 4) and on-call engineers (how-to, Session 5). Maintainers don't need steps; they need facts, decisions, and history. Those are three different doc types, and today we build one of each. Together they are the memory of the project - the part of the doc set that keeps paying off after everyone who built Pulse has moved on.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Diátaxis + Nygard + keepachangelog</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Milestone 2, in three files: a complete reference page for <code>config.yaml</code>, Pulse's first architecture decision record (ADR-001, the UTC decision), and a real <code>CHANGELOG.md</code> with an Unreleased section and a properly categorized 0.1.0 entry. Cards marked "Live" are what we do together; "Self-study" cards give you full source depth at your own pace.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: REFERENCE ============ -->
+  <section class="section" id="reference">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Diátaxis "Reference" + Google TW Two "Organizing large docs"</span>
+      <h2>Reference: describe the machine <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Diátaxis defines reference as technical description of the machinery: austere, neutral, factual, consulted while working rather than read end to end. Nobody curls up with a reference page. They arrive with one question ("what does <code>alerts.min_daily_events</code> actually do?"), grab the answer, and leave. Everything about how you write reference follows from that.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The reference-page pattern: three config entries documented with identical fields - key, type, default, effect, safe range">
+        <style>
+          .s6rT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .s6rF { font: 700 12px Inter, sans-serif; fill: #7E2718; }
+          .s6rV { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+          .s6rX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s6rN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <rect x="20" y="30" width="266" height="180" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <rect x="20" y="30" width="266" height="38" rx="14" fill="#C2402A"/>
+        <rect x="20" y="54" width="266" height="14" fill="#C2402A"/>
+        <text class="s6rT" x="38" y="55">paths.raw</text>
+        <text class="s6rF" x="38" y="94">Type</text><text class="s6rV" x="120" y="94">path</text>
+        <text class="s6rF" x="38" y="118">Default</text><text class="s6rV" x="120" y="118">pulse/data/raw</text>
+        <text class="s6rF" x="38" y="142">Effect</text><text class="s6rV" x="120" y="142">where ingest.py reads</text>
+        <text class="s6rF" x="38" y="166">Safe range</text><text class="s6rV" x="120" y="166">any readable dir</text>
+        <rect x="307" y="30" width="266" height="180" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <rect x="307" y="30" width="266" height="38" rx="14" fill="#D4664E"/>
+        <rect x="307" y="54" width="266" height="14" fill="#D4664E"/>
+        <text class="s6rT" x="325" y="55">events.valid_types</text>
+        <text class="s6rF" x="325" y="94">Type</text><text class="s6rV" x="407" y="94">list of strings</text>
+        <text class="s6rF" x="325" y="118">Default</text><text class="s6rV" x="407" y="118">4 event types</text>
+        <text class="s6rF" x="325" y="142">Effect</text><text class="s6rV" x="407" y="142">clean.py drops the rest</text>
+        <text class="s6rF" x="325" y="166">Safe range</text><text class="s6rV" x="407" y="166">non-empty list</text>
+        <rect x="594" y="30" width="266" height="180" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <rect x="594" y="30" width="266" height="38" rx="14" fill="#7E2718"/>
+        <rect x="594" y="54" width="266" height="14" fill="#7E2718"/>
+        <text class="s6rT" x="612" y="55">alerts.min_daily_events</text>
+        <text class="s6rF" x="612" y="94">Type</text><text class="s6rV" x="694" y="94">integer</text>
+        <text class="s6rF" x="612" y="118">Default</text><text class="s6rV" x="694" y="118">50</text>
+        <text class="s6rF" x="612" y="142">Effect</text><text class="s6rV" x="694" y="142">LOW below this count</text>
+        <text class="s6rF" x="612" y="166">Safe range</text><text class="s6rV" x="694" y="166">&gt;= 1</text>
+        <text class="s6rX" x="20" y="242">Different keys, identical shape. The reader learns the pattern once, then never reads again.</text>
+        <rect x="20" y="262" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s6rN" x="44" y="274">Same shape for every entry = readers stop reading and start looking up.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the reference-page pattern: one standard shape, repeated for every config key</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Reference discipline: facts only, no instructions<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Diátaxis is strict here, and the strictness is the value. Reference is austere and factual technical description. Its structure mirrors the structure of the thing it describes: the reference for <code>config.yaml</code> is organized like <code>config.yaml</code>, not like a lesson plan. And it never gives instructions.</p>
+        <ul>
+          <li><strong>Describe, don't teach.</strong> "clean.py drops rows whose event type is not in this list" is reference. "You should keep this list small" is opinion; "to add a type, edit the list and rerun" is a how-to. Both leak into reference pages constantly, and both belong elsewhere.</li>
+          <li><strong>"How to change it" is a link, not a paragraph.</strong> When the maintainer reading about <code>alerts.min_daily_events</code> wants to tune it, the reference links to a how-to. Mixing instruction into description makes the page longer to scan and harder to trust - is this line a fact or a suggestion?</li>
+          <li><strong>Examples are allowed; instruction is not.</strong> Diátaxis explicitly permits illustrative examples in reference ("a valid value looks like <code>page_view</code>"). The line it draws is between showing what something is and telling the reader what to do.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The config page nobody trusted.</strong> A data platform team's settings page mixed defaults, war stories and advice: "we set this to 200 after the March incident, you probably want something similar." Readers couldn't tell current fact from historical opinion, so they read the source code instead - the page was worse than nothing. The rewrite kept only type, default, effect; the March story moved to an ADR. Lookups came back within a month.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The standard-pattern rule<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Diátaxis: reference should follow standard patterns, the way a dictionary gives every word the same treatment. For a config reference, that means every key gets the same fields, in the same order, every time:</p>
+        <ul>
+          <li><strong>Type</strong> - what kind of value this is (path, integer, list of strings).</li>
+          <li><strong>Default</strong> - the value that ships, exactly as it appears in the file.</li>
+          <li><strong>Effect</strong> - what the pipeline does with it, in one factual sentence.</li>
+          <li><strong>Safe range</strong> - what values work, and what breaks outside them.</li>
+        </ul>
+        <p>The payoff is mechanical: after the first entry, the reader's eyes know where the default lives on the page. They stop reading and start looking up - which is the entire job of a reference page. It also makes gaps visible: an entry missing its "safe range" line is obviously unfinished, in a way a free-prose paragraph never is.</p>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Take one setting from a system you own (an env var, a config key, a dbt var) and write its entry in the standard pattern:
+
+Key:
+Type:
+Default:
+Effect (one factual sentence):
+Safe range / what breaks if wrong:
+
+If "effect" came out as advice ("you should..."), rewrite it as description ("the pipeline does...").</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Organizing large docs: when Pulse outgrows one page<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Today Pulse's reference fits on one page. Google's Technical Writing Two covers what to do when it doesn't - when a doc grows enough that readers get lost inside it:</p>
+        <ul>
+          <li><strong>Split by reader task, not by module.</strong> The signal to break one doc into several is that different readers come for different jobs. Outline first; a doc that resists outlining is usually two docs.</li>
+          <li><strong>Introductions declare coverage.</strong> Each resulting doc opens by stating what it covers, what it assumes, and what it deliberately excludes - the Session 1 declarations, applied at scale.</li>
+          <li><strong>Task-based headings, text under every heading.</strong> "Configuring alerts" beats "Alerts"; and never jump from a heading straight to a subheading - give the reader at least a sentence of orientation first.</li>
+          <li><strong>Progressive disclosure, simple to complex.</strong> Early sections must not depend on late ones. The common case comes first; the exotic override lives at the bottom, where only the reader who needs it will ever scroll.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: ADRS + CHANGELOGS ============ -->
+  <section class="section" id="memory">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Nygard ADR template + keepachangelog 1.1.0</span>
+      <h2>Decisions and changes: the project's memory <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Reference tells the maintainer what the machine is. Two more docs tell them why it is that way and how it got here. Architecture decision records (Michael Nygard's 2011 template) capture the why; a changelog (keepachangelog.com) captures the when. Both exist because the alternative is archaeology: reading old commits and guessing at intent.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A changelog timeline: Unreleased at the top, then 0.2.0 and 0.1.0 below, each with changes grouped into Added, Changed and Fixed categories">
+        <style>
+          .s6cT { font: 700 15px Inter, sans-serif; fill: #1C1B18; }
+          .s6cD { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+          .s6cC { font: 700 11px Inter, sans-serif; fill: #FFFFFF; }
+          .s6cV { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+          .s6cX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s6cN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s6cAh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <line x1="60" y1="40" x2="60" y2="238" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s6cAh)"/>
+        <circle cx="60" cy="55" r="8" fill="#E5A08F"/>
+        <text class="s6cT" x="90" y="52">[Unreleased]</text>
+        <text class="s6cD" x="90" y="70">what's merged but not shipped - always at the top</text>
+        <rect x="380" y="40" width="72" height="22" rx="11" fill="#C2402A"/><text class="s6cC" x="396" y="55">Added</text>
+        <text class="s6cV" x="464" y="55">reference page, ADR-001</text>
+        <circle cx="60" cy="120" r="8" fill="#C2402A"/>
+        <text class="s6cT" x="90" y="117">[0.2.0] - 2026-07-14</text>
+        <rect x="380" y="103" width="72" height="22" rx="11" fill="#C2402A"/><text class="s6cC" x="396" y="118">Added</text>
+        <text class="s6cV" x="464" y="118">LOW alert on quiet days</text>
+        <rect x="380" y="130" width="82" height="22" rx="11" fill="#D4664E"/><text class="s6cC" x="394" y="145">Changed</text>
+        <text class="s6cV" x="474" y="145">value column now 2 decimals</text>
+        <circle cx="60" cy="200" r="8" fill="#7E2718"/>
+        <text class="s6cT" x="90" y="197">[0.1.0] - 2026-07-06</text>
+        <rect x="380" y="183" width="72" height="22" rx="11" fill="#C2402A"/><text class="s6cC" x="396" y="198">Added</text>
+        <text class="s6cV" x="464" y="198">ingest, clean, metrics pipeline</text>
+        <rect x="380" y="210" width="62" height="22" rx="11" fill="#7E2718"/><text class="s6cC" x="394" y="225">Fixed</text>
+        <text class="s6cV" x="454" y="225">double timezone conversion</text>
+        <text class="s6cX" x="20" y="262">Newest first · one entry per version · ISO 8601 dates · changes grouped by type, never a commit dump.</text>
+        <rect x="20" y="278" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s6cN" x="44" y="290">A changelog is written for humans deciding whether to upgrade, not for machines.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a keepachangelog-style timeline: releases newest-first, changes grouped by category</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The ADR template, section by section<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Nygard's template has five short sections, written in full sentences - he describes an ADR as a conversation with a future developer, one or two pages long. Pulse has a perfect first candidate: clean.py silently converts every timestamp to UTC, a decision that once caused real pain and that no doc currently explains. Here is the template, with ADR-001 as the worked example:</p>
+        <table class="clean">
+          <thead><tr><th>Section</th><th>What goes there</th><th>ADR-001: UTC everywhere</th></tr></thead>
+          <tbody>
+            <tr><td>Title</td><td>Numbered, short noun phrase</td><td>"ADR 1: Normalize all timestamps to UTC in clean.py"</td></tr>
+            <tr><td>Context</td><td>The forces at play - technical, political, social. Neutral and factual: even people who disagreed should accept this section as fair.</td><td>Events arrive with mixed timezones; some timestamps are naive. A past incident double-converted times. The team itself spans timezones.</td></tr>
+            <tr><td>Decision</td><td>Active voice: "We will..."</td><td>"We will normalize every timestamp to UTC at the clean step. Naive timestamps are assumed UTC."</td></tr>
+            <tr><td>Status</td><td>Proposed, accepted, deprecated, or superseded (with a pointer to the successor)</td><td>Accepted</td></tr>
+            <tr><td>Consequences</td><td>ALL outcomes: positive, negative, and neutral</td><td>+ downstream math is tz-safe · - local-time debugging needs conversion, naive non-UTC sources are silently mis-read · ~ dashboards must convert for display</td></tr>
+          </tbody>
+        </table>
+        <p>The consequences section is where most ADRs go wrong. If yours lists only benefits, it isn't a record of a decision - it's a press release. The negative consequences are precisely what the future developer needs: "naive non-UTC sources are silently mis-read" is the sentence that saves them a week of debugging.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Changelog principles: written for humans<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Keep a Changelog (v1.1.0) starts from one principle: changelogs are for humans, not machines. A human is deciding whether to upgrade, what to test, what might break. Everything else follows:</p>
+        <ul>
+          <li><strong>One entry per version, newest first, with an ISO 8601 date</strong> (2026-07-14, never 07/14/26 - a date format half the world reads backwards is not for humans).</li>
+          <li><strong>Group changes into six categories:</strong> Added, Changed, Deprecated, Removed, Fixed, Security. The categories do the reader's triage for them - Security and Removed get read first, every time.</li>
+          <li><strong>Keep an [Unreleased] section at the top.</strong> Merged-but-unshipped changes accumulate there, so cutting a release is a rename, not an afternoon of git spelunking.</li>
+          <li><strong>Say whether you follow SemVer.</strong> One line at the top; it tells readers how to interpret your version numbers.</li>
+        </ul>
+        <p>And the anti-patterns, which keepachangelog calls out by name: dumping your commit log (commits are for machines; "refactor helpers, fix typo, wip" tells an upgrader nothing), ignoring deprecations (the reader's one chance to migrate calmly), regional date formats, and selective reporting - a changelog that hides the embarrassing changes trains readers to distrust all of it.</p>
+        <div class="callout tip">
+          <strong>Data team tip</strong>
+          Pipelines have consumers even when they don't have "users". The analyst whose dashboard reads <code>daily_metrics.csv</code> is your upgrader: "Changed: value column now has 2 decimals" is the line that stops their Slack message before they send it.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The ADR lifecycle and where ADRs live<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Conventions from adr.github.io and Nygard's original post, for when Pulse has more than one decision on record:</p>
+        <ul>
+          <li><strong>ADRs live in the repo</strong> (conventionally <code>docs/adr/</code>), versioned with the code they explain. A decision record on a wiki drifts; one in the repo travels with every clone.</li>
+          <li><strong>Numbered sequentially, and numbers are never reused.</strong> ADR-001 is ADR-001 forever, even if the decision dies.</li>
+          <li><strong>Superseded, never deleted.</strong> When a decision is reversed, the old ADR's status becomes "superseded by ADR-00X" and it stays put. The trail of reversals is itself the documentation: it tells the future developer this problem is hard and has been solved twice already.</li>
+          <li><strong>Keep them 1-2 pages of full sentences.</strong> Bullet-point fragments lose the reasoning; the reasoning is the entire point.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Write the config reference <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">Every key in <code>pulse/config.yaml</code>, documented in the standard pattern. This is the doc the plan promised maintainers in Session 1: "change any setting safely."</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>docs/reference-config.md</code>. Open with one scope line: "Factual reference for every key in config.yaml. For changing values, see the how-to guides."</p></div>
+      <div class="step"><p>Document all six keys - the four paths, <code>events.valid_types</code>, and <code>alerts.min_daily_events</code> - using the same fields for each: type, default, what it does, what breaks if wrong. A table works; so do repeated blocks. Consistency matters more than the format.</p></div>
+      <div class="step"><p>Audit your own prose: hunt for "you should", "we recommend", "to change this". Each one is instruction leaking into description - cut it or turn it into a link.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/reference-config.md skeleton</span># config.yaml reference
+
+Factual reference for every key in config.yaml.
+For changing values, see docs/how-to-diagnose-low-day.md and the how-to guides.
+
+| Key | Type | Default | What it does | What breaks if wrong |
+|-----|------|---------|--------------|----------------------|
+| paths.raw | path | pulse/data/raw | where ingest.py reads incoming CSVs | ingest fails: dir not found |
+| paths.staged | path | pulse/data/staged | where ingest.py writes, clean.py reads | steps can't hand off |
+| paths.cleaned | path | pulse/data/cleaned | where clean.py writes, metrics.py reads | metrics reads stale data |
+| paths.metrics | path | pulse/data/metrics | where daily_metrics.csv lands | consumers can't find output |
+| events.valid_types | list of strings | page_view, signup, purchase, api_call | clean.py keeps only these types | valid rows silently dropped |
+| alerts.min_daily_events | integer | 50 | days below this get alert = LOW | 0 never alerts; too high always alerts |</div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      The "what breaks if wrong" column is reference gold and almost nobody writes it. It is still description - a fact about the system's behavior - but it answers the exact question a maintainer has at the moment they're staring at a bad value.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>ADR-001: why UTC everywhere <span class="tag demo">★ 8 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">The UTC conversion in clean.py is exactly the kind of decision that evaporates: invisible in the output, obvious to whoever wrote it, baffling to whoever inherits it. We write it down while the reasoning is still alive.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create the directory <code>docs/adr/</code> and the file <code>ADR-001-utc-everywhere.md</code>.</p></div>
+      <div class="step"><p>Write the five sections. Keep Context neutral - report the forces, don't argue the case. Put the argument's outcome in Decision, in active voice.</p></div>
+      <div class="step"><p>Stress-test Consequences: it must contain at least one negative and one neutral outcome. If you can't think of a negative consequence, you haven't understood the decision yet.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/adr/ADR-001-utc-everywhere.md</span># ADR 1: Normalize all timestamps to UTC in clean.py
+
+## Status
+Accepted
+
+## Context
+Pulse ingests event CSVs from several sources. Timestamps arrive in mixed
+timezones, and some rows carry naive timestamps with no offset information
+at all. Before this decision, each script handled timezones its own way;
+one past incident double-converted times and shifted a day's purchases
+into the wrong day's metrics. The team itself works across timezones,
+so "local time" is ambiguous even in conversation.
+
+## Decision
+We will normalize every timestamp to UTC at the clean step (clean.py),
+before any metric is computed. Naive timestamps are assumed to already
+be UTC and are labeled as such rather than guessed.
+
+## Consequences
+Positive: all downstream date math and day-bucketing is timezone-safe;
+metrics.py and every future consumer can trust one convention.
+
+Negative: debugging against local wall-clock time requires a mental or
+scripted conversion. Sources that emit naive timestamps in a non-UTC
+zone are silently mis-read; the assumption is documented here but not
+enforced in code.
+
+Neutral: dashboards and reports that present local time must convert
+at display time; this is their responsibility, not the pipeline's.</div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The decision that got re-litigated quarterly.</strong> A team without ADRs debated their event-time convention from scratch every time someone new joined - same arguments, same whiteboard, four times a year. After writing the decision down with its consequences, the debate became a two-minute link. New hires still disagreed sometimes; now they opened a superseding ADR instead of a meeting.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>Start the changelog <span class="tag demo">★ 6 min · build your own</span></h2>
+    </div>
+    <p class="lede">Pulse first produced metrics on 2026-07-06. That is version 0.1.0, and everything it shipped gets categorized properly - no commit-log dump, no vague "initial release" and nothing else.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>CHANGELOG.md</code> at the repo root, with the header lines stating the format and SemVer adherence.</p></div>
+      <div class="step"><p>Add the <code>[Unreleased]</code> section first - today's three docs go straight into it under Added.</p></div>
+      <div class="step"><p>Write the 0.1.0 entry, dated the day the pipeline first ran. Sort every item into one of the six categories; for a first release that's mostly Added, and that's fine.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">CHANGELOG.md</span># Changelog
+
+All notable changes to Pulse are documented in this file.
+The format is based on Keep a Changelog 1.1.0, and this project
+adheres to Semantic Versioning.
+
+## [Unreleased]
+
+### Added
+- docs/reference-config.md: full config.yaml reference
+- docs/adr/ADR-001-utc-everywhere.md: timestamp normalization decision
+- CHANGELOG.md (this file)
+
+## [0.1.0] - 2026-07-06
+
+### Added
+- Pipeline scripts: ingest.py, clean.py, metrics.py (fixed run order)
+- LOW alert flag on days below alerts.min_daily_events (default 50)
+- config.yaml with paths, valid event types, and alert threshold
+- Doc set: docs/AUDIENCE.md, docs/PLAN.md, README.md,
+  docs/how-to-diagnose-low-day.md</div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      Notice what the Unreleased section just did: documenting docs. Doc changes are notable changes - the maintainer who upgrades wants to know the reference page exists now. This habit also feeds Session 7, where doc changes and code changes travel in the same pull request.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Run the <strong>★ Try it now</strong> from Part 1 on three settings of a real system you own. If the standard pattern feels tedious, good - tedium for the writer is scanability for the reader.</li>
+      <li>Write one real ADR for your team: the decision everyone re-explains to new joiners. Use the five sections; get one negative consequence in writing.</li>
+      <li>Look at your most-used project's changelog (or its absence). If it's a commit dump, rewrite the latest release's entry in the six categories - it usually takes ten minutes and reads ten times better.</li>
+      <li>Read the two Self-study cards: organizing large docs, and the ADR lifecycle. The superseded-not-deleted rule is the one people get wrong first.</li>
+      <li>Optional depth: Nygard's original 2011 post (cognitect.com), <a href="https://adr.github.io">adr.github.io</a>, and <a href="https://keepachangelog.com">keepachangelog.com</a> - all three are short, and this page covers their working content.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these sources. What stays with the originals: Diátaxis's full essay prose, Nygard's worked Rails example, and keepachangelog's FAQ.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · Reference</span><span class="note">Part 1: austere factual description, standard patterns, structure mirrors the product, no instruction</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Nygard · Documenting Architecture Decisions (2011)</span><span class="note">Part 2 + Demo 2: the five-section template, worked on the UTC decision</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">keepachangelog.com · v1.1.0</span><span class="note">Part 2 + Demo 3: principles, six categories, Unreleased section, anti-patterns</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Organizing large documents</span><span class="note">Self-study card: splitting, introductions, task headings, progressive disclosure</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">adr.github.io · ADR conventions</span><span class="note">Self-study card: in-repo docs/adr/, sequential numbers never reused, superseded not deleted</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Which line does NOT belong on the reference page for <code>alerts.min_daily_events</code>?</p>
+      <button class="qopt" type="button">A · "Type: integer. Default: 50."</button>
+      <button class="qopt" type="button">B · "To tune this, open config.yaml, lower the value, and rerun metrics.py"</button>
+      <button class="qopt" type="button">C · "Days with fewer events than this value get alert = LOW"</button>
+      <p class="qwhy">B is instruction - a how-to wearing a reference costume. Reference describes; the steps for changing a value live in a how-to guide, one link away.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · An ADR's Consequences section lists five benefits and nothing else. What's wrong?</p>
+      <button class="qopt" type="button">A · Nothing - a good decision should mostly have benefits</button>
+      <button class="qopt" type="button">B · It's too long; consequences should be one line</button>
+      <button class="qopt" type="button">C · It must record ALL outcomes - negative and neutral ones included</button>
+      <p class="qwhy">Nygard is explicit: all consequences, positive, negative and neutral. The negatives ("naive non-UTC sources are silently mis-read") are exactly what the future developer needs most.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Which of these is a changelog anti-pattern called out by keepachangelog?</p>
+      <button class="qopt" type="button">A · Pasting the git commit log as the release entry</button>
+      <button class="qopt" type="button">B · Keeping an [Unreleased] section at the top</button>
+      <button class="qopt" type="button">C · Putting the newest release first</button>
+      <p class="qwhy">Commit logs are for machines; changelogs are for humans deciding whether to upgrade. B and C are both required practice, not anti-patterns.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 6 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Reference discipline</b><span>Austere, factual, consulted not read. Structure mirrors the code. Examples yes, instructions never.</span></div>
+      <div class="cheat-item"><b>Standard pattern</b><span>Every config key gets the same fields: type · default · effect · safe range. Same shape = lookup, not reading.</span></div>
+      <div class="cheat-item"><b>Link, don't teach</b><span>"How to change it" is a link to a how-to, not a paragraph in the reference.</span></div>
+      <div class="cheat-item"><b>ADR five sections</b><span>Title (numbered noun phrase) · Context (neutral forces) · Decision ("We will...") · Status · Consequences.</span></div>
+      <div class="cheat-item"><b>All consequences</b><span>Positive, negative AND neutral. Benefits-only is a press release, not a record.</span></div>
+      <div class="cheat-item"><b>ADR lifecycle</b><span>Live in docs/adr/, numbered forever, superseded never deleted. 1-2 pages of full sentences.</span></div>
+      <div class="cheat-item"><b>Changelog rules</b><span>For humans · newest first · ISO dates · six categories (Added/Changed/Deprecated/Removed/Fixed/Security) · keep [Unreleased].</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>Reference ✓ · ADR-001 ✓ · CHANGELOG ✓ - milestone 2 done. Session 7 wires docs into the same PRs as code.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 6 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="05-diataxis.html">← Prev: Diátaxis and how-tos</a> &nbsp;·&nbsp; <a href="07-docs-as-code.html">Next: Docs as code →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

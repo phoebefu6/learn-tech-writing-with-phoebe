@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 · Sentences that work - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 2 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 2 of 8</div>
+    <h1>Sentences <span class="accent">that work</span></h1>
+    <p class="sub">Session 1 decided who Pulse's docs are for. Today we earn their trust one sentence at a time: consistent words, active voice, one idea per sentence. Then we take NOTES.txt, the worst paragraph in the repo, and rebuild it into something a human can use at 2am.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Easy</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">Readers judge a doc's quality sentence by sentence, and sentence-level craft is about 80% of that perceived quality. A doc with perfect structure and wobbly sentences still reads as unreliable; a doc of plain, active, one-idea sentences reads as trustworthy even before it is. Today's five rules come from Google's Technical Writing One and Microsoft's style tips, and they are all mechanical - no talent required, just editing moves you can apply on any Tuesday.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Google TW One + Microsoft Style Guide</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The five sentence rules (consistent terms, pronouns on a short leash, active voice, strong verbs, one idea per sentence) and Pulse's NOTES.txt rewritten into docs/notes-rewrite.md - a paragraph a human can actually use. Cards marked "Live" are what we do together; "Self-study" cards give you full source depth at your own pace.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: WORDS ============ -->
+  <section class="section" id="words">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Google TW One "Words"</span>
+      <h2>Words that don't wobble <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Before sentences can work, the words inside them have to hold still. Google's Words unit has two enemies: terminology that drifts (one concept, three names) and pronouns that wander (a "it" whose owner left the paragraph). Both make the reader do detective work you were paid to do.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Terminology drift: the same folder called staged, validated and preprocessed in three places, forking the reader's mental model into three imaginary things">
+        <style>
+          .s2aT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .s2aS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s2aG { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .s2aX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s2aN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s2Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="20" y="20" width="250" height="56" rx="12" fill="#7E2718"/>
+        <text class="s2aT" x="40" y="44">README says</text>
+        <text class="s2aS" x="40" y="63">"the staged data"</text>
+        <rect x="20" y="90" width="250" height="56" rx="12" fill="#C2402A"/>
+        <text class="s2aT" x="40" y="114">Code comment says</text>
+        <text class="s2aS" x="40" y="133">"the validated rows"</text>
+        <rect x="20" y="160" width="250" height="56" rx="12" fill="#D4664E"/>
+        <text class="s2aT" x="40" y="184">Slack says</text>
+        <text class="s2aS" x="40" y="203">"the preprocessed stuff"</text>
+        <line x1="272" y1="48" x2="360" y2="105" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <line x1="272" y1="118" x2="360" y2="118" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <line x1="272" y1="188" x2="360" y2="131" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <rect x="364" y="88" width="200" height="60" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="s2aG" x="384" y="114">Reader's head</text>
+        <text class="s2aX" x="384" y="134">"...three things?"</text>
+        <line x1="566" y1="105" x2="640" y2="48" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <line x1="566" y1="118" x2="640" y2="118" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <line x1="566" y1="131" x2="640" y2="188" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Ah)"/>
+        <rect x="644" y="24" width="216" height="46" rx="12" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <text class="s2aX" x="662" y="52">Imaginary "staged" thing</text>
+        <rect x="644" y="94" width="216" height="46" rx="12" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <text class="s2aX" x="662" y="122">Imaginary "validated" thing</text>
+        <rect x="644" y="164" width="216" height="46" rx="12" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <text class="s2aX" x="662" y="192">Imaginary third thing</text>
+        <rect x="20" y="232" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s2aN" x="44" y="244">It is ONE folder. One concept gets one name - pick it once, use it everywhere.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - terminology drift: three names for one folder fork the reader's mental model into three imaginary things</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>One concept, one name<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's rule is short: use terminology consistently. If you name something "the staged data" in paragraph one, it stays "the staged data" for the rest of the doc - not "the validated rows", not "the intermediate output". Synonyms feel like good style; to the reader they read as new concepts.</p>
+        <ul>
+          <li><strong>New or unfamiliar term?</strong> Either link to a good existing definition, or define it yourself the first time it appears. Never make the reader infer a definition from usage.</li>
+          <li><strong>Pick official terms early.</strong> For Pulse we lock three today: <strong>staged</strong> (output of ingest.py), <strong>cleaned</strong> (output of clean.py), <strong>metrics</strong> (output of metrics.py). Every later doc uses exactly these.</li>
+          <li><strong>Elegant variation is for novels.</strong> In fiction, repeating a word is clumsy. In technical writing, repeating the term is the feature - repetition is how the reader knows it's the same thing.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Open your team's main README and pick one core concept (a dataset, a service, a job). Search the doc for every name it goes by.
+
+Found more than one name? You just found the doc's biggest source of confusion, and the fix is a two-minute find-and-replace.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Pronouns on a five-word leash<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Pronouns are pointers, and like pointers they dangle. Google's guidance: keep a pronoun within about five words of the noun it stands for, and if anything ambiguous could grab the reference, repeat the noun instead.</p>
+        <ul>
+          <li><strong>The ~5 word rule.</strong> "Run clean.py after ingest.py finishes; it dedups the rows" - which script is "it"? Two nouns are in range, so the pronoun wobbles. Write "clean.py dedups the rows".</li>
+          <li><strong>Watch it, they, this, that.</strong> These four cause most of the damage. "This is important" - what is? Google's fix: put a noun after this or that ("this filter step is important").</li>
+          <li><strong>When in doubt, repeat the noun.</strong> Repeating "clean.py" three times in a paragraph costs nothing. One ambiguous "it" costs a re-read, or worse, a wrong command at 2am.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The it that deleted a table.</strong> A runbook said "the job repopulates the table after the sync, so you can safely drop it." An on-call engineer read "it" as the table. It was the sync. The postmortem fix was one word: replace "it" with the noun. Pronoun discipline is an incident-prevention technique, not a style preference.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Acronyms: when to define, when to just say the words<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's acronym rules are more restrictive than most people expect, and they save readers real effort:</p>
+        <ul>
+          <li><strong>On first use,</strong> spell out the full term in bold with the acronym in parentheses: "<strong>directed acyclic graph (DAG)</strong>". After that, use only the acronym - do not flip between the two.</li>
+          <li><strong>Only introduce an acronym at all</strong> if it is significantly shorter than the full term AND appears many times in the doc. An acronym used twice is a puzzle, not a shortcut - just write the words.</li>
+          <li><strong>Remember the cost model.</strong> Every acronym makes the reader run a tiny mental lookup on each occurrence. Familiar ones (CSV, API) are free for your audience; team-invented ones (PMDQ, the "pipeline metrics daily quality" job) are not.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          Your audience statement from Session 1 decides which acronyms are free. For Pulse's primary audience (a new data analyst), CSV and UTC need no definition; anything invented inside your team does.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: ACTIVE, STRONG, SHORT ============ -->
+  <section class="section" id="active">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Google TW One "Active voice" + "Clear sentences" + "Short sentences", Microsoft "Revise weak writing"</span>
+      <h2>Active, strong, short <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Google's formula for a working sentence is actor + verb + target: who does what to whom. Most weak technical sentences fail this three ways at once - passive voice hides the actor, a vague verb hides the action, and three ideas share one sentence. The fix is surgery, and it is teachable.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 265" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sentence surgery: one long passive sentence carrying three ideas is cut into three short active sentences, one idea each">
+        <style>
+          .s2bT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .s2bS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s2bH { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+          .s2bX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s2bN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s2Bh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <text class="s2bH" x="20" y="30">BEFORE · 1 sentence, 3 ideas, 0 actors</text>
+        <rect x="20" y="40" width="840" height="66" rx="14" fill="#7E2718"/>
+        <text class="s2bT" x="42" y="66">"The rows are deduplicated and invalid types are filtered</text>
+        <text class="s2bT" x="42" y="88">and then the daily metrics are calculated by the process."</text>
+        <line x1="440" y1="108" x2="440" y2="146" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s2Bh)"/>
+        <text class="s2bX" x="456" y="132">cut at each idea, name each actor</text>
+        <text class="s2bH" x="20" y="168">AFTER · 3 sentences, 1 idea each, actor + verb + target</text>
+        <rect x="20" y="178" width="266" height="56" rx="12" fill="#C2402A"/>
+        <text class="s2bT" x="38" y="202">clean.py dedups rows</text>
+        <text class="s2bS" x="38" y="221">on event_id.</text>
+        <rect x="306" y="178" width="266" height="56" rx="12" fill="#C2402A"/>
+        <text class="s2bT" x="324" y="202">It drops invalid</text>
+        <text class="s2bS" x="324" y="221">event types.</text>
+        <rect x="592" y="178" width="268" height="56" rx="12" fill="#C2402A"/>
+        <text class="s2bT" x="610" y="202">metrics.py computes</text>
+        <text class="s2bS" x="610" y="221">daily aggregates.</text>
+        <rect x="20" y="245" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s2bN" x="44" y="257">Same facts, half the words, zero re-reads. Shorter sentences are more maintainable, like shorter code.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - sentence surgery: one passive three-idea sentence becomes three short active ones</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Spot the passive: "form of be + past participle"<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You don't need grammar school to find passive voice - you need one pattern. Passive verbs are a form of <em>be</em> (is, are, was, were, been, being) plus a past participle (usually a verb ending in -ed or -en). Find that pattern, and you've found a sentence hiding its actor.</p>
+        <table class="clean">
+          <thead><tr><th>Passive (be + past participle)</th><th>Active (actor + verb + target)</th></tr></thead>
+          <tbody>
+            <tr><td>"The rows <em>are dropped</em> if event_id is missing."</td><td>"ingest.py drops rows that are missing event_id."</td></tr>
+            <tr><td>"Timestamps <em>are converted</em> to UTC."</td><td>"clean.py converts timestamps to UTC."</td></tr>
+            <tr><td>"Low days <em>are flagged</em>."</td><td>"metrics.py flags days with fewer than 50 events as LOW."</td></tr>
+          </tbody>
+        </table>
+        <p>Notice what the active versions add for free: the actor. In pipeline docs the actor is usually a specific script, and naming it answers the reader's next question ("which script do I look at?") before they ask it. Active is also shorter - the passive tax is roughly two words per sentence, forever.</p>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Grep your last runbook or README for these six words: is, are, was, were, been, being.
+
+Check each hit: is it followed by a past participle? If yes, ask "who actually does this?" - and if you know the answer, rewrite with the actor first. If you DON'T know the answer, you just found a real knowledge gap wearing a grammar costume.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>One idea per sentence, strong verbs only<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google draws the analogy explicitly: shorter code is more maintainable, and so are shorter sentences. Each sentence should carry exactly one idea; when a sentence carries a list of things, convert it into an actual list (Session 3 goes deep on lists).</p>
+        <ul>
+          <li><strong>The comma-and test.</strong> Every ", and" in a long sentence is a candidate cut point. "ingest.py validates headers, and it drops bad rows, and it writes staged output" is three sentences wearing a trench coat.</li>
+          <li><strong>Strong, specific verbs.</strong> "Occurs", "happens", "is done" are verb-shaped placeholders. "The dedup happens in clean.py" tells you less than "clean.py dedups rows on event_id" in the same breath. Weak verb + noun ("performs validation of") is one strong verb ("validates") in disguise.</li>
+          <li><strong>Reduce "there is / there are".</strong> These openers bury the real subject. "There is a threshold that flags low days" becomes "metrics.py flags days below the threshold". The sentence starts doing work two words sooner.</li>
+          <li><strong>Vague adjectives are unpaid promises.</strong> "Very fast", "quite large", "significantly better" - replace with the number. "Drops about 3% of rows" beats "drops some rows" in every audience.</li>
+          <li><strong>That vs which, the US convention:</strong> <em>that</em> introduces a clause the sentence needs (restrictive, no comma); <em>which</em> plus a comma adds an aside the sentence survives without (nonrestrictive). "Rows that lack event_id are dropped" vs "config.yaml, which lives in the repo root, holds the settings."</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Microsoft's rewrite moves, with receipts<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Microsoft's Top 10 tips arrive at the same place as Google from the product-writing side, and their before/after pairs are worth memorizing verbatim:</p>
+        <ul>
+          <li><strong>"Use bigger ideas, fewer words."</strong> Their example: "If you're ready to purchase Office 365 for your organization, contact your Microsoft account representative." becomes "Ready to buy? Contact us." Same decision enabled, 80% fewer words.</li>
+          <li><strong>"Write like you speak."</strong> Read your sentence aloud; if you'd never say it to a colleague at their desk, rewrite it until you would. Contractions are welcome - "don't" reads faster than "do not".</li>
+          <li><strong>"Revise weak writing."</strong> Three concrete moves: start sentences with a verb where you can, cut "you can" openers, and avoid "there is / there are / there were". Their example: "You can access Office apps across your devices..." becomes "Store files online, access them from all your devices, and share them with coworkers." Every clause now starts with the action.</li>
+          <li><strong>The shared consensus.</strong> Where Google and Microsoft agree, treat it as law: second person "you", active voice, present tense (avoid "will" for things that simply happen), US spelling, no unexplained jargon.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          Present tense is underrated in pipeline docs. "The script will write staged output" quietly implies a future that might not arrive. "The script writes staged output" describes behavior. Reserve "will" for genuine futures, like deprecation dates.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Autopsy NOTES.txt <span class="tag demo">★ 7 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">In Session 1 you read <code>pulse/NOTES.txt</code> and felt the pain. Today we diagnose it with the tools from Parts 1 and 2. Every fact in this paragraph is true, and almost every sentence-level rule is broken. That combination - true but unusable - is what most tribal-knowledge docs look like.</p>
+
+    <div class="prompt-box bad"><span class="label">pulse/NOTES.txt - the patient</span>the pipeline is basically run by the scripts and it should be noted that the data that is being processed by them is ingested and staged and cleaned and then the metrics are being calculated by the last one, there is deduplication that is happening somewhere in the process and also events that are not valid are being filtered out by it which is important, the config has the settings and it can be changed if it is needed but be careful because if it is wrong then things will not work, when it is run the order matters a lot and if you do not run them in the right order there will be problems that are hard to debug, also the timestamps are being converted so that they are consistent which was a thing that caused issues before, the alert threshold thing is in there too and it flags days that are low which the team looks at, ask Dana about the value column because there is history there.</div>
+
+    <div class="steps">
+      <div class="step"><p><strong>Underline every passive verb.</strong> Hunt the tell: form of be + past participle. "is run", "is ingested", "are being calculated", "are being filtered", "are being converted"... count them (there are at least seven). Notice not one names which script does the work.</p></div>
+      <div class="step"><p><strong>Circle every ambiguous pronoun.</strong> "filtered out by it" - by what? "if it is wrong" - the config or the change? "when it is run" - which script? Each wobbly "it" forces the reader to guess, and at 2am guesses become incidents.</p></div>
+      <div class="step"><p><strong>Count ideas per sentence.</strong> Trick question: it is one sentence. One 160-word sentence carrying seven distinct facts, joined by commas and "and". Say out loud how many sentences this should be.</p></div>
+      <div class="step"><p><strong>Find the buried treasure.</strong> Two genuinely important facts are hiding mid-clause: wrong config fails without an error message, and timestamps caused real issues before. Both deserve their own sentence, up front.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      Notice "it should be noted that" and "basically" add zero information - pure filler. Google's short-sentences unit says cut these on sight. If something should be noted, note it.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Rewrite it: docs/notes-rewrite.md <span class="tag demo">★ 10 min · build your own</span></h2>
+    </div>
+    <p class="lede">Now the surgery. Same facts, new sentences. Target: every sentence active with a named actor, one idea each, official terminology only (staged, cleaned, metrics - locked in Part 1). This file becomes raw material for the README in Session 4.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>docs/notes-rewrite.md</code>. List the facts first, one per line, before writing prose - extraction and rewriting are separate jobs.</p></div>
+      <div class="step"><p>Rewrite each fact as one active sentence. For each, ask: who is the actor? In Pulse it is always one of three scripts, config.yaml, or you the operator.</p></div>
+      <div class="step"><p>Check terminology: the word for ingest.py's output is <strong>staged</strong>, everywhere. No "validated", no "preprocessed".</p></div>
+      <div class="step"><p>Handle "ask Dana". A doc that ends in "ask a person" has a hole where a fact should be. Convert it to a visible, honest placeholder that names the missing fact - then actually go ask Dana this week.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/notes-rewrite.md - the rewrite target</"># Pulse pipeline notes (rewritten from NOTES.txt)
+
+Pulse runs three scripts in a fixed order: ingest.py, then clean.py, then metrics.py.
+Running them out of order produces failures that are hard to debug.
+clean.py dedups rows on event_id and drops event types not listed in config.yaml.
+clean.py also converts every timestamp to UTC ISO format; inconsistent timestamps caused real issues before this step existed.
+config.yaml holds all pipeline settings, and a wrong value fails silently - check it first when output looks wrong.
+metrics.py computes daily aggregates and flags any day with fewer than 50 events as LOW.
+The team reviews LOW days.
+
+TODO: document the history of the value column (source: Dana - the fact belongs in this doc, not in Dana).</div>
+
+    <div class="callout win">
+      <strong>★ Compare the two</strong>
+      Same seven facts. The original: one sentence, seven passives, five wobbly pronouns, zero named actors. The rewrite: eight sentences, every actor named, and a knowledge gap turned into a tracked TODO instead of a tribal ritual. Time a colleague reading each - the rewrite wins by minutes, forever, for every reader.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>The 10-minute sentence workout <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">Now run the same passes on your own writing. Pick one doc you own - a README, a runbook, that design note you keep meaning to fix - and give it four timed passes. Mechanical, repeatable, no inspiration needed.</p>
+
+    <div class="steps">
+      <div class="step"><p><strong>Pass 1 - passive hunt (3 min).</strong> Search for is, are, was, were, been, being. Rewrite every be + past participle where you can name the actor. Flag the ones where you can't - those are knowledge gaps, not grammar problems.</p></div>
+      <div class="step"><p><strong>Pass 2 - pronoun check (2 min).</strong> Search for it, they, this, that. Any pronoun more than about five words from its noun, or with two possible owners: repeat the noun.</p></div>
+      <div class="step"><p><strong>Pass 3 - sentence split (3 min).</strong> Any sentence over roughly 25 words or with more than one ", and": cut it at the idea boundaries. Three or more parallel items become a list.</p></div>
+      <div class="step"><p><strong>Pass 4 - filler sweep (2 min).</strong> Delete "basically", "it should be noted that", "in order to", "very", "quite". Replace vague adjectives with numbers where you know them.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The workout as a review habit.</strong> One data team made pass 1 and pass 2 a checklist item on runbook PRs - two searches, five minutes. Within a quarter, their on-call handoff questions dropped noticeably, because runbooks finally said which script does what. The workout scales better as a review habit than as a heroic rewrite.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Finish <code>docs/notes-rewrite.md</code> if you didn't complete it live, and commit it - Session 4's README builds on it directly.</li>
+      <li>Run the full 10-minute sentence workout on your most-read doc at work. Keep a count of passives found; it makes a satisfying before/after number.</li>
+      <li>Pick one core concept your team names inconsistently, choose the official term, and fix it in one doc. Announce the official term where your team will see it.</li>
+      <li>Read the Self-study cards: acronym rules and Microsoft's rewrite moves. Memorize the "Ready to buy? Contact us." example - it recalibrates your sense of how short a sentence is allowed to be.</li>
+      <li>Optional depth: Google TW One's words, active voice, clear sentences and short sentences units at <a href="https://developers.google.com/tech-writing/one">developers.google.com/tech-writing/one</a>, and Microsoft's Top 10 tips at <a href="https://learn.microsoft.com/en-us/style-guide/top-10-tips-style-voice">learn.microsoft.com</a>.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these source units. What stays with the originals: the full worked exercise sets and answer keys.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Words</span><span class="note">Part 1: terminology consistency, definitions, acronym rules, pronoun distance</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Active voice</span><span class="note">Part 2: actor + verb + target, the be + past participle tell</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Clear sentences</span><span class="note">Part 2: strong verbs, reducing there is/are, replacing vague adjectives with data</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Short sentences</span><span class="note">Part 2: one idea per sentence, converting to lists, cutting filler, that vs which</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft Style Guide · Top 10 tips</span><span class="note">Part 2 self-study: bigger ideas fewer words, write like you speak, revise weak writing</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Google TW One · Just enough grammar</span><span class="note">Optional refresher unit; read it if "past participle" felt fuzzy today</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · The reliable tell that a sentence is in passive voice is...</p>
+      <button class="qopt" type="button">A · The sentence is longer than 20 words</button>
+      <button class="qopt" type="button">B · A form of "be" followed by a past participle</button>
+      <button class="qopt" type="button">C · The sentence starts with "there is"</button>
+      <p class="qwhy">"Is dropped", "are being converted", "was flagged" - be + past participle is the pattern. Length and "there is" are separate (also fixable) problems.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · "Run clean.py after ingest.py finishes; it dedups the rows." What's wrong?</p>
+      <button class="qopt" type="button">A · Nothing - the sentence is short and active</button>
+      <button class="qopt" type="button">B · "Dedups" is too informal for documentation</button>
+      <button class="qopt" type="button">C · "It" has two possible owners, so the reader must guess which script dedups</button>
+      <p class="qwhy">Two script names sit within range of "it", so the pronoun wobbles. Google's fix: keep pronouns within about five words of one clear noun, or repeat the noun.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Google justifies "one idea per sentence" with an analogy to...</p>
+      <button class="qopt" type="button">A · Shorter code being easier to maintain than long code</button>
+      <button class="qopt" type="button">B · Newspaper headlines being short</button>
+      <button class="qopt" type="button">C · Poetry using line breaks for emphasis</button>
+      <p class="qwhy">The analogy is straight from the short-sentences unit: sentences are like code, and shorter units are easier to read, maintain and debug.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 2 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>One concept, one name</b><span>Pick the official term once, use it everywhere. Synonyms read as new concepts. Pulse's terms: staged, cleaned, metrics.</span></div>
+      <div class="cheat-item"><b>Define or link</b><span>New term? Link to a definition or define it on first use. Never make readers infer meaning from usage.</span></div>
+      <div class="cheat-item"><b>Acronym rules</b><span>Bold full term (acronym) on first use. Only coin one if it's much shorter AND used often - otherwise just say the words.</span></div>
+      <div class="cheat-item"><b>Pronoun leash</b><span>Keep it/they/this/that within ~5 words of their noun. Two possible owners? Repeat the noun.</span></div>
+      <div class="cheat-item"><b>Passive tell</b><span>Form of be + past participle. Rewrite as actor + verb + target - in pipeline docs the actor is usually a script.</span></div>
+      <div class="cheat-item"><b>Strong verbs</b><span>Kill "occurs", "happens", "there is/are". Replace vague adjectives with numbers.</span></div>
+      <div class="cheat-item"><b>One idea per sentence</b><span>Every ", and" is a candidate cut. Three parallel items become a list. Cut "basically" and "it should be noted".</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>Audience ✓ · plan ✓ · notes-rewrite.md ✓ (active, one idea each, official terms). Structure lands in Session 3, README in Session 4.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 2 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="01-why-docs-fail.html">← Prev</a> &nbsp;·&nbsp; <a href="03-structure-readers-scan.html">Next: Structure readers can scan →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

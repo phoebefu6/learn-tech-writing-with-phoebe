@@ -1,0 +1,11 @@
+paths:
+  raw: pulse/data/raw
+  staged: pulse/data/staged
+  cleaned: pulse/data/cleaned
+  metrics: pulse/data/metrics
+
+events:
+  valid_types: [page_view, signup, purchase, api_call]
+
+alerts:
+  min_daily_events: 50

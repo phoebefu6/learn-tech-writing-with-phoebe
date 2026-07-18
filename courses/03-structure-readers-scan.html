@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 · Structure readers can scan - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 3 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 3 of 8</div>
+    <h1>Structure readers <span class="accent">can scan</span></h1>
+    <p class="sub">Session 2 gave you good sentences. Nobody will read them - not top to bottom, anyway. Real readers scan: headings, lists, lead sentences, tables. Today you learn the structures that reward scanning, and you turn Pulse's facts into a numbered procedure and a config table.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Easy</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">In Session 2 you rewrote Pulse's NOTES.txt into crisp active sentences (docs/notes-rewrite.md). But a page of good sentences is still a wall, and readers do not read walls - they scan them. This session is about the containers: lists, tables, paragraphs, and headings. Choose the right container and readers find the fact in five seconds; choose the wrong one and your perfect sentences go unread.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Google TW One + Microsoft Style Guide</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Pulse's run instructions as a proper numbered procedure (imperative verbs, one action per step, condition-first warning) and every config.yaml fact as a scannable table. These two blocks are the raw material for Session 4, where they get assembled into the README.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: LISTS ============ -->
+  <section class="section" id="lists">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Google TW One "Lists and tables"</span>
+      <h2>Lists: the workhorse <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Google's guidance starts with one question: does order matter? Everything else about list craft - which list type, how steps begin, how items line up - follows from that answer. Most doc lists in the wild get at least one of these wrong.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Decision mini-tree: if order matters use a numbered list, otherwise if the facts have two dimensions use a table, otherwise use a bulleted list">
+        <style>
+          .s3tT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .s3tS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s3tG { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .s3tX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s3tN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s3Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="20" y="112" width="150" height="64" rx="14" fill="#7E2718"/>
+        <text class="s3tT" x="40" y="140">Facts to</text>
+        <text class="s3tT" x="40" y="160">present</text>
+        <line x1="172" y1="144" x2="200" y2="144" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Ah)"/>
+        <rect x="204" y="112" width="176" height="64" rx="14" fill="#C2402A"/>
+        <text class="s3tT" x="224" y="138">Order matters?</text>
+        <text class="s3tS" x="224" y="158">steps · ranking · sequence</text>
+        <line x1="292" y1="110" x2="292" y2="76" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Ah)"/>
+        <text class="s3tX" x="300" y="98">yes</text>
+        <rect x="204" y="24" width="176" height="48" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s3tG" x="224" y="53">Numbered list</text>
+        <line x1="382" y1="144" x2="424" y2="144" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Ah)"/>
+        <text class="s3tX" x="390" y="136">no</text>
+        <rect x="428" y="112" width="196" height="64" rx="14" fill="#D4664E"/>
+        <text class="s3tT" x="448" y="138">Two dimensions?</text>
+        <text class="s3tS" x="448" y="158">e.g. setting × meaning</text>
+        <line x1="526" y1="110" x2="526" y2="76" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Ah)"/>
+        <text class="s3tX" x="534" y="98">yes</text>
+        <rect x="428" y="24" width="196" height="48" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s3tG" x="448" y="53">Table</text>
+        <line x1="626" y1="144" x2="668" y2="144" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Ah)"/>
+        <text class="s3tX" x="634" y="136">no</text>
+        <rect x="672" y="112" width="188" height="64" rx="14" fill="#E5A08F"/>
+        <text class="s3tT" x="692" y="138">Bulleted list</text>
+        <text class="s3tS" x="692" y="158">order-free facts</text>
+        <rect x="20" y="222" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s3tN" x="44" y="234">Whichever you pick: introduce it with a sentence ending in a colon, preferably containing "following".</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the list-or-table decision tree, from Google Technical Writing One's lists and tables unit</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Bulleted vs numbered, and the first-verb rule<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The choice between list types is not aesthetic. It is a signal to the reader about whether they can rearrange the items:</p>
+        <ul>
+          <li><strong>Bulleted list: order does not matter.</strong> Rearranging the items changes nothing. Valid event types, prerequisites, known limitations - all bulleted.</li>
+          <li><strong>Numbered list: order matters.</strong> Rearranging the items breaks the meaning. Pulse's run order (ingest, then clean, then metrics) must be numbered - a bulleted version silently tells readers they can run the scripts in any order.</li>
+          <li><strong>Start each numbered step with an imperative verb.</strong> "Run the ingest script", not "The ingest script should be run" and not "Running the ingest script". Command verbs make steps executable at a glance.</li>
+        </ul>
+        <p>And parallelism, the rule that makes lists feel professional: every item in a list matches every other item in grammar, category, capitalization, and punctuation. One item that starts with a noun in a list of verbs reads like a wrong note in a chord.</p>
+        <div class="prompt-box bad"><span class="label">Non-parallel (spot the wrong notes)</span>To run Pulse you need:
+- Python 3.10+
+- installing pyyaml
+- The raw CSVs should be in pulse/data/raw.</div>
+        <div class="prompt-box good"><span class="label">Parallel (same grammar, category, punctuation)</span>Before you run Pulse, confirm the following prerequisites:
+- Python 3.10 or later
+- The pyyaml package
+- Raw CSVs in pulse/data/raw</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Conditions before instructions<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google highlights this rule because getting it backwards causes real damage: state the condition BEFORE the instruction, not after. Readers execute instructions the moment they read them - a condition that arrives afterwards arrives too late.</p>
+        <div class="prompt-box bad"><span class="label">Condition last - the reader already ran it</span>Run ingest.py first if the staged folder is empty.
+Delete the cleaned folder if you want a full rebuild.</div>
+        <div class="prompt-box good"><span class="label">Condition first - the reader checks, then acts</span>If the staged folder is empty, run ingest.py first.
+If you want a full rebuild, delete the cleaned folder.</div>
+        <p>In pipeline docs this pattern is everywhere: "If metrics.py reports LOW days, check alerts.min_daily_events before paging anyone." The reader who needs the caveat gets it before they act; the reader who does not skips the whole line from the first two words.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The backwards warning.</strong> A team's runbook said "Rerun the backfill job - note this drops the staging table if the date range overlaps." An on-call engineer executed the first clause at 2am and read the second clause while the table was dropping. The fix in the postmortem was word order, nothing else: "If the date range overlaps, this drops the staging table. To proceed, rerun the backfill job."</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Tables: when two dimensions demand one<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A list holds one dimension of information. The moment each item carries two or more facts - a setting AND what it does AND whether you can touch it - a list forces the reader to parse prose for structure. A table hands them the structure directly:</p>
+        <table class="clean">
+          <thead><tr><th>Shape of the facts</th><th>Right container</th><th>Pulse example</th></tr></thead>
+          <tbody>
+            <tr><td>One fact per item, order-free</td><td>Bulleted list</td><td>The four valid event types</td></tr>
+            <tr><td>One action per item, in sequence</td><td>Numbered list</td><td>The three-script run order</td></tr>
+            <tr><td>Several facts per item</td><td>Table</td><td>config.yaml: key × meaning × safe-to-change</td></tr>
+          </tbody>
+        </table>
+        <p>Table hygiene, per Google:</p>
+        <ul>
+          <li><strong>Label every column</strong> with a meaningful header - readers scan headers before cells.</li>
+          <li><strong>Keep cells short.</strong> If a cell needs three sentences, the content wants to be a paragraph or its own section, not a cell.</li>
+          <li><strong>Introduce the table</strong> with a sentence ending in a colon, preferably containing "following": "The following table describes every config.yaml setting:"</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: PARAGRAPHS AND HEADINGS ============ -->
+  <section class="section" id="paragraphs">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Google TW One "Paragraphs" + Microsoft "Scannable content"</span>
+      <h2>Paragraphs and headings <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Not everything fits in a list. For the prose that remains, two structures decide whether scanners survive: the lead sentence of each paragraph and the headings above them. Eye-tracking studies keep finding the same thing - readers sweep a page in an F shape, and only the left edge and the top lines actually get read.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The F-scan: a stylized doc page where headings and lead sentences are highlighted as what gets read, while body text stays faint">
+        <style>
+          .s3fT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .s3fS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s3fG { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .s3fX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s3fN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s3Fh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="30" y="25" width="390" height="245" rx="10" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <rect x="55" y="48" width="170" height="13" rx="3" fill="#7E2718"/>
+        <rect x="55" y="74" width="330" height="9" rx="3" fill="#C2402A"/>
+        <rect x="55" y="91" width="340" height="7" rx="3" fill="#E5A08F"/>
+        <rect x="55" y="104" width="290" height="7" rx="3" fill="#E5A08F"/>
+        <rect x="55" y="130" width="140" height="13" rx="3" fill="#7E2718"/>
+        <rect x="55" y="156" width="310" height="9" rx="3" fill="#C2402A"/>
+        <rect x="55" y="173" width="335" height="7" rx="3" fill="#E5A08F"/>
+        <rect x="55" y="186" width="250" height="7" rx="3" fill="#E5A08F"/>
+        <rect x="55" y="212" width="190" height="13" rx="3" fill="#7E2718"/>
+        <rect x="55" y="238" width="300" height="9" rx="3" fill="#C2402A"/>
+        <rect x="520" y="40" width="340" height="52" rx="12" fill="#7E2718"/>
+        <text class="s3fT" x="540" y="62">Headings: scanned first</text>
+        <text class="s3fS" x="540" y="82">short · task-based · sentence case · no period</text>
+        <line x1="516" y1="66" x2="240" y2="56" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Fh)"/>
+        <rect x="520" y="112" width="340" height="52" rx="12" fill="#C2402A"/>
+        <text class="s3fT" x="540" y="134">Lead sentences: actually read</text>
+        <text class="s3fS" x="540" y="154">the story must survive on these alone</text>
+        <line x1="516" y1="138" x2="380" y2="158" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Fh)"/>
+        <rect x="520" y="184" width="340" height="52" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s3fG" x="540" y="206">Body: skimmed, often skipped</text>
+        <text class="s3fX" x="540" y="226">depth for the readers who commit</text>
+        <line x1="516" y1="210" x2="400" y2="178" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s3Fh)"/>
+        <rect x="30" y="286" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s3fN" x="54" y="298">Write for the scan: headings plus lead sentences must carry the doc on their own.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the F-scan: what readers actually read on your page, and what they skip</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The lead sentence carries the paragraph<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's paragraph unit has one non-negotiable rule: the opening sentence establishes what the whole paragraph is about. Scanners read lead sentences and nothing else, so the lead sentence IS the paragraph for most readers.</p>
+        <ul>
+          <li><strong>The test:</strong> read ONLY the first sentence of every paragraph in your doc, top to bottom. If the story survives - you can still follow what the doc says and why - your structure works. If the story falls apart, your key points are buried mid-paragraph where scanners never look.</li>
+          <li><strong>One topic per paragraph.</strong> The moment a second topic sneaks in, split. A paragraph is a unit of thought, not a unit of typing.</li>
+          <li><strong>Three to five sentences.</strong> Under three, consider merging or promoting to a list. Over seven is a wall - readers' eyes slide off it, and walls are where facts go to hide.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Open docs/notes-rewrite.md from Session 2. Read only the first sentence of each paragraph. Can you still reconstruct how Pulse works? Mark every paragraph whose lead sentence fails - those are your Demo 3 targets.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Heading craft<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Headings are the largest text on the page and the first thing scanned, yet most docs treat them as an afterthought. Microsoft's scannable-content guidance is specific:</p>
+        <ul>
+          <li><strong>Sentence case,</strong> always: "Run the pipeline", not "Run The Pipeline". Google's style guide agrees, so this one is settled across the industry.</li>
+          <li><strong>No end punctuation</strong> on headings. No periods, no colons.</li>
+          <li><strong>Task-based over topic-based.</strong> "Configure alert thresholds" tells the reader what they will be able to do; "Alerts" makes them open the section to find out. Verb-first headings double as a table of contents of actions.</li>
+          <li><strong>Short.</strong> A heading that wraps to two lines is a sentence wearing a costume.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          Read your doc's headings alone, in order, ignoring everything else. That outline is what a scanner sees first. If the outline does not make sense on its own, no amount of body text will rescue it.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The what, why, how check<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's completeness test for a paragraph: a good paragraph answers three questions. Not always in this order, but all three should be findable:</p>
+        <ul>
+          <li><strong>What</strong> are you telling the reader? The core fact or instruction.</li>
+          <li><strong>Why</strong> does it matter to them? The consequence of knowing or ignoring it.</li>
+          <li><strong>How</strong> should they use the knowledge? The action it enables, or the way to verify it worked.</li>
+        </ul>
+        <p>Run the check on a paragraph like "Pulse flags LOW days." What: any day with fewer events than alerts.min_daily_events is flagged. Why: a LOW day usually means an upstream export failed, not a real traffic drop. How: check the raw folder for that date before trusting the metric. Three sentences, three answers, one complete paragraph.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Turn the run order into a numbered procedure <span class="tag demo">★ 8 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">docs/notes-rewrite.md states Pulse's run order in prose. Prose is the wrong container for a sequence: it must become a numbered list with imperative first verbs, one action per step, and every condition placed before its instruction.</p>
+
+    <div class="steps">
+      <div class="step"><p>Find the run-order sentences in <code>docs/notes-rewrite.md</code>. Underline each distinct action - you should find exactly three, plus the prerequisites.</p></div>
+      <div class="step"><p>Write the prerequisites as a short bulleted list (order-free facts) and the actions as a numbered list (order matters). Start every step with an imperative verb.</p></div>
+      <div class="step"><p>Add one condition-first warning where a newcomer could go wrong. Check the word order: condition, comma, instruction.</p></div>
+      <div class="step"><p>Compare with the finished procedure below, then save yours as <code>docs/run-procedure.md</code> - Session 4 pastes it into the README.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/run-procedure.md - the finished procedure</span>## Run the pipeline
+
+Before you start, confirm the following prerequisites:
+
+- Python 3.10 or later
+- The pyyaml package
+- Raw CSVs in pulse/data/raw
+
+Run the three scripts in the following order:
+
+1. Ingest the raw CSVs: `python3 pulse/ingest.py`
+2. Clean the staged events: `python3 pulse/clean.py`
+3. Compute the daily metrics: `python3 pulse/metrics.py`
+
+If the staged folder is empty when you reach step 2, run ingest.py first.
+If you change config.yaml, rerun all three steps from step 1.</div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      One action per step. "Run ingest.py and check the staged folder" is two steps in a trench coat - the reader who hits an error cannot tell you which half failed.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Turn config.yaml into a table <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">Every config.yaml key carries three facts: what it is, what it does, and whether a newcomer can safely change it. Three facts per item is table territory - the decision tree from Part 1, applied for real.</p>
+
+    <div class="steps">
+      <div class="step"><p>Open <code>pulse/config.yaml</code> and list every key. There are six: four paths, the valid event types, and the alert threshold.</p></div>
+      <div class="step"><p>Build a markdown table with three columns: setting, what it does, safe to change. Keep every cell to one short phrase or sentence.</p></div>
+      <div class="step"><p>Introduce the table with a colon sentence containing "following", then check the columns read top to bottom as parallel phrases.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/config-table.md - the finished table</span>## Configuration
+
+Pulse reads every setting from config.yaml. The following table describes each key:
+
+| Setting | What it does | Safe to change? |
+|---|---|---|
+| paths.raw | Folder ingest.py reads incoming CSVs from (pulse/data/raw) | Yes - point it at any folder |
+| paths.staged | Folder ingest.py writes staged events to | Yes - keep it inside pulse/data |
+| paths.cleaned | Folder clean.py writes validated events to | Yes - keep it inside pulse/data |
+| paths.metrics | Folder metrics.py writes daily_metrics.csv to | Yes - downstream readers must know |
+| events.valid_types | Event types clean.py keeps: page_view, signup, purchase, api_call | Only when adding a real new type |
+| alerts.min_daily_events | Daily event count below which a day is flagged LOW (50) | Yes - tune to your traffic</div>
+
+    <div class="callout tip">
+      <strong>Markdown itself is a sibling course</strong>
+      This session covers WHEN to use a list or table; the syntax for writing them in Markdown (and everything else Markdown can do) has its own beginner course: <a href="https://phoebefu6.github.io/learn-markdown-with-phoebe/">learn-markdown-with-phoebe</a>.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>Lead-sentence audit on your own doc <span class="tag demo">★ 6 min · build your own</span></h2>
+    </div>
+    <p class="lede">The lead-sentence test works on any doc, not just Pulse. Run it on the longest doc you personally own - the wiki page, the design note, the runbook - and watch it locate every buried key point in minutes.</p>
+
+    <div class="steps">
+      <div class="step"><p>Open your longest doc. Read ONLY the first sentence of every paragraph, top to bottom, and nothing else.</p></div>
+      <div class="step"><p>Score it: could a scanner reconstruct the doc's story from those sentences alone? Mark every paragraph where the answer is no.</p></div>
+      <div class="step"><p>For each marked paragraph, find the real key point (it is usually hiding in sentence three or four) and promote it to the front. Do not rewrite anything else yet.</p></div>
+      <div class="step"><p>Bonus pass: read the headings alone as an outline. Rewrite any heading that is topic-based ("Alerts") into task-based sentence case ("Diagnose a LOW day").</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The audit that took eleven minutes.</strong> A data engineer ran the lead-sentence test on her team's 3,000-word onboarding doc. Nine of fourteen paragraphs failed - including the one holding the VPN step that every new hire had been Slacking her about. She promoted nine sentences, changed nothing else, and the doc started working. Structure was the whole problem.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Finish <code>docs/run-procedure.md</code> and <code>docs/config-table.md</code> for Pulse if you didn't complete them live - Session 4 assembles both into the README.</li>
+      <li>Run the Demo 3 lead-sentence audit on your longest work doc and promote the buried key points. Keep the before/after - it makes a great case when your team asks why structure matters.</li>
+      <li>Find one bulleted list at work that should be numbered (or the reverse), and one "condition last" instruction. Fix all three - each fix is a one-minute edit.</li>
+      <li>Read the two Self-study cards: table hygiene and the what/why/how check.</li>
+      <li>Optional depth: Google's lists-and-tables and paragraphs units are free at <a href="https://developers.google.com/tech-writing/one">developers.google.com/tech-writing/one</a>; Microsoft's scannable-content guidance lives in the Microsoft Style Guide online.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these source units. Markdown syntax itself is deliberately delegated to the sibling course.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Lists and tables</span><span class="note">Part 1: list choice, imperative steps, parallelism, colon introductions, table hygiene</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Paragraphs</span><span class="note">Part 2: lead sentence rule, one topic, 3-5 sentences, what/why/how</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft Style Guide · Scannable content</span><span class="note">Part 2: short headings, sentence case, no end punctuation, lists and tables for scanning</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft Style Guide · Procedures and instructions</span><span class="note">Demo 1: numbered steps, one action per step, condition-first warnings</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Google TW One · Markdown</span><span class="note">Syntax delegated to the sibling course: learn-markdown-with-phoebe</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · You're documenting Pulse's three run commands. Which container?</p>
+      <button class="qopt" type="button">A · A bulleted list - it looks cleaner</button>
+      <button class="qopt" type="button">B · A numbered list - the run order matters</button>
+      <button class="qopt" type="button">C · A table - three commands, three rows</button>
+      <p class="qwhy">Numbered means "the sequence is load-bearing". A bulleted version silently tells the reader they can run clean.py before ingest.py - and someone will.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Which warning follows Google's condition-placement rule?</p>
+      <button class="qopt" type="button">A · Run ingest.py first if the staged folder is empty</button>
+      <button class="qopt" type="button">B · The staged folder being empty means ingest.py should be run</button>
+      <button class="qopt" type="button">C · If the staged folder is empty, run ingest.py first</button>
+      <p class="qwhy">Condition before instruction. Readers act the moment they read an instruction, so a trailing condition arrives after the damage - see the 2am backfill story.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · The lead-sentence test says your doc's structure works when...</p>
+      <button class="qopt" type="button">A · Reading only each paragraph's first sentence still tells the story</button>
+      <button class="qopt" type="button">B · Every paragraph is under three sentences</button>
+      <button class="qopt" type="button">C · Every paragraph ends with a summary sentence</button>
+      <p class="qwhy">Scanners read lead sentences and skip the rest, so the lead sentences ARE the doc for most readers. Short paragraphs help, but the survival test is the rule.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 3 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Numbered vs bulleted</b><span>Order matters = numbered. Order-free = bulleted. The list type is a promise about whether items can be rearranged.</span></div>
+      <div class="cheat-item"><b>Step anatomy</b><span>Imperative first verb, one action per step, parallel grammar/category/capitalization/punctuation across items.</span></div>
+      <div class="cheat-item"><b>Condition first</b><span>"If X, do Y" - never "Do Y if X". Readers act on instructions the instant they read them.</span></div>
+      <div class="cheat-item"><b>Introduce with a colon</b><span>Every list and table gets a lead-in sentence ending in a colon, preferably containing "following".</span></div>
+      <div class="cheat-item"><b>Two dimensions = table</b><span>Several facts per item (setting × meaning × safe-to-change) outgrow a list. Short cells, labeled columns.</span></div>
+      <div class="cheat-item"><b>Lead sentence rule</b><span>First sentence carries the paragraph. Test: read only first sentences - the story must survive. One topic, 3-5 sentences.</span></div>
+      <div class="cheat-item"><b>Heading craft</b><span>Sentence case, task-based verbs, short, no end punctuation. Headings alone should read as an outline of actions.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>Run procedure ✓ · config table ✓ - the two building blocks Session 4 assembles into the README.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 3 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="02-sentences-that-work.html">← Prev</a> &nbsp;·&nbsp; <a href="04-the-readme.html">Next: The README →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

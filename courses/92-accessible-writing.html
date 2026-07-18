@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep dive · Accessible writing - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Deep dive 2 of 4</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Deep dive 2 of 4</div>
+    <h1>Accessible <span class="accent">writing</span></h1>
+    <p class="sub">Roughly one in four adults lives with a disability, and everyone hits a broken arm, a cracked screen, or a glaring sun eventually. This deep dive turns accessibility from a compliance chore into five concrete rule groups you can apply to any doc - then audits Pulse's docs with them.</p>
+    <div class="chip-row">
+      <span class="chip level">🟣 Deep dive</span>
+      <span class="chip audience">Self-paced</span>
+      <span class="chip audience">Everyone who writes docs</span>
+      <span class="chip time">60-90 min self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-10 · Mindset</span>
+      <span class="a2" style="flex:3">10-40 · Five rule groups</span>
+      <span class="a3" style="flex:3.5">40-75 · Pulse audit</span>
+      <span class="a4" style="flex:1.5">75-90 · Checklist</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ PART 1: DESIGN FOR EVERYONE ============ -->
+  <section class="section" id="mindset">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Google's accessibility course "inclusive design"</span>
+      <h2>Design for everyone <span class="tag concept">10 min read</span></h2>
+    </div>
+    <p class="lede">Accessible writing is not a bolt-on for a small minority of readers. It is the same craft this whole course teaches - plain language, clear structure, honest labels - applied so that it holds up for every reader, on every device, in every condition.</p>
+
+    <details class="card" open>
+      <summary><span class="mode self">Self-study</span>The curb-cut effect<span class="mini">4 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Curb cuts - the little ramps where a sidewalk meets the street - were fought for by wheelchair users. Then everyone else started using them: parents with strollers, travelers with suitcases, delivery workers with carts. Accessibility features consistently follow this pattern: built for a specific need, useful to everyone.</p>
+        <ul>
+          <li><strong>High-contrast text</strong> serves low-vision readers, and everyone reading a laptop in sunlight.</li>
+          <li><strong>Text-to-speech and captions</strong> serve blind and Deaf users, and everyone listening to a doc on a commute or watching a video in a quiet office.</li>
+          <li><strong>Keyboard access</strong> serves people who cannot use a mouse, and every power user who never wanted to.</li>
+          <li><strong>Plain language</strong> serves readers with cognitive disabilities, and every exhausted engineer skimming at 2am - Session 1's audience made universal.</li>
+        </ul>
+        <div class="callout win">
+          <strong>★ The reframe</strong>
+          You never have to choose between "accessible" and "good". Every rule in this deep dive makes your docs measurably better for your entire audience. Accessibility is quality with the excuses removed.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Permanent, temporary, situational<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's accessibility course teaches disability as a mismatch between a person and a design, not a fixed attribute of a person. The same barrier hits three kinds of readers:</p>
+        <table class="clean">
+          <thead><tr><th>Kind</th><th>Example</th><th>Hits the same barrier</th></tr></thead>
+          <tbody>
+            <tr><td>Permanent</td><td>A reader who is blind</td><td>An unlabeled chart carries zero information</td></tr>
+            <tr><td>Temporary</td><td>Eye surgery recovery, reading via screen reader for a month</td><td>Same chart, same zero</td></tr>
+            <tr><td>Situational</td><td>Driving, listening to a doc read aloud</td><td>Same chart, same zero</td></tr>
+          </tbody>
+        </table>
+        <p>Design for the permanent case and the temporary and situational cases come along for free. That multiplies your audience: the number of people who will ever experience your doc through a screen reader, a zoomed screen, or a monochrome e-reader is far larger than any disability statistic suggests.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where this page comes from<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Honesty note: unlike most sessions, this page is not a walkthrough of one source. It consolidates FOUR - Google's Tech Writing for Accessibility course (8 units), the accessibility sections of both the Google developer documentation style guide and the Microsoft Writing Style Guide, and Write the Docs' accessibility guidance. They agree on almost everything, which is exactly why the material is teachable as five rule groups rather than four bibliographies.</p>
+        <ul>
+          <li><strong>Google's course</strong> supplies the inclusive-design framing and the editing checklist.</li>
+          <li><strong>The two style guides</strong> supply the mechanical rules: alt text, contrast, link text, color.</li>
+          <li><strong>Microsoft</strong> goes furthest on inclusive language, with a full bias-free communication section.</li>
+          <li><strong>Write the Docs</strong> supplies the community practice: test with real assistive tech, not just checkers.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: THE FIVE RULE GROUPS ============ -->
+  <section class="section" id="rules">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · the working rules, consolidated</span>
+      <h2>The five rule groups <span class="tag concept">30 min read</span></h2>
+    </div>
+    <p class="lede">Every accessibility guideline you will meet in a doc review falls into one of five groups: alt text, contrast, inclusive language, accessible visuals, and structural editing. Learn the five and you can audit any doc without a checklist in front of you.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One chart, three readers: a screen-reader user needs alt text stating the takeaway, a low-vision user needs 4.5 to 1 contrast, a colorblind user needs shapes and labels instead of color alone">
+        <style>
+          .d2aT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .d2aS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .d2aH { font: 700 15px Inter, sans-serif; fill: #1C1B18; }
+          .d2aG { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+          .d2aX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .d2aN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <text class="d2aH" x="20" y="28">The same daily-metrics chart, experienced by three readers</text>
+        <rect x="20" y="46" width="520" height="70" rx="14" fill="#7E2718"/>
+        <text class="d2aT" x="40" y="74">Screen-reader user</text>
+        <text class="d2aS" x="40" y="94">Hears only what you wrote: alt text, or silence.</text>
+        <rect x="560" y="46" width="300" height="70" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="d2aG" x="578" y="74">Fix: alt text with the takeaway -</text>
+        <text class="d2aG" x="578" y="94">"July 12 dips to 31, below threshold"</text>
+        <rect x="20" y="128" width="520" height="70" rx="14" fill="#C2402A"/>
+        <text class="d2aT" x="40" y="156">Low-vision user, 200% zoom</text>
+        <text class="d2aS" x="40" y="176">Pale grey labels on white are the first thing to vanish.</text>
+        <rect x="560" y="128" width="300" height="70" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="d2aG" x="578" y="156">Fix: 4.5:1 contrast on all text,</text>
+        <text class="d2aG" x="578" y="176">verified with a checker, not eyes</text>
+        <rect x="20" y="210" width="520" height="70" rx="14" fill="#D4664E"/>
+        <text class="d2aT" x="40" y="238">Colorblind user</text>
+        <text class="d2aS" x="40" y="258">A red line and a green line look like the same line.</text>
+        <rect x="560" y="210" width="300" height="70" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="d2aG" x="578" y="238">Fix: shapes + direct text labels,</text>
+        <text class="d2aG" x="578" y="258">never color as the only signal</text>
+        <rect x="20" y="302" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="d2aN" x="44" y="314">Three fixes, one chart - and every fix also helps the reader with perfect vision on a sunny train.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one chart, three readers, and the fix each one needs</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Rule group 1 · Alt text<span class="mini">6 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Alt text is what a screen reader speaks in place of an image. The rules, agreed by every source:</p>
+        <ul>
+          <li><strong>Describe the image in context.</strong> The same pipeline diagram gets different alt text in a quickstart ("the three Pulse scripts run in order") than in an architecture doc ("ingest writes raw CSVs that clean filters before metrics aggregates").</li>
+          <li><strong>Keep it short:</strong> a phrase or one to two sentences. Alt text is spoken linearly; a paragraph traps the listener.</li>
+          <li><strong>Decorative images get <code>alt=""</code></strong> - empty, not missing. Empty tells the screen reader to skip; missing makes it read the filename aloud.</li>
+          <li><strong>Complex images split:</strong> a short alt ("daily event counts for July, described below") plus a full explanation in body text, where every reader benefits from it.</li>
+          <li><strong>Never start with "Image of..."</strong> - the screen reader already announced it is an image. And no all-caps: some screen readers spell capitalized words letter by letter.</li>
+        </ul>
+        <div class="prompt-box bad"><span class="label">Weak alt text</span>alt="IMAGE OF CHART"</div>
+        <div class="prompt-box good"><span class="label">Working alt text</span>alt="Daily event counts for July. July 12 drops to 31 events, below the 50-event alert threshold."</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Rule group 2 · Contrast, with numbers<span class="mini">4 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Contrast is the one rule group with hard numbers, so use them:</p>
+        <ul>
+          <li><strong>4.5:1</strong> minimum contrast ratio for small text against its background.</li>
+          <li><strong>3:1</strong> minimum for large text (roughly 18pt and up, or 14pt bold).</li>
+          <li><strong>Verify with a tool</strong> - the WebAIM Contrast Checker takes two hex codes and gives a pass or fail. Never eyeball it: your calibrated monitor in a dim office is the best-case scenario, not the median reader's.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          The most common failure in data-team docs is not body text - it is chart annotations and light-grey "subtle" captions. Subtle is a synonym for invisible at 4.5:1. Check the greys first.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Rule group 3 · Inclusive language<span class="mini">6 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Language about people carries assumptions, and docs travel further than you plan. The consolidated guidance:</p>
+        <ul>
+          <li><strong>Center the person, not the condition:</strong> "a person who is blind", "people with limited mobility". Avoid framing disability as deficiency: no "normal users" versus everyone else, no "healthy" as the contrast to disabled.</li>
+          <li><strong>Drop the pity verbs:</strong> not "victim of", "suffers from", or "wheelchair-bound" - a wheelchair is mobility, not confinement. "Uses a wheelchair" states the fact.</li>
+          <li><strong>Respect identity-first preferences.</strong> Many Deaf and neurodivergent people prefer identity-first language ("Deaf person", "autistic person"). When you write for or about a specific community, their preference wins over the general rule.</li>
+          <li><strong>Microsoft's bias-free additions:</strong> gender-neutral language ("they", "chairperson", example names drawn from many cultures), no militaristic metaphors ("kill the process" becomes "stop the process" where it is not a literal command name), and diverse example names instead of ten Johns.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Rule group 4 · Accessible visuals<span class="mini">4 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The visual rule that catches the most data-team artifacts: <strong>never rely on color, pattern, or position ALONE to carry meaning.</strong> Red-means-bad fails for colorblind readers, printed pages, and screen readers all at once.</p>
+        <ul>
+          <li><strong>Pair every color with a text label.</strong> A red cell that also says FAIL survives every rendering; a red cell alone survives none of them.</li>
+          <li><strong>Every visual gets alt text</strong> - charts, screenshots, diagrams, the lot. Rule group 1 applies to all of them.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Pulse got this right by accident.</strong> Pulse's <code>daily_metrics.csv</code> flags a bad day with the word LOW in an alert column - a text flag, not a red cell. That is accidentally perfect accessibility: it survives a screen reader, a monochrome printout, grep, and a colorblind on-call engineer. If the alert had been a colored cell in a spreadsheet, it would fail all four. When you design a status signal, make it a word first and a color second.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Rule group 5 · The structural editing checklist<span class="mini">6 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The last group is how the doc is built, not what it says:</p>
+        <ul>
+          <li><strong>Real heading elements, no skipped levels.</strong> Screen-reader users navigate by heading; a bolded line styled to look like a heading is invisible to them, and jumping from H1 to H4 scrambles the outline.</li>
+          <li><strong>Descriptive link text.</strong> Screen readers can list every link on a page out of context - a list of nine "click here"s is useless. "See the config reference" works everywhere.</li>
+          <li><strong>Plain language, active voice, short sentences.</strong> Session 2's rules are also accessibility rules - cognitive load is an access barrier.</li>
+          <li><strong>Convert dense paragraphs to lists</strong> when they carry parallel items - exactly Session 2's paragraphs-to-lists move.</li>
+          <li><strong>Test it for real:</strong> zoom to 200%, navigate with keyboard only, then listen to the page with the screen reader already on your machine (VoiceOver on a Mac, Narrator on Windows). Ten minutes of listening teaches more than an hour of guidelines.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: PULSE AUDIT ============ -->
+  <section class="section" id="audit">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Audit Pulse's docs <span class="tag demo">★ 35 min · build your own</span></h2>
+    </div>
+    <p class="lede">You have written a README, a how-to, a reference, and an ADR for Pulse across the sessions. Now run the five rule groups over them as a real audit - the same pass you would run on any doc set you inherit.</p>
+
+    <div class="steps">
+      <div class="step"><p>Open <code>README.md</code> and <code>docs/how-to-diagnose-low-day.md</code>. Check the heading outline first: are they real markdown headings, and does any level get skipped (an <code>#</code> followed by an <code>###</code>)? Fix the outline before anything else - it is the skeleton everything hangs on.</p></div>
+      <div class="step"><p>Hunt link text. Search both files for "here" and "this link". Rewrite each hit to say where it goes: "see the config reference", "the ADR explains the UTC decision".</p></div>
+      <div class="step"><p>Hunt color-only meaning. Pulse's LOW flag passes (it is text), but check any chart or screenshot you added along the way: does anything communicate by color alone? Add the text label.</p></div>
+      <div class="step"><p>Check every image for alt text. Decorative ones get <code>alt=""</code>; informative ones get the takeaway in one sentence, per rule group 1.</p></div>
+      <div class="step"><p>Search for "simply" and "just". Session 1 called them curse-of-knowledge alarms; they are also accessibility problems - they tell a struggling reader the failure is theirs. Delete them.</p></div>
+      <div class="step"><p>Fix your top findings, then add one line to <code>DOCS.md</code> so the standard outlives the audit.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">Add to DOCS.md norms</span>## Accessibility
+Every doc: real heading levels (no skips), descriptive link text (never "click here"),
+alt text on every image (alt="" if decorative), no color-only meaning, contrast checked
+at 4.5:1 for text in any visual. Audit with the five rule groups before publishing.</div>
+
+    <div class="callout win">
+      <strong>★ What you just built</strong>
+      An audit you can run on any doc set in under an hour, and a one-paragraph norm that makes the next doc accessible by default instead of by retrofit. The rule groups are the reusable asset; Pulse was just the practice ground.
+    </div>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This deep dive consolidates the working content of four sources. What stays with the originals: Google's course exercises and each guide's full word-by-word term lists.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google · Tech Writing for Accessibility (8 units)</span><span class="note">Parts 1-2: inclusive design framing, alt text, visuals, editing checklist</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google style guide · Accessibility section</span><span class="note">Part 2: alt text mechanics, link text, heading structure</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft style guide · Accessibility guidelines</span><span class="note">Part 2: people-first terms, contrast, color rules</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft style guide · Bias-free communication</span><span class="note">Rule group 3: gender-neutral language, diverse names, no militaristic terms</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Write the Docs · accessibility guidance</span><span class="note">Test-with-real-tools practice; full community resources at writethedocs.org</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · The minimum contrast ratio for small body text is...</p>
+      <button class="qopt" type="button">A · 3:1 - the same as large text</button>
+      <button class="qopt" type="button">B · 4.5:1, verified with a checker like WebAIM's</button>
+      <button class="qopt" type="button">C · Whatever looks readable on your own monitor</button>
+      <p class="qwhy">4.5:1 for small text, 3:1 only for large text - and always tool-verified. Your monitor in your lighting is the best case, not the median reader's.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · A purely decorative divider image should get...</p>
+      <button class="qopt" type="button">A · alt="decorative divider image"</button>
+      <button class="qopt" type="button">B · No alt attribute at all</button>
+      <button class="qopt" type="button">C · alt="" - empty, so screen readers skip it</button>
+      <p class="qwhy">Empty alt says "skip me". Missing alt makes many screen readers announce the filename, and describing decoration wastes the listener's time.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Pulse flags a bad day with the word LOW in a column instead of a red cell. Why does that matter for accessibility?</p>
+      <button class="qopt" type="button">A · Text meaning survives screen readers, printing, and colorblindness; color alone survives none</button>
+      <button class="qopt" type="button">B · Red cells are banned by both style guides in all cases</button>
+      <button class="qopt" type="button">C · It doesn't - CSVs can't have colors anyway, so the point is moot</button>
+      <p class="qwhy">The rule is never color ALONE. Color plus a text label is fine; the LOW flag shows the text half doing all the real work.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Accessible writing cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Curb-cut effect</b><span>Accessibility features help everyone: contrast, captions, keyboard access, plain language. Quality without excuses.</span></div>
+      <div class="cheat-item"><b>Three kinds of disability</b><span>Permanent, temporary, situational. Design for the first and the other two come free - and multiply your audience.</span></div>
+      <div class="cheat-item"><b>Alt text</b><span>Short, in-context, states the takeaway. alt="" for decoration. Never "Image of...", never all-caps.</span></div>
+      <div class="cheat-item"><b>Contrast numbers</b><span>4.5:1 small text, 3:1 large. Verify with the WebAIM checker - never eyeball.</span></div>
+      <div class="cheat-item"><b>Inclusive language</b><span>Person-centered by default, identity-first where the community prefers it. No "normal", no pity verbs, bias-free examples.</span></div>
+      <div class="cheat-item"><b>Never color alone</b><span>Pair color with a text label. Pulse's LOW text flag is the accidental gold standard.</span></div>
+      <div class="cheat-item"><b>Structural checklist</b><span>Real headings, no skipped levels, descriptive links, plain language, lists over dense paragraphs.</span></div>
+      <div class="cheat-item"><b>Test for real</b><span>200% zoom, keyboard only, ten minutes with the screen reader already on your machine.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Deep dive 2 of 4 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="91-error-messages.html">← Error messages</a> &nbsp;·&nbsp; <a href="93-runbooks.html">Next: Runbooks →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

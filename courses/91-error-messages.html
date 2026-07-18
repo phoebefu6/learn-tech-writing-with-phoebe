@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep dive · Writing helpful error messages - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Deep dive 1 of 4</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Deep dive 1 of 4</div>
+    <h1>Writing helpful <span class="accent">error messages</span></h1>
+    <p class="sub">Error messages are the most-read documentation you will ever write, and they get read at the worst possible moment: when something is already broken. Google has a whole course on them. Here it is, applied to Pulse's real errors.</p>
+    <div class="chip-row">
+      <span class="chip level">🟣 Deep dive</span>
+      <span class="chip audience">Self-paced</span>
+      <span class="chip audience">Engineers &amp; data teams</span>
+      <span class="chip time">60-90 min self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-10 · Rules</span>
+      <span class="a2" style="flex:3">10-40 · The 13 message rules</span>
+      <span class="a3" style="flex:3">40-75 · Rewrite workshop</span>
+      <span class="a4" style="flex:1">75-90 · Checklist</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this deep dive exists</h2>
+    </div>
+    <p class="lede">Nobody reads your architecture doc under stress. Everybody reads the error message the instant their pipeline dies. A good one turns a 30-minute Slack thread into a 30-second fix. A bad one ("Error: failed") sends a person to read your source code at 2am. This deep dive treats every message your program prints as a tiny, high-traffic document.</p>
+    <div class="legend">
+      <span class="pill solid">Self-study - read at your pace</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Source: Google Error Messages course</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with</strong>
+      The 13 rules for a helpful message, one memorable anatomy diagram, and a rewritten set of Pulse's actual error output - including turning clean.py's silent row-dropping into a message that tells the reader exactly what it skipped and why.
+    </div>
+  </section>
+
+  <section class="section" id="errors-are-docs">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers general error-handling rules</span>
+      <h2>Errors are documentation <span class="tag concept">10 min</span></h2>
+    </div>
+    <p class="lede">Before wording, the engineering has to be right. A perfectly worded message about the wrong problem is worse than useless. Google's course opens with the rules that happen in code, not in copy.</p>
+
+    <details class="card" open>
+      <summary><span class="mode self">Self-study</span>Do not fail silently, do not swallow the cause<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The two deadliest error-handling sins both hide information the reader needs:</p>
+        <ul>
+          <li><strong>Failing silently</strong> is when something goes wrong and the program says nothing. Pulse's clean.py currently does this: it drops rows with bad timestamps or invalid event types and never mentions it. Your metrics are quietly wrong and nobody knows why.</li>
+          <li><strong>Swallowing the root cause</strong> is when a specific failure gets flattened into a generic "Server error" or "Something went wrong". The real cause - a missing column, a bad path - is right there in code, and you threw it away before the reader could see it.</li>
+          <li><strong>Raise immediately.</strong> Report the error at the moment and place it happens, not three functions later where the context is gone.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The silent drop that cost a quarter.</strong> A revenue pipeline silently discarded rows whose currency field it did not recognize. For three months the dashboard was 4% low and nobody questioned it, because nothing ever complained. The fix was one log line: "dropped 812 rows: unknown currency 'GBP '". The trailing space had been the bug the whole time.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The reader is already frustrated<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every other doc you write is read by someone who chose to read it. An error message is read by someone who was stopped mid-task against their will. That changes the writing job:</p>
+        <ul>
+          <li><strong>Respect the moment.</strong> They do not want prose, backstory, or an apology. They want to know what broke and what to do.</li>
+          <li><strong>Brevity is kindness here.</strong> Every extra word is read through gritted teeth.</li>
+          <li><strong>The message is a promise.</strong> If it says "add X to config.yaml", that had better be the actual fix - a wrong instruction here destroys trust faster than anywhere else in your docs.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="thirteen-rules">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the 13 message rules</span>
+      <h2>The 13 rules, in three groups <span class="tag concept">20 min</span></h2>
+    </div>
+    <p class="lede">Google's course is one rule per lesson. They cluster into three jobs a message must do: say what happened, make it fixable, and sound right. Here is the anatomy of a message that does all three.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anatomy of a great error message with four labeled bands: what happened, the bad value, the constraint, and the fix">
+        <style>
+          .d1mT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .d1mS { font: 400 13px Inter, sans-serif; fill: #FAECE7; }
+          .d1mC { font: 700 14px Inter, sans-serif; fill: #7E2718; }
+          .d1mX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .d1mM { font: 600 13px "SFMono-Regular", ui-monospace, monospace; fill: #EDE8DA; }
+          .d1mN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <rect x="20" y="24" width="840" height="150" rx="14" fill="#1C1B18"/>
+        <text class="d1mM" x="44" y="58">clean.py: skipped 2 rows in events_2026-07-01.csv</text>
+        <text class="d1mM" x="44" y="86">  reason: event_type "click" is not valid</text>
+        <text class="d1mM" x="44" y="114">  valid types: page_view, signup, purchase, api_call</text>
+        <text class="d1mM" x="44" y="142">  fix: add "click" to config.yaml &gt; events.valid_types</text>
+
+        <rect x="20" y="200" width="200" height="70" rx="12" fill="#C2402A"/>
+        <text class="d1mT" x="40" y="230">What happened</text>
+        <text class="d1mS" x="40" y="252">skipped 2 rows, named file</text>
+
+        <rect x="230" y="200" width="200" height="70" rx="12" fill="#7E2718"/>
+        <text class="d1mT" x="250" y="230">The bad value</text>
+        <text class="d1mS" x="250" y="252">echoes "click" back</text>
+
+        <rect x="440" y="200" width="200" height="70" rx="12" fill="#D4664E"/>
+        <text class="d1mT" x="460" y="230">The constraint</text>
+        <text class="d1mS" x="460" y="252">lists valid types</text>
+
+        <rect x="650" y="200" width="210" height="70" rx="12" fill="#E5A08F"/>
+        <text class="d1mC" x="670" y="230">The fix</text>
+        <text class="d1mX" x="670" y="252" fill="#7E2718">exact next step</text>
+
+        <rect x="20" y="300" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="d1mN" x="44" y="312">Four bands, every time: what broke, the offending value, the rule, the action. Miss one and the reader is stuck.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the four bands every good error message carries</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Group 1 - say what happened<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The reader cannot fix what they cannot see. Four rules make the failure legible:</p>
+        <ul>
+          <li><strong>Identify the cause.</strong> State what went wrong and why, not just that something failed. "bad header" tells the reader nothing; "missing column: value" tells them everything.</li>
+          <li><strong>Identify the invalid input.</strong> Echo the exact bad value back. If the reader passed <code>event_type "click"</code>, put "click" in the message so they see it without hunting.</li>
+          <li><strong>Specify requirements and constraints.</strong> State the valid range, format, or set. "valid types: page_view, signup, purchase, api_call" turns confusion into a checklist.</li>
+          <li><strong>Provide a corrected example.</strong> Show a line of valid input next to the rejected one. Examples teach faster than rules.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Group 2 - make it fixable<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A message that describes a problem but not its cure leaves the reader exactly where they started, only angrier:</p>
+        <ul>
+          <li><strong>Explain how to fix it.</strong> Pair every problem statement with the concrete next step. This is the single highest-value rule: "add 'click' to config.yaml &gt; events.valid_types" beats any amount of diagnosis.</li>
+          <li><strong>Be concise.</strong> The reader is frustrated. Trim to essentials; a wall of text at the error moment gets skipped.</li>
+          <li><strong>Avoid double negatives.</strong> "Input is not invalid" makes people re-read. Say what IS required.</li>
+          <li><strong>Format for readability.</strong> Progressive disclosure (headline first, detail below), and keep the message near the source of the error so the reader is not scrolling to connect them.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Group 3 - sound right<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tone is not decoration - the wrong tone actively slows the fix:</p>
+        <ul>
+          <li><strong>Write for the target audience.</strong> A message a developer reads in a log can be terser and more technical than one an analyst sees in a UI.</li>
+          <li><strong>Use terminology consistently.</strong> If config calls them "event types", the error says "event type", not "event kind". Same concept, same word, everywhere.</li>
+          <li><strong>Set the right tone.</strong> Be positive: "Enter a name" not "You didn't enter a name". Do not over-apologize - skip "sorry" and "please". Avoid humor; it lands badly mid-crisis. And never blame the reader: "The printer is offline" not "You specified an offline printer".</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          The blame test: read your message aloud and ask "does this make the reader feel stupid?" "You entered an invalid date" quietly accuses. "Use the format YYYY-MM-DD" just helps. Same information, opposite feeling.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Workshop 1 of 2</span>
+      <h2>Rewrite ingest.py's message <span class="tag demo">★ 15 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">Pulse's ingest.py prints a real, weak message when a CSV has the wrong columns. Run it through the 13 rules and watch it get useful.</p>
+
+    <div class="prompt-box bad"><span class="label">What ingest.py prints today</span>skip events_2026-07-01.csv: bad header</div>
+
+    <div class="prompt-box good"><span class="label">After the 13 rules</span>ingest.py: skipped events_2026-07-01.csv - header is missing required columns.
+  found:    event_id, user_id, ts, value
+  missing:  event_type
+  required: event_id, user_id, event_type, ts, value
+  fix: add the missing column to the CSV header, or check the export that produced this file.</div>
+
+    <div class="steps">
+      <div class="step"><p>Cause named? "header is missing required columns" says what and why. Rule 1, done.</p></div>
+      <div class="step"><p>Invalid input echoed? The found line shows exactly what arrived, so the reader sees the gap without opening the file.</p></div>
+      <div class="step"><p>Constraint stated? The required line is the full valid header - a checklist, not a guess.</p></div>
+      <div class="step"><p>Fix given? Two concrete next steps, ordered most-likely first.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Data team tip</strong>
+      Notice the message names the file. In a pipeline that ingests a folder of CSVs, "bad header" forces the reader to guess which file; naming it turns a hunt into a fix.
+    </div>
+  </section>
+
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Workshop 2 of 2</span>
+      <h2>Break the silence in clean.py <span class="tag demo">★ 15 min · build your own</span></h2>
+    </div>
+    <p class="lede">The harder fix. clean.py drops rows silently - the worst error-handling sin, because there is no message to improve, only an absence to fill. Give it a voice.</p>
+
+    <div class="prompt-box bad"><span class="label">clean.py today - says nothing</span># rows with invalid event types or bad timestamps are dropped.
+# no message. metrics are quietly wrong. reader has no idea.</div>
+
+    <div class="prompt-box good"><span class="label">A per-file drop summary</span>clean.py: events_2026-07-01.csv - kept 8 rows, dropped 2.
+  dropped 2: event_type not in valid_types (saw "click")
+  dropped 0: unparseable timestamp
+  valid types come from config.yaml &gt; events.valid_types
+  to keep an event type, add it there and re-run.</div>
+
+    <div class="steps">
+      <div class="step"><p>Audit every <code>print</code> and <code>stderr</code> write across ingest.py, clean.py, and metrics.py. List the silent drops too - the missing messages.</p></div>
+      <div class="step"><p>Classify each against the 13 rules: which band is missing - what happened, the value, the constraint, or the fix?</p></div>
+      <div class="step"><p>Rewrite each. For silent failures, decide the summary line: counts kept and dropped, grouped by reason.</p></div>
+      <div class="step"><p>Document the new output as a contract in <code>docs/reference-config.md</code>: readers should be able to rely on the drop summary, so it belongs in the reference, not just the code.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The summary line that ended a standup topic.</strong> "Why is today's number low?" was a standing agenda item on one data team until clean.py started printing a kept/dropped summary per run. The answer was now in the logs before anyone asked. The question left the standup for good.</p>
+    </div>
+  </section>
+
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself <span class="tag exercise">◐ 30-45 min</span></h2>
+    </div>
+    <ul>
+      <li>Grep your own codebase for generic messages: "error", "failed", "invalid", "something went wrong". Pick the three highest-traffic ones and run them through the four bands.</li>
+      <li>Find one place your code fails silently (a dropped row, a swallowed exception, a default that hides a problem) and give it a voice.</li>
+      <li>Apply the blame test to every user-facing message in one screen or CLI: does any of them make the reader feel accused? Rewrite to describe the state, not the reader's mistake.</li>
+      <li>Optional depth: Google's Writing Helpful Error Messages course is free at <a href="https://developers.google.com/tech-writing/error-messages">developers.google.com/tech-writing/error-messages</a>, including a "want to play a game?" rewrite exercise.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This deep dive teaches the working content of Google's 16-unit error-messages course, applied to Pulse. Back-end-specific guidance is summarized; the original goes deeper on API error models.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">General error handling rules</span><span class="note">Part 1: fail loudly, keep the cause, raise immediately</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Identify cause, inputs, requirements, examples</span><span class="note">Part 2 group 1: say what happened</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Explain the fix, be concise, no double negatives, format</span><span class="note">Part 2 group 2: make it fixable</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Audience, consistent terminology, tone</span><span class="note">Part 2 group 3: sound right</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Additional guidelines for back-end engineers</span><span class="note">Summarized; full API-error detail stays with the original course</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · clean.py drops invalid rows and prints nothing. What sin is that?</p>
+      <button class="qopt" type="button">A · Blaming the user</button>
+      <button class="qopt" type="button">B · A double negative</button>
+      <button class="qopt" type="button">C · Failing silently - the reader can't fix what they can't see</button>
+      <p class="qwhy">Silent failure hides the problem entirely. The fix is a drop summary: counts kept and dropped, grouped by reason.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · Which message sets the right tone?</p>
+      <button class="qopt" type="button">A · "You entered an invalid event type"</button>
+      <button class="qopt" type="button">B · "Valid event types: page_view, signup, purchase, api_call"</button>
+      <button class="qopt" type="button">C · "Oops! Sorry, that didn't work 😅"</button>
+      <p class="qwhy">Positive framing, no blame, no over-apology, no humor mid-crisis. State the constraint and let the reader act.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · A message says "event_type is not valid". What's the highest-value thing to add?</p>
+      <button class="qopt" type="button">A · Echo the actual bad value AND the concrete fix</button>
+      <button class="qopt" type="button">B · A stack trace</button>
+      <button class="qopt" type="button">C · An apology</button>
+      <p class="qwhy">Echoing "click" plus "add it to config.yaml &gt; events.valid_types" covers two of the four bands the reader most needs.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <section class="cheat" id="cheatsheet">
+    <h3>Error-message cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Four bands</b><span>What happened · the bad value · the constraint · the fix. Every message, every time.</span></div>
+      <div class="cheat-item"><b>Never fail silently</b><span>A dropped row with no message is a bug you'll debug for hours. Print a kept/dropped summary.</span></div>
+      <div class="cheat-item"><b>Keep the cause</b><span>Don't flatten a specific failure into generic "error". The real reason is right there - surface it.</span></div>
+      <div class="cheat-item"><b>Echo the input</b><span>Put the offending value in the message. "saw 'click'" beats "invalid type".</span></div>
+      <div class="cheat-item"><b>Pair problem with fix</b><span>The single highest-value rule. Every problem statement gets a concrete next step.</span></div>
+      <div class="cheat-item"><b>Be concise</b><span>The reader is frustrated. Trim to essentials; detail below the headline.</span></div>
+      <div class="cheat-item"><b>Don't blame</b><span>"The printer is offline", not "You specified an offline printer". Describe state, not fault.</span></div>
+      <div class="cheat-item"><b>No sorry, no jokes</b><span>Skip apologies and humor mid-crisis. Consistent terminology, positive framing.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Deep dive 1 of 4 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="08-edit-and-ship.html">← Session 8</a> &nbsp;·&nbsp; <a href="92-accessible-writing.html">Next: Accessible writing →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

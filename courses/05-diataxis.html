@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 · Diátaxis: the four kinds of docs - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 5 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 5 of 8</div>
+    <h1>Diátaxis: the <span class="accent">four kinds</span> of docs</h1>
+    <p class="sub">"The documentation" is not one thing. It is four different jobs wearing one name, and mixing them is why doc sets feel like they're failing even when every fact in them is true. Today you learn the map, the compass, and you write Pulse's first real how-to guide.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Core</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">You have felt it: the README that teaches when you need steps, the wiki page that lists options when you need to understand why. One framework explains all of it. Diátaxis, created by Daniele Procida (free at <a href="https://diataxis.fr">diataxis.fr</a>), says users need four distinct kinds of documentation - tutorial, how-to guide, reference, explanation - and that most doc pain is one kind doing another kind's job. Pulse already has an audience statement, a plan, and a README; today we find the gap the framework exposes.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Source: diataxis.fr (Daniele Procida)</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The two-question compass that names any doc's type in ten seconds, the workflow rule that keeps you from a doomed grand restructure, and Pulse's first how-to guide: <code>docs/how-to-diagnose-low-day.md</code>, written for the on-call engineer your audience statement promised to serve back in Session 1.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE MAP ============ -->
+  <section class="section" id="map">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers diataxis.fr "Start here" + "Tutorials" + "How-to guides"</span>
+      <h2>The map <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Two questions generate the whole framework. Is the user doing something practical (action) or acquiring theory (cognition)? And are they at study, building skill (acquisition), or at work, applying it (application)? Two axes, four quadrants, four kinds of docs. Each quadrant answers a different question a user actually asks.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Diátaxis map: four quadrants on two axes. Action versus cognition vertically, acquisition versus application horizontally. Tutorial top left, how-to guide top right, explanation bottom left, reference bottom right">
+        <style>
+          .s5mT { font: 700 18px Inter, sans-serif; fill: #FFFFFF; }
+          .s5mS { font: 400 13px Inter, sans-serif; fill: #FAECE7; }
+          .s5mE { font: 700 18px Inter, sans-serif; fill: #7E2718; }
+          .s5mF { font: 400 13px Inter, sans-serif; fill: #7E2718; }
+          .s5mA { font: 700 13px Inter, sans-serif; fill: #6E675C; letter-spacing: 1px; }
+          .s5mN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <text class="s5mA" x="460" y="26" text-anchor="middle">ACTION · practical knowing-how</text>
+        <text class="s5mA" x="30" y="192" text-anchor="middle" transform="rotate(-90 30 192)">ACQUISITION · at study</text>
+        <text class="s5mA" x="864" y="192" text-anchor="middle" transform="rotate(90 864 192)">APPLICATION · at work</text>
+        <rect x="70" y="42" width="380" height="142" rx="14" fill="#C2402A"/>
+        <text class="s5mT" x="94" y="80">Tutorial</text>
+        <text class="s5mS" x="94" y="110">"Can you teach me to...?"</text>
+        <text class="s5mS" x="94" y="134">a learning-oriented lesson</text>
+        <text class="s5mS" x="94" y="156">serves the newcomer building skill</text>
+        <rect x="470" y="42" width="380" height="142" rx="14" fill="#7E2718"/>
+        <text class="s5mT" x="494" y="80">How-to guide</text>
+        <text class="s5mS" x="494" y="110">"How do I...?"</text>
+        <text class="s5mS" x="494" y="134">goal-oriented directions</text>
+        <text class="s5mS" x="494" y="156">serves the competent user mid-task</text>
+        <rect x="70" y="196" width="380" height="142" rx="14" fill="#E5A08F"/>
+        <text class="s5mE" x="94" y="234">Explanation</text>
+        <text class="s5mF" x="94" y="264">"Why...?"</text>
+        <text class="s5mF" x="94" y="288">understanding-oriented discussion</text>
+        <text class="s5mF" x="94" y="310">serves the reader stepping back to reflect</text>
+        <rect x="470" y="196" width="380" height="142" rx="14" fill="#D4664E"/>
+        <text class="s5mT" x="494" y="234">Reference</text>
+        <text class="s5mS" x="494" y="264">"What is...?"</text>
+        <text class="s5mS" x="494" y="288">information-oriented description</text>
+        <text class="s5mS" x="494" y="310">serves the worker who needs a fact, fast</text>
+        <line x1="460" y1="42" x2="460" y2="338" stroke="#CFC8B9" stroke-width="2"/>
+        <line x1="70" y1="190" x2="850" y2="190" stroke="#CFC8B9" stroke-width="2"/>
+        <text class="s5mA" x="460" y="366" text-anchor="middle">COGNITION · theoretical knowing-that</text>
+        <rect x="70" y="392" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s5mN" x="94" y="404">Lost? Two questions: action or cognition, study or work. The answers name the box.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the Diátaxis map: four user needs on two axes, from diataxis.fr</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Two axes, four quadrants<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Each kind of documentation answers one canonical user question, and refuses the other three:</p>
+        <ul>
+          <li><strong>Tutorial - "Can you teach me to...?"</strong> A lesson. The user is at study, doing practical work, and the teacher is responsible for their success: visible results at every step, one safe path, no alternatives, minimal explanation, absolute reliability.</li>
+          <li><strong>How-to guide - "How do I...?"</strong> Directions for a goal. The user is at work, already competent, and needs steps that adapt to their real, messy situation.</li>
+          <li><strong>Reference - "What is...?"</strong> Description. Dry, list-like, consulted while working. It mirrors the structure of the product itself, like a map mirrors territory.</li>
+          <li><strong>Explanation - "Why...?"</strong> Discussion. Read away from the keyboard, when the user steps back to understand context, design decisions, and trade-offs.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Take the last doc you opened at work and ask the two compass questions:
+
+1. Does it inform ACTION (steps to take) or COGNITION (things to know)?
+2. Does it serve ACQUISITION (someone learning) or APPLICATION (someone working)?
+
+Two answers = one quadrant. If you got different answers for different
+sections of the same page, congratulations: you found a fused doc.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Tutorial vs how-to: the most-conflated pair<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Both are practical and step-shaped, which is why merging them is the single most common mistake in software docs. But they serve opposite situations:</p>
+        <table class="clean">
+          <thead><tr><th></th><th>Tutorial</th><th>How-to guide</th></tr></thead>
+          <tbody>
+            <tr><td>User is</td><td>at study, building skill</td><td>at work, mid-task</td></tr>
+            <tr><td>Setting</td><td>contrived and safe, chosen by you</td><td>their real, messy environment</td></tr>
+            <tr><td>Path</td><td>one fixed linear path, no alternatives</td><td>branches for real-world variation</td></tr>
+            <tr><td>Responsibility</td><td>the teacher owns the learner's success</td><td>the user owns the outcome</td></tr>
+            <tr><td>Analogy</td><td>a cooking lesson with an instructor</td><td>a recipe in your own kitchen</td></tr>
+          </tbody>
+        </table>
+        <p>The tell: a "tutorial" that opens with "depending on your setup, you may want to..." is a how-to guide in costume. A "how-to" that pauses to explain what a virtual environment is has a tutorial trapped inside it.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The getting-started page that served no one.</strong> A data platform's "Getting started" mixed a toy walkthrough with production deployment options. Newcomers hit the branching options and froze; experienced engineers waded through the toy example to find the one flag they needed. Split into a tutorial (fixed sample data, guaranteed outcome) and a deployment how-to, both audiences got faster - the content barely changed, only its sorting did.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Reference vs explanation: the litmus test<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The cognition side has its own commonly-fused pair. The litmus test is when the reader has it open:</p>
+        <ul>
+          <li><strong>Reference is consulted WHILE working.</strong> It is austere on purpose: tables, parameter lists, one true format. It states facts and cites nothing but the product. Its structure should mirror the product's structure, so the user can navigate the doc by navigating their mental model of the code.</li>
+          <li><strong>Explanation is read when stepping back.</strong> It is discursive and wide-angle: why the design is this way, what the alternatives were, how this connects to that. It is the one quadrant where opinion and perspective are welcome.</li>
+        </ul>
+        <p>If a "reference" page starts arguing for a design decision, cut the argument and move it to an explanation page. If an "architecture overview" keeps getting opened mid-incident for one config value, that value belongs in reference. Session 6 builds both kinds for Pulse.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: COMPASS AND WORKFLOW ============ -->
+  <section class="section" id="compass">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers diataxis.fr "The compass" + "How to use Diátaxis"</span>
+      <h2>The compass and the workflow <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">The map tells you what the four kinds are. The compass tells you where you are standing right now, with a real messy page in front of you. And the workflow rule tells you what to do about it - which is emphatically NOT what most teams do first.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The compass on messy real pages<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Real pages rarely arrive pre-labeled. The compass is the two questions from the map, applied to whatever is in front of you: <strong>action or cognition?</strong> then <strong>acquisition or application?</strong> Ask them about each chunk of a page, not the page as a whole.</p>
+        <p>Worked example: "Is our wiki page on the alert system a how-to or a reference?" Run the compass section by section and the honest answer is: <strong>it's three docs fused.</strong> The threshold table (cognition + application) is reference. The what-to-do-when-it-fires steps (action + application) are a how-to. The paragraph on why we alert on volume instead of latency (cognition + acquisition) is explanation. The page isn't bad because the facts are wrong; it's bad because three different readers each have to wade through the other two readers' content.</p>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          The compass works before writing too. About to type? Ask the two questions about what the READER will be doing, name the quadrant, and let that quadrant's rules settle your tone, structure, and what to leave out.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The iteration rule: never restructure top-down<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The classic failure mode after learning Diátaxis: declare a grand migration, create four empty sections labeled Tutorials, How-to, Reference, Explanation, and start shoveling the old wiki into them. The diataxis.fr site itself is blunt about this: don't do that, it's horrible. You burn weeks, the empty skeleton demoralizes everyone, and the fused pages stay fused - just in new folders.</p>
+        <p>The prescribed workflow is deliberately small:</p>
+        <ul>
+          <li><strong>Pick any small piece</strong> of the existing docs. Literally any page, wherever you happen to be.</li>
+          <li><strong>Assess it with the compass.</strong> What is it trying to be? What is it fused with? What single thing would most improve it?</li>
+          <li><strong>Make ONE improvement and publish it.</strong> Move the reference table out. Sharpen one title. Delete one digression.</li>
+          <li><strong>Repeat.</strong> Structure emerges from many small correct moves, the way a city street grid emerges, not the way a planned monument does.</li>
+        </ul>
+        <p>The mindset shift underneath: documentation is never "finished", and under this workflow it is always complete - every published state is a valid, shippable state. There is no half-migrated limbo.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Complex hierarchies: audience first, then the four needs<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Big products break the naive four-folder layout: a platform serving analysts, engineers, and admins can't share one tutorial section. The guidance for scale:</p>
+        <ul>
+          <li><strong>Segment by user type or context FIRST,</strong> then apply the four needs within each segment. "Analyst docs" gets its own tutorial, how-tos, reference; so does "operator docs". The audience statement from Session 1 is exactly this segmentation, already written.</li>
+          <li><strong>Cap contents lists at roughly seven items.</strong> Past that, readers stop scanning and start searching, which means your structure has stopped helping. Split or regroup.</li>
+          <li><strong>Make landing pages readable overviews,</strong> not bare link farms. A good landing page tells the reader which segment they are and which need they have, in prose, before showing them the list.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Compass-audit the Pulse doc set <span class="tag demo">★ 6 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">Pulse now has four prose artifacts: <code>docs/AUDIENCE.md</code>, <code>docs/PLAN.md</code>, <code>docs/notes-rewrite.md</code>, and the README from Session 4. Run the compass over each and find what the set is missing.</p>
+
+    <div class="steps">
+      <div class="step"><p>Compass the <strong>README</strong>: the quickstart with expected outputs is action + application (how-to), the config table is cognition + application (reference). Verdict: a fusion - <strong>and that's fine.</strong> A README is a front door, not a quadrant; its job is to route readers, and short embedded slices of two quadrants is exactly what a front door does.</p></div>
+      <div class="step"><p>Compass <strong>notes-rewrite.md</strong> from Session 2: it mostly says why things are the way they are. Cognition + acquisition: explanation-ish. Park it; Session 6 gives it a real home.</p></div>
+      <div class="step"><p>Now check the map against <code>docs/AUDIENCE.md</code>. The secondary audience is the on-call engineer at 2am whose job is to diagnose a LOW alert day. Action + application. That is a how-to guide - <strong>and no such doc exists.</strong> The gap found itself.</p></div>
+    </div>
+
+    <div class="callout win">
+      <strong>★ The audit's lesson</strong>
+      The compass didn't tell us to restructure anything. It classified what exists, blessed the README's fusion as appropriate for a front door, and pointed at one missing doc for one named audience. That is the framework working as intended: one small next move, not a migration.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Write the how-to: diagnose a LOW day <span class="tag demo">★ 10 min · build your own</span></h2>
+    </div>
+    <p class="lede">Time to fill the gap. A how-to guide is recipe-shaped: a precisely-named goal, prerequisites, numbered actionable steps, zero teaching, zero digression. Where the reader might need background, we link to reference instead of explaining inline.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>docs/how-to-diagnose-low-day.md</code>. Note the title names the exact task in the user's own words - a how-to's title is its search result.</p></div>
+      <div class="step"><p>Copy the guide below. Read it as the 2am engineer: every step is an action with a decision at the end, and nothing explains how the pipeline works.</p></div>
+      <div class="step"><p>Check it against the how-to rules: prerequisites stated, steps adapt to the real world (the branches live inside steps 2-4), no teaching, ends when the goal is reached.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/how-to-diagnose-low-day.md</span># How to diagnose a LOW day in Pulse
+
+Use this guide when a row in daily_metrics.csv shows LOW in the alert
+column (events below alerts.min_daily_events in config.yaml, default 50).
+
+Prerequisites: a checkout of pulse/ and the run that produced the alert.
+
+1. Open daily_metrics.csv and find the LOW row. Note the day and its
+   events count.
+2. Check the cleaned data volume for that day. If cleaned rows are near
+   zero, the loss happened before metrics.py - continue to step 3.
+3. Check that the raw files for that day actually arrived in
+   pulse/data/raw. Missing or empty files mean an upstream delivery
+   failure: stop here, that is your cause.
+4. Check for a spike in filtered rows: clean.py drops events whose type
+   is not in config.yaml valid_types (page_view, signup, purchase,
+   api_call). A sudden filter spike usually means an upstream schema or
+   naming change.
+5. Decide: raw files missing or filter spiked = data problem. Raw volume
+   genuinely low with normal filtering = real traffic drop.
+6. Escalate with evidence: the day, the events count, and which step
+   (3, 4, or 5) localized the cause.
+
+For column and config key definitions, see the config reference
+(Session 6). This guide does not explain how the pipeline works.</div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      Notice what restraint bought: the guide never defines "cleaned data" or teaches YAML, because its reader is competent and mid-incident. The two sentences at the bottom do the linking-not-teaching move - the how-to points at reference and refuses to become explanation.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>Quadrant-sort your own team wiki <span class="tag demo">★ 6 min · build your own</span></h2>
+    </div>
+    <p class="lede">The compass only becomes yours when you run it on pages you actually own. This exercise takes five pages and produces a number you can report: how many of your docs are fused.</p>
+
+    <div class="steps">
+      <div class="step"><p>Pick five pages from your team's wiki or docs folder - the five most-visited if you know them, otherwise the five you touched most recently.</p></div>
+      <div class="step"><p>Compass each one section by section: action or cognition, study or work. Give each page a verdict: one clean quadrant, or fused (name the quadrants inside it).</p></div>
+      <div class="step"><p>Count the fused ones. Three or more out of five is typical, so don't be discouraged - be specific. For ONE fused page, name the single improvement you'd publish this week, per the iteration rule.</p></div>
+      <div class="step"><p>Do not create four empty folders. Not even a little bit.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The one-page-a-week migration.</strong> A five-person data team scored 9 of their 12 wiki pages as fused, then fixed exactly one page per week: usually by moving a reference table out of a how-to. After a quarter, without ever announcing a restructure, their docs had quietly become navigable - and the habit survived because no single week's work exceeded an hour.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Finish <code>docs/how-to-diagnose-low-day.md</code> in your Pulse copy if you didn't complete it live, and walk it once against a real run's <code>daily_metrics.csv</code>.</li>
+      <li>Complete the Demo 3 quadrant-sort on five real pages, and publish ONE small improvement to one fused page. One. Publish it.</li>
+      <li>Run the Part 1 <strong>★ Try it now</strong> compass drill until the two questions feel automatic - the goal is naming a quadrant in under ten seconds.</li>
+      <li>Read the Self-study cards: the reference vs explanation litmus test, and complex hierarchies. Both come due in Session 6 when we build Pulse's reference docs.</li>
+      <li>Optional depth: the theory pages at <a href="https://diataxis.fr">diataxis.fr</a> (foundations, the map, quality) explain WHY the two axes carve documentation at its joints - a satisfying read once you've used the compass in anger.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these diataxis.fr pages. What stays with the original: the full theory essays and Procida's worked prose examples, which reward a direct read.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · Start here</span><span class="note">Part 1: the two axes, four quadrants, canonical questions</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · Tutorials</span><span class="note">Part 1: lesson principles - visible results, one path, teacher owns success</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · How-to guides</span><span class="note">Part 1 + Demo 2: recipe shape, no teaching, precise titles</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · The compass</span><span class="note">Part 2 + Demo 1: two questions applied to messy real pages</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · How to use Diátaxis (workflow)</span><span class="note">Part 2: iterate small, publish, never restructure top-down</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis · Reference &amp; Explanation</span><span class="note">Self-study card: the while-working vs stepping-back litmus test</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Diátaxis · Theory (foundations, the map, quality)</span><span class="note">Self-study pointer in homework; full essays at diataxis.fr</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Diátaxis · Complex hierarchies</span><span class="note">Self-study card: segment by audience first, ~7 items per list</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · An engineer mid-incident needs the exact meaning of the alert column in daily_metrics.csv. Which doc serves them?</p>
+      <button class="qopt" type="button">A · An explanation of the alerting philosophy</button>
+      <button class="qopt" type="button">B · Reference - cognition + application: a fact, consulted while working</button>
+      <button class="qopt" type="button">C · A tutorial that walks through building the metrics step</button>
+      <p class="qwhy">Compass it: they need to KNOW something (cognition), and they are at WORK (application). That quadrant is reference. The other two would make a 2am incident longer.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What actually separates a tutorial from a how-to guide?</p>
+      <button class="qopt" type="button">A · Tutorials are longer and have screenshots</button>
+      <button class="qopt" type="button">B · Tutorials are for beginners, how-tos are for experts, so how-tos can skip steps</button>
+      <button class="qopt" type="button">C · Tutorials serve study on one safe fixed path with the teacher responsible; how-tos serve real work and adapt to it</button>
+      <p class="qwhy">The difference is the user's situation, not length or skill flattery: contrived-safe vs real-world, single path vs branching, teacher-responsible vs user-responsible. It's the most-conflated pair for a reason.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Your team just learned Diátaxis and wants to fix the wiki. What does the framework say to do first?</p>
+      <button class="qopt" type="button">A · Pick one small piece, make one improvement, publish, repeat</button>
+      <button class="qopt" type="button">B · Create the four sections, then migrate every page into them</button>
+      <button class="qopt" type="button">C · Freeze the wiki until a full restructure plan is approved</button>
+      <p class="qwhy">The top-down empty-skeleton restructure is the failure mode the site warns against by name. Structure emerges from small published improvements; docs are always complete, never finished.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 5 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The two axes</b><span>Action vs cognition (doing vs knowing) · acquisition vs application (at study vs at work). Everything else follows.</span></div>
+      <div class="cheat-item"><b>Four questions</b><span>Tutorial: "teach me to..." · How-to: "how do I..." · Reference: "what is..." · Explanation: "why...".</span></div>
+      <div class="cheat-item"><b>The compass</b><span>Action or cognition? Study or work? Two answers name the quadrant. Run it per section, not per page.</span></div>
+      <div class="cheat-item"><b>Tutorial vs how-to</b><span>Study vs work · safe fixed path vs real-world branching · teacher owns success vs user owns outcome.</span></div>
+      <div class="cheat-item"><b>Reference vs explanation</b><span>Consulted while working (dry, mirrors the product) vs read stepping back (discursive, opinion welcome).</span></div>
+      <div class="cheat-item"><b>How-to shape</b><span>Precise task-named title · prerequisites · numbered actionable steps · no teaching · link to reference instead.</span></div>
+      <div class="cheat-item"><b>The workflow</b><span>Never restructure top-down into empty sections. One small improvement, published, repeated. Always complete, never finished.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>README compassed (front-door fusion, fine) · gap found · how-to-diagnose-low-day.md ✓. Reference + explanation land in Session 6.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 5 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="04-the-readme.html">← Prev</a> &nbsp;·&nbsp; <a href="06-reference-adrs-changelogs.html">Next: Reference docs, ADRs, changelogs →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

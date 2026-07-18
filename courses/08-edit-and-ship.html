@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 8 · Edit like a pro, ship v1.0: milestone 4 - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 8 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 8 of 8</div>
+    <h1>Edit like a pro, <span class="accent">ship v1.0</span></h1>
+    <p class="sub">First drafts are for the writer; editing is for the reader. In this final session you run a professional editing pass over everything we've written, add the one diagram Pulse deserves, put LLMs to work without letting them lie, and ship the Pulse doc set as v1.0.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Full stack</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">Seven sessions in, Pulse has every doc from the Session 1 plan: audience statement, README, how-to, reference, ADR, changelog, and a docs-as-code pipeline that lints it all. What it doesn't have yet is a final quality pass. Drafting and editing are different jobs done in different mindsets, and today we do the second job properly - then we ship.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Google TW Two</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The 6-tactic editing pass from Google's Technical Writing Two, one caption-first diagram of the Pulse pipeline, an LLM revision workflow with a hard verification rule, and a CHANGELOG 1.0.0 entry that ships the whole doc set. Milestone 4: Pulse docs v1.0, done.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE EDITING PASS ============ -->
+  <section class="section" id="editing">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Google TW Two "Self-editing"</span>
+      <h2>The editing pass <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">You cannot draft and edit in the same sitting with the same brain. Google's self-editing unit gives six tactics for turning the writer's draft into the reader's document - and the order you apply them in matters as much as the tactics themselves.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The editing funnel: a draft passes through structure edit, paragraph edit, sentence edit and mechanical lint before shipping as v1.0">
+        <style>
+          .s8eT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .s8eS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s8eG { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .s8eX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s8eN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s8Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="15" y="55" width="118" height="88" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="s8eG" x="32" y="92">Draft</text>
+        <text class="s8eX" x="32" y="114">written for</text>
+        <text class="s8eX" x="32" y="130">the writer</text>
+        <line x1="135" y1="99" x2="153" y2="99" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Ah)"/>
+        <rect x="157" y="55" width="118" height="88" rx="14" fill="#7E2718"/>
+        <text class="s8eT" x="172" y="86">Structure</text>
+        <text class="s8eT" x="172" y="104">edit</text>
+        <text class="s8eS" x="172" y="126">right sections,</text>
+        <text class="s8eS" x="172" y="140">right order</text>
+        <line x1="277" y1="99" x2="295" y2="99" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Ah)"/>
+        <rect x="299" y="55" width="118" height="88" rx="14" fill="#C2402A"/>
+        <text class="s8eT" x="314" y="86">Paragraph</text>
+        <text class="s8eT" x="314" y="104">edit</text>
+        <text class="s8eS" x="314" y="126">one idea, lead</text>
+        <text class="s8eS" x="314" y="140">sentence first</text>
+        <line x1="419" y1="99" x2="437" y2="99" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Ah)"/>
+        <rect x="441" y="55" width="118" height="88" rx="14" fill="#D4664E"/>
+        <text class="s8eT" x="456" y="86">Sentence</text>
+        <text class="s8eT" x="456" y="104">edit</text>
+        <text class="s8eS" x="456" y="126">active, short,</text>
+        <text class="s8eS" x="456" y="140">precise verbs</text>
+        <line x1="561" y1="99" x2="579" y2="99" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Ah)"/>
+        <rect x="583" y="55" width="118" height="88" rx="14" fill="#E5A08F"/>
+        <text class="s8eT" x="598" y="86">Mechanical</text>
+        <text class="s8eT" x="598" y="104">lint</text>
+        <text class="s8eS" x="598" y="126">style guide,</text>
+        <text class="s8eS" x="598" y="140">typos, links</text>
+        <line x1="703" y1="99" x2="721" y2="99" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Ah)"/>
+        <rect x="725" y="55" width="118" height="88" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="s8eG" x="742" y="92">v1.0 ships</text>
+        <text class="s8eX" x="742" y="114">written for</text>
+        <text class="s8eX" x="742" y="130">the reader</text>
+        <text class="s8eX" x="15" y="185">Each stage can delete work the next stage would have polished. Do them in this order, once each.</text>
+        <rect x="15" y="212" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s8eN" x="39" y="224">Edit big to small - never polish a sentence that should be deleted.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the editing funnel: four passes, biggest decisions first</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The six self-editing tactics<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's six tactics, translated into data-team reality:</p>
+        <ul>
+          <li><strong>Adopt a style guide.</strong> Stop debating "log in" vs "login" per doc; the guide decides once. Our .vale.ini from Session 7 automates the checkable half.</li>
+          <li><strong>Think like your audience.</strong> Reopen docs/AUDIENCE.md and reread your draft as the new analyst. Where would that persona stop and DM you?</li>
+          <li><strong>Read it aloud.</strong> Your ear catches what your eye forgives: run-on sentences, three "howevers" in a row, a paragraph you can't finish in one breath.</li>
+          <li><strong>Come back later.</strong> Even an hour away resets your eyes. Overnight is better. The curse of knowledge from Session 1 fades a little with distance.</li>
+          <li><strong>Change the context.</strong> Print it, change the font, read it on your phone. A different rendering breaks the "I already know what this says" autopilot.</li>
+          <li><strong>Get a peer editor.</strong> This is exactly the doc review workflow from Session 7 - a reviewer who reads as the audience, not as a co-author.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Take any paragraph you wrote this week and read it aloud, literally out loud.
+Mark every place you stumbled, restarted, or ran out of breath.
+Each mark is an edit site - usually a sentence that wants to be two.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The compounding checklist: seven sessions in one pass<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Everything this course taught is now an editing checklist. Run it top to bottom - big decisions first, mechanical polish last:</p>
+        <table class="clean">
+          <thead><tr><th>Check</th><th>From</th><th>Ask</th></tr></thead>
+          <tbody>
+            <tr><td>Audience match</td><td>Session 1</td><td>Does every section serve someone in AUDIENCE.md, at their knowledge level?</td></tr>
+            <tr><td>Scope statements</td><td>Session 1</td><td>Does the top declare what this covers, what it doesn't, and who it's for?</td></tr>
+            <tr><td>Quadrant purity</td><td>Session 5</td><td>Is the how-to still a how-to, the reference still a reference - no tutorials leaking into lookup tables?</td></tr>
+            <tr><td>Structure</td><td>Session 3</td><td>Lists where there are steps, tables where there are lookups, a lead sentence on every paragraph?</td></tr>
+            <tr><td>Sentence rules</td><td>Session 2</td><td>Active voice, strong verbs, one idea per sentence, no "there is/there are" openers?</td></tr>
+          </tbody>
+        </table>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          Notice the order: the table is the funnel. If the quadrant check fails, half the sentences will get deleted anyway - which is why you check quadrants before polishing prose.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Style guides as an editing shortcut<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A style guide converts a hundred per-sentence judgment calls into zero. Adopt an existing one rather than writing your own: the Google developer documentation style guide and the Microsoft Writing Style Guide are both free, both excellent, and both opinionated enough to settle arguments.</p>
+        <ul>
+          <li><strong>Adopt, then override sparingly.</strong> Our DOCS.md from Session 7 is one page of team-specific overrides on top of Google's guide - that's the right ratio.</li>
+          <li><strong>Automate the checkable half.</strong> Vale rules catch banned words and casing; humans keep judgment calls like tone and audience fit.</li>
+          <li><strong>Go deeper:</strong> Deep dive 4 covers building a team style guide and docs norms that survive contact with a real sprint.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: DIAGRAMS AND SAMPLE CODE ============ -->
+  <section class="section" id="illustrating">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Google TW Two "Illustrating" + "Sample code"</span>
+      <h2>Diagrams and sample code <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">The two highest-trust elements in any doc are the diagram and the code block, because readers treat both as ground truth. Google's rules for each start in the same place: decide what the element must say before you build it, and never let it say more than one paragraph's worth.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 265" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Pulse pipeline: raw CSVs flow through ingest, clean and metrics scripts to one daily metrics file, with config.yaml feeding all three steps">
+        <style>
+          .s8pT { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .s8pS { font: 400 11px Inter, sans-serif; fill: #FAECE7; }
+          .s8pG { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+          .s8pX { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+          .s8pN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s8Bh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="15" y="50" width="95" height="70" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s8pG" x="28" y="80">raw CSVs</text>
+        <text class="s8pX" x="28" y="98">data/raw/</text>
+        <line x1="112" y1="85" x2="131" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="135" y="50" width="105" height="70" rx="12" fill="#7E2718"/>
+        <text class="s8pT" x="149" y="80">ingest.py</text>
+        <text class="s8pS" x="149" y="98">validate headers</text>
+        <line x1="242" y1="85" x2="261" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="265" y="50" width="90" height="70" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s8pG" x="278" y="80">staged</text>
+        <text class="s8pX" x="278" y="98">one CSV</text>
+        <line x1="357" y1="85" x2="376" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="380" y="50" width="105" height="70" rx="12" fill="#C2402A"/>
+        <text class="s8pT" x="394" y="80">clean.py</text>
+        <text class="s8pS" x="394" y="98">drop bad rows</text>
+        <line x1="487" y1="85" x2="506" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="510" y="50" width="90" height="70" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s8pG" x="523" y="80">cleaned</text>
+        <text class="s8pX" x="523" y="98">valid rows</text>
+        <line x1="602" y1="85" x2="621" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="625" y="50" width="105" height="70" rx="12" fill="#D4664E"/>
+        <text class="s8pT" x="639" y="80">metrics.py</text>
+        <text class="s8pS" x="639" y="98">flag LOW days</text>
+        <line x1="732" y1="85" x2="751" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s8Bh)"/>
+        <rect x="755" y="50" width="110" height="70" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="s8pG" x="768" y="76">daily_</text>
+        <text class="s8pG" x="768" y="92">metrics.csv</text>
+        <text class="s8pX" x="768" y="110">the output</text>
+        <rect x="355" y="165" width="150" height="48" rx="12" fill="#E5A08F"/>
+        <text class="s8pT" x="374" y="185">config.yaml</text>
+        <text class="s8pS" x="374" y="202">valid_types · min 50</text>
+        <line x1="390" y1="163" x2="205" y2="128" stroke="#CFC8B9" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s8Bh)"/>
+        <line x1="432" y1="161" x2="432" y2="128" stroke="#CFC8B9" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s8Bh)"/>
+        <line x1="472" y1="163" x2="660" y2="128" stroke="#CFC8B9" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s8Bh)"/>
+        <rect x="15" y="235" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s8pN" x="39" y="247">One config file feeds all three steps - change it once, every step sees it.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Raw CSVs flow through three fixed steps to one metrics file</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Write the caption first, then draw<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's illustrating unit inverts the usual order: write the caption BEFORE you draw anything. The caption is the diagram's thesis sentence - if you can't write it, you don't know what the diagram is for yet. The figure above was built exactly this way: caption first ("Raw CSVs flow through three fixed steps to one metrics file"), boxes second.</p>
+        <ul>
+          <li><strong>One paragraph per diagram.</strong> A diagram should carry no more information than one paragraph of prose. Big system? Draw the overview, then separate diagrams per subsystem - never one wall-chart with forty boxes.</li>
+          <li><strong>Direct the eye.</strong> Callouts and arrows tell readers where to look first. A diagram with no visual entry point makes every reader invent their own reading order.</li>
+          <li><strong>Instructive, not decorative.</strong> If deleting the graphic loses nothing, delete the graphic. Screenshots of logos and stock clip art teach zero.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The sample-code quality bar<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Readers copy-paste your code blocks into terminals and production. Google's bar: good samples are correct, concise, understandable, and reusable - in that priority order.</p>
+        <ul>
+          <li><strong>Correct means tested.</strong> Every command in the Pulse README must build and run without errors, and produce the exact output the README shows. Session 7's link checker can't test this; you must.</li>
+          <li><strong>Production quality, language conventions.</strong> Readers copy your style along with your code. A sloppy sample teaches sloppiness with authority.</li>
+          <li><strong>Comments explain WHY, not what.</strong> <code># sort by date</code> above a sort is noise; <code># metrics.py assumes chronological input</code> is documentation.</li>
+          <li><strong>Sequence simple to complex, and never trade correctness for brevity.</strong> A shorter sample that only works on happy-path input is a trap, not a kindness.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The README that drifted.</strong> A team's README showed <code>python run.py --all</code>; a refactor renamed the flag to <code>--full</code> and nobody updated the doc. For six months every new hire's first experience of the codebase was a stack trace. Untested sample code is worse than none - it fails with the reader's confidence at maximum.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Diagram tools, and revising on feedback<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tooling matters less than the caption-first habit, but Google's shortlist is practical: Google Drawings, diagrams.net, and LucidChart all work; export to SVG so the diagram stays sharp at any zoom and diffs like text in a repo.</p>
+        <ul>
+          <li><strong>Diagrams are drafts too.</strong> Show the diagram to one reader from the target audience and ask them to narrate it back. Where their narration stalls, revise - same loop as prose, same peer-editor tactic as Part 1.</li>
+          <li><strong>Keep the source file in the repo</strong> next to the export, so the next editor revises instead of redrawing from scratch.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: LLMS IN THE WRITING LOOP ============ -->
+  <section class="section" id="llms">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Google TW Two "Using LLMs in tech writing"</span>
+      <h2>LLMs in the writing loop <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Google's newest unit treats LLMs as a legitimate drafting and revision tool with one non-negotiable condition: you verify everything, every time. An LLM can compress your drafting hours; it can also invent a config key that never existed, in perfect confident prose.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The drafting recipe, and the iron rule<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A useful LLM drafting prompt has four parts, all of which you already have from this course:</p>
+        <ul>
+          <li><strong>Role:</strong> "You are a technical writer on a data engineering team."</li>
+          <li><strong>Target audience:</strong> paste the relevant persona straight from docs/AUDIENCE.md - the Session 1 work pays off again.</li>
+          <li><strong>Doc type and style constraints:</strong> "a how-to guide; numbered steps; active voice; sentence-case headings; follow the Google developer style guide."</li>
+          <li><strong>Attached context:</strong> the actual code. Attach ingest.py, clean.py, metrics.py and config.yaml, not your memory of them.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The iron rule</strong>
+          Verify every LLM output against the code before it ships: every command, every file path, every config key, every default value. A hallucinated config key in the reference is worse than no docs - it fails a reader who trusted you, at the exact moment they followed instructions precisely.
+        </div>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Role: technical writer on a data engineering team.
+Audience: new data analyst - knows Python and CSVs, does not know this repo.
+Task: draft a quickstart section for the attached pipeline (3 scripts + config).
+Constraints: numbered steps, active voice, under 150 words, every command runnable as-is.
+Attached: ingest.py, clean.py, metrics.py, config.yaml
+
+Then verify: run each command the draft produces. Fix or delete anything the code disagrees with.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Revising with LLMs, and when to leave them out<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>For revision, Google's guidance mirrors the editing funnel: ask the LLM about organization BEFORE grammar. "Does this doc's structure serve a new analyst? What would you reorder or cut?" is a better first prompt than "fix my grammar" - the grammar pass is wasted on paragraphs the structure pass would delete.</p>
+        <ul>
+          <li><strong>Good LLM jobs:</strong> reorganization proposals, summarizing a long doc into a scope statement, reformatting prose into a table, tightening wordy sentences - each one verified after.</li>
+          <li><strong>When NOT to use one:</strong> ADR context sections. An ADR records why a decision was made - the constraints, the options considered, the politics of the moment. The LLM wasn't in the room. It will produce a plausible context, and plausible-but-invented history is exactly what ADRs exist to prevent.</li>
+          <li><strong>Keep authorship.</strong> The LLM drafts; you decide. The name on the commit is accountable for every claim in the doc, including the generated ones.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>The full editing pass on Pulse <span class="tag demo">★ 8 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">We run the Part 1 compounding checklist over the two most-read Pulse docs: README.md and docs/how-to-diagnose-low-day.md. Big to small, top to bottom.</p>
+
+    <div class="steps">
+      <div class="step"><p>Open README.md next to docs/AUDIENCE.md. Run checks in funnel order: audience match, scope statements, quadrant purity, structure, then sentences. Log every finding - do not fix anything yet.</p></div>
+      <div class="step"><p>Repeat for docs/how-to-diagnose-low-day.md, this time reading as the 2am on-call engineer. Read one section aloud - the ear test finds what the checklist misses.</p></div>
+      <div class="step"><p>Rank each doc's findings by reader damage. Fix the top 3 per doc, biggest first. Resist fixing typos before structure - that's polishing sentences that might not survive.</p></div>
+      <div class="step"><p>Commit with a message that says what the edit pass changed, e.g. <code>docs: edit pass - front-load LOW triage decision, split run steps</code>. The docs-as-code pipeline from Session 7 lints it on push.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      Cap the fixes at three per doc, on purpose. An editing pass that tries to fix everything ships nothing; three real fixes per doc, every pass, compounds fast.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Caption first: diagram the pipeline <span class="tag demo">★ 7 min · build your own</span></h2>
+    </div>
+    <p class="lede">Pulse's README explains the run order in prose. Now we add the one diagram it deserves, using the caption-first method from Part 2 - and you check your sketch against the model answer already sitting on this page.</p>
+
+    <div class="steps">
+      <div class="step"><p>Write the caption before drawing anything: one sentence stating what the diagram must teach. Aim for something like "Raw CSVs flow through three fixed steps to one metrics file."</p></div>
+      <div class="step"><p>Sketch it - paper, diagrams.net, anything. Include only what the caption promises: the three scripts, the data between them, and config.yaml feeding all three. No infra, no future plans, no forty boxes.</p></div>
+      <div class="step"><p>Apply the one-paragraph cap: if your sketch says more than one paragraph of prose could, split it or cut it.</p></div>
+      <div class="step"><p>Compare against the Part 2 figure above - that SVG is the model answer for this exercise. Check: does your version have a visual entry point? Does every arrow mean the same thing?</p></div>
+      <div class="step"><p>Export to SVG, drop it in the repo, and reference it from the README under its caption.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The caption that killed a diagram.</strong> An engineer spent a day on a beautiful full-architecture diagram, then couldn't write its caption - it turned out to be four diagrams in a trench coat. The caption-first rule costs one sentence and saves the day of drawing.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>Ship v1.0 and close the loop <span class="tag demo">★ 8 min · milestone 4</span></h2>
+    </div>
+    <p class="lede">Time to ship. We cut the 1.0.0 changelog entry, tick every row of the Session 1 doc plan, and then run the ultimate acceptance test: Session 1's three newcomer questions, against the finished docs, on the clock.</p>
+
+    <div class="steps">
+      <div class="step"><p>Add the 1.0.0 entry to CHANGELOG.md (skeleton below), listing the complete doc set under Added.</p></div>
+      <div class="step"><p>Open docs/PLAN.md from Session 1 and tick every row: README (S4), how-to (S5), reference (S6), ADR-001 (S6), CHANGELOG (S6). Every planned doc exists and names its reader's action.</p></div>
+      <div class="step"><p>The acceptance test - answer Session 1's three newcomer questions using ONLY the docs: How do I run it, and in what order? Which event types are valid? What does the LOW alert mean? Target: under 60 seconds each.</p></div>
+      <div class="step"><p>Remember Session 1: those same answers took minutes of code archaeology through config.yaml and metrics.py. That delta is the value of everything you built in eight sessions.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">CHANGELOG.md · the 1.0.0 entry</span>## [1.0.0] - 2026-07-24
+
+First complete documentation release for Pulse.
+
+### Added
+- README: quickstart, run order, and the pipeline diagram
+- docs/how-to-diagnose-low-day.md: on-call triage for LOW days
+- docs/reference-config.md: every config.yaml key, typed and defaulted
+- docs/adr/ADR-001-utc-everywhere.md: the timezone decision record
+- docs/AUDIENCE.md and docs/PLAN.md: who the docs serve, and the map
+- .vale.ini + DOCS.md: style rules and docs norms, linted in CI</div>
+
+    <div class="callout win">
+      <strong>★ Milestone 4: Pulse docs v1.0</strong>
+      Eight sessions ago Pulse was three scripts and a cryptic NOTES.txt. It now ships an audience-checked, structure-edited, linted, versioned doc set that answers a newcomer's questions in under a minute. That is what "documented" means.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>The graduation assignment <span class="tag exercise">◐ 2 weeks</span></h2>
+    </div>
+    <ul>
+      <li><strong>Pick ONE undocumented system at work</strong> - a pipeline, a service, a spreadsheet empire - and run the full 8-session loop on it in the next two weeks: audience + plan (S1), a rewritten core doc with clean sentences and structure (S2-S3), a README (S4), one how-to (S5), reference + ADR + changelog (S6), docs-as-code checks (S7), and this session's editing pass to ship it.</li>
+      <li>Timebox it: the point is a shipped v1.0 doc set, not a perfect one. Three real docs that exist beat ten planned ones.</li>
+      <li>Run the acceptance test from Demo 3 on your system: can a newcomer answer their three most likely questions from the docs alone, in under a minute each?</li>
+      <li>Then go deeper with the deep dives, starting with <a href="91-error-messages.html">writing helpful error messages</a> - the most-read docs your systems will ever produce - and continuing through accessible writing, API docs, and style guides.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session completes Google's Technical Writing Two. What stays with the original: the facilitated in-class exercises and peer-editing workshop formats (facilitator guides are free).</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Self-editing</span><span class="note">Part 1: the six tactics, style guides, edit big to small</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Illustrating</span><span class="note">Part 2: caption first, one paragraph per diagram, callouts, tools</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Creating sample code</span><span class="note">Part 2: correct, concise, understandable, reusable; WHY comments; tested samples</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Using LLMs in tech writing</span><span class="note">Part 3: the drafting recipe, revise organization first, verify everything</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW Two · Introduction + Summary</span><span class="note">Course framing woven through Sessions 5-8; TW Two now fully covered</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · You have 20 minutes to edit a draft. What do you check first?</p>
+      <button class="qopt" type="button">A · Typos and broken links - quick wins first</button>
+      <button class="qopt" type="button">B · Structure - right sections, right order, right doc type</button>
+      <button class="qopt" type="button">C · Sentence polish - active voice and strong verbs</button>
+      <p class="qwhy">Edit big to small. Structure decisions delete whole paragraphs - never polish a sentence that should be deleted. Typos and sentences come last.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · You're about to add a diagram to the README. What does the caption-first rule say to do?</p>
+      <button class="qopt" type="button">A · Draw the full system first, then describe what you drew</button>
+      <button class="qopt" type="button">B · Skip the caption - a good diagram explains itself</button>
+      <button class="qopt" type="button">C · Write the one-sentence caption first, then draw only what it promises</button>
+      <p class="qwhy">The caption is the diagram's thesis. If you can't write it, you don't know what the diagram is for - and it caps the content at one paragraph's worth of information.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · An LLM drafts your config reference and includes a key called retry_limit that you don't recognize. You should...</p>
+      <button class="qopt" type="button">A · Check config.yaml and the code - never ship an unverified key</button>
+      <button class="qopt" type="button">B · Keep it - the LLM read the code, so it's probably a real key</button>
+      <button class="qopt" type="button">C · Keep it but mark it "experimental" to be safe</button>
+      <p class="qwhy">The iron rule: verify every LLM output against the code. A hallucinated config key fails the reader who trusted your reference most - there is no "probably" and no "experimental" escape hatch.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 8 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Six editing tactics</b><span>Style guide · think like the audience · read aloud · fresh eyes later · change the context · peer editor.</span></div>
+      <div class="cheat-item"><b>Edit big to small</b><span>Structure → paragraphs → sentences → mechanical lint. Never polish a sentence that should be deleted.</span></div>
+      <div class="cheat-item"><b>Compounding checklist</b><span>Audience match (S1) · scope statements (S1) · quadrant purity (S5) · structure (S3) · sentence rules (S2).</span></div>
+      <div class="cheat-item"><b>Caption first</b><span>Write the diagram's one-sentence caption before drawing. Can't write it? You don't know what the diagram is for.</span></div>
+      <div class="cheat-item"><b>One paragraph per diagram</b><span>Big systems get split into subsystem diagrams. Callouts and arrows direct the eye; decorative graphics get cut.</span></div>
+      <div class="cheat-item"><b>Sample-code bar</b><span>Correct, concise, understandable, reusable. Tested, production quality, comments explain WHY. Never trade correctness for brevity.</span></div>
+      <div class="cheat-item"><b>LLM recipe + iron rule</b><span>Role + audience + doc type + constraints + attached code. Organization before grammar. Verify everything, every time.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>v1.0 shipped: README, how-to, reference, ADR, changelog, audience + plan, style rules - all edited, all linted, all versioned.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 8 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="07-docs-as-code.html">← Prev</a> &nbsp;·&nbsp; <a href="91-error-messages.html">Next: Deep dives →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

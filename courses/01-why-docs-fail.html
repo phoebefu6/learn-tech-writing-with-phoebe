@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 · Why docs fail: the audience equation - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 1 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 1 of 8</div>
+    <h1>Why docs fail: <span class="accent">the audience equation</span></h1>
+    <p class="sub">Most technical docs fail before the first sentence is written, because nobody decided who they were for. Today you get the one formula behind every good doc, and you meet Pulse, the undocumented pipeline we'll document together for eight sessions.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Easiest</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip audience">Anyone who writes READMEs</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">You already write docs: READMEs, design notes, runbooks, that one wiki page nobody reads. This course makes them the kind people actually use, using the same sources Google trains its own engineers on. Every session works on one real artifact: Pulse, a small CSV-to-metrics pipeline that ships in this repo with working code and zero documentation. By Session 8 it has a doc set you'd be proud to inherit.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Google TW One + Write the Docs</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The good-docs formula (the single idea underneath everything else in this course), a written audience statement for Pulse, and a doc plan that maps every doc Pulse needs to the session where we'll build it. Cards marked "Live" are what we do together; "Self-study" cards give you full source depth at your own pace.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE FORMULA ============ -->
+  <section class="section" id="formula">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Google TW One "Audience"</span>
+      <h2>The good-docs formula <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Google's Technical Writing One opens with an equation, not a grammar rule. Everything you will ever decide about a doc - what to include, what to cut, which words need defining - falls out of this one line.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The good-docs formula: what readers need to know minus what they already know equals what your doc must say">
+        <style>
+          .f1T { font: 700 17px Inter, sans-serif; fill: #FFFFFF; }
+          .f1S { font: 400 13px Inter, sans-serif; fill: #FAECE7; }
+          .f1O { font: 800 44px Inter, sans-serif; fill: #1C1B18; }
+          .f1G { font: 700 17px Inter, sans-serif; fill: #7E2718; }
+          .f1X { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .f1N { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <rect x="20" y="50" width="240" height="90" rx="14" fill="#C2402A"/>
+        <text class="f1T" x="42" y="86">What your readers need</text>
+        <text class="f1T" x="42" y="108">to know to do the task</text>
+        <text class="f1S" x="42" y="128">skills + knowledge required</text>
+        <text class="f1O" x="285" y="110">-</text>
+        <rect x="330" y="50" width="240" height="90" rx="14" fill="#D4664E"/>
+        <text class="f1T" x="352" y="86">What they already</text>
+        <text class="f1T" x="352" y="108">know today</text>
+        <text class="f1S" x="352" y="128">their current skills + context</text>
+        <text class="f1O" x="595" y="110">=</text>
+        <rect x="640" y="50" width="220" height="90" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="f1G" x="662" y="86">What your doc</text>
+        <text class="f1G" x="662" y="108">must say</text>
+        <text class="f1X" x="662" y="128">nothing more, nothing less</text>
+        <text class="f1X" x="20" y="180">Overshoot the gap: you re-explain what a CSV is to a data engineer, and they leave.</text>
+        <text class="f1X" x="20" y="200">Undershoot it: you say "just rerun the DAG" to a new analyst, and they're stuck.</text>
+        <rect x="20" y="222" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="f1N" x="44" y="234">Every doc decision is an estimate of this gap. Write the audience down first, then the doc.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the good-docs formula, from Google Technical Writing One's audience unit</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Audience analysis in three questions<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Before writing anything, answer three questions in writing. Not in your head - in writing, at the top of your draft. It takes two minutes and changes every sentence that follows.</p>
+        <ul>
+          <li><strong>Who are they?</strong> Their role, not their name: "data analysts new to the team", "the on-call engineer at 2am", "future me in six months".</li>
+          <li><strong>What do they already know?</strong> Assume real knowledge honestly. An analyst knows what a CSV is; do not explain it. They may not know your team's alert conventions; do explain those.</li>
+          <li><strong>What do they need to DO after reading?</strong> Docs exist so readers can act: run the pipeline, choose a config value, decide whether to page someone. If you can't name the action, you don't have a doc yet, you have a diary.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Pick the last doc you wrote (a README, a wiki page, a long Slack post). Answer in one line each:
+1. Who was it for?
+2. What did they already know?
+3. What could they DO after reading it?
+
+If question 1 has two very different answers (say, analysts AND executives), that's usually two docs pretending to be one.</div>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The two-audience README.</strong> A data team's README opened with an architecture philosophy essay (for engineers) followed by click-here screenshots (for analysts). Engineers skipped the screenshots, analysts bounced off the essay, and both groups DMed the author anyway. Split into a README plus a separate quickstart, the DMs stopped within a week. Same content, right gaps.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The curse of knowledge<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The curse of knowledge is the single biggest enemy of technical writing: once you understand something, you literally cannot remember what it was like not to understand it. The expert who built the pipeline is the worst-placed person to guess what a newcomer needs - and usually the person writing the doc.</p>
+        <p>You cannot cure it, but you can compensate:</p>
+        <ul>
+          <li><strong>Name the assumed knowledge explicitly.</strong> "This guide assumes you can run Python scripts from a terminal" turns an invisible assumption into a checkable prerequisite.</li>
+          <li><strong>Test on a real newcomer.</strong> One fresh reader following your doc, while you stay silent, finds more gaps than three expert reviews.</li>
+          <li><strong>Watch for insider vocabulary.</strong> Every unexplained team-ism ("the staging thing", "Dana's fix") is a wall for the reader you claimed to write for.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Writing tip</strong>
+          The words "just", "simply" and "obviously" are curse-of-knowledge alarms. If it were simple for your reader, they would not be reading your doc.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Writing for a global audience<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Most technical docs are read by more non-native English speakers than native ones. Google's guidance is blunt: prefer simple words, short sentences, and zero idioms. "A piece of cake" costs a translation lookup; "easy" costs nothing.</p>
+        <ul>
+          <li><strong>Drop cultural references and sports metaphors.</strong> "Hit it out of the park", "punt on this" and "the whole nine yards" all die in translation.</li>
+          <li><strong>Prefer standard American spelling</strong> and unambiguous date formats (2026-07-17, never 07/06/26).</li>
+          <li><strong>Simple vocabulary is not dumbed down.</strong> The technical terms stay exact; it's the connective tissue around them that gets plainer. "Utilize the aforementioned methodology" and "use this method" carry identical information.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: DOCUMENTS THAT DECLARE THEMSELVES ============ -->
+  <section class="section" id="documents">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Google TW One "Documents"</span>
+      <h2>Documents that declare themselves <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">Readers give a new doc about thirty seconds before deciding to read on or close the tab. Good docs spend those seconds declaring three things: what this covers, what it doesn't, and who it's for. Google calls these scope, non-scope, and audience statements.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The thirty-second reader: lands on the doc, scans title scope and audience, then decides to read, skim or leave">
+        <style>
+          .r2T { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .r2S { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .r2G { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .r2X { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .r2N { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="r2Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="20" y="45" width="200" height="80" rx="14" fill="#7E2718"/>
+        <text class="r2T" x="40" y="78">Reader lands</text>
+        <text class="r2S" x="40" y="98">from search, a link,</text>
+        <text class="r2S" x="40" y="114">or a panicked Slack ping</text>
+        <line x1="222" y1="85" x2="288" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#r2Ah)"/>
+        <rect x="292" y="45" width="230" height="80" rx="14" fill="#C2402A"/>
+        <text class="r2T" x="312" y="72">Scans for 30 seconds</text>
+        <text class="r2S" x="312" y="94">title · first paragraph · headings</text>
+        <text class="r2S" x="312" y="112">"is this doc for me, right now?"</text>
+        <line x1="524" y1="85" x2="590" y2="85" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#r2Ah)"/>
+        <rect x="594" y="20" width="266" height="42" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="r2G" x="612" y="47">Reads - the gap matches</text>
+        <rect x="594" y="72" width="266" height="42" rx="12" fill="#FAECE7" stroke="#D4664E" stroke-width="1.5"/>
+        <text class="r2G" x="612" y="99">Skims to one section, acts</text>
+        <rect x="594" y="124" width="266" height="42" rx="12" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <text class="r2X" x="612" y="151">Leaves - and DMs you instead</text>
+        <rect x="20" y="200" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="r2N" x="44" y="212">Scope + audience statements in the first paragraph are how you win the 30-second scan.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the thirty-second reader, and what your first paragraph must do</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>State scope, non-scope and audience up front<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The highest-leverage sentences in any doc are the ones that tell the reader whether to keep reading. Google's pattern is three declarations, right at the top:</p>
+        <table class="clean">
+          <thead><tr><th>Statement</th><th>Pattern</th><th>Pulse example</th></tr></thead>
+          <tbody>
+            <tr><td>Scope</td><td>"This document explains how to..."</td><td>"This guide explains how to run the Pulse pipeline end to end."</td></tr>
+            <tr><td>Non-scope</td><td>"This document does not cover..."</td><td>"It does not cover adding new event types; see the reference."</td></tr>
+            <tr><td>Audience</td><td>"This document assumes you..."</td><td>"It assumes you can run Python scripts from a terminal."</td></tr>
+          </tbody>
+        </table>
+        <p>Non-scope statements feel like admitting weakness. They are the opposite: they save the wrong reader ten minutes, and they save you the support conversation afterwards. A doc that quietly hopes to serve everyone serves no one.</p>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Write the three statements for a doc you owe someone right now:
+
+This document explains ...
+This document does not cover ...
+This document assumes you ...
+
+If the non-scope line was hard to write, your doc's scope is probably too big.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Front-load the key point<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Busy readers read the first paragraph and the headings, then decide. Google's rule: state your key points at the START of the document - the conclusion, the recommendation, the one number that matters. Academic writing builds to a conclusion; technical writing leads with it.</p>
+        <ul>
+          <li><strong>Page one is the whole doc</strong> for half your readers. Make sure the thing you'd most want them to know survives if they stop there.</li>
+          <li><strong>The same rule fractals down:</strong> the first sentence of each paragraph carries that paragraph (Session 3 makes this precise), and the first paragraph of the doc carries the doc.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The buried migration deadline.</strong> A platform team announced a breaking change in paragraph nine of a wiki page, after eight paragraphs of background. Three teams missed it and broke in production. The postmortem action item was one line: "put the deadline in the first sentence." Front-loading is an incident-prevention technique.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Compare to what readers already know<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The fastest way to teach a new concept is to anchor it to one the reader already has. Google recommends explicit comparisons early in a doc: "Pulse is like a tiny Airflow DAG with three fixed tasks" tells a data engineer 80% of the architecture in one sentence.</p>
+        <ul>
+          <li><strong>Pick anchors from the audience statement.</strong> The comparison only works if the reader actually knows the anchor - this is the formula again.</li>
+          <li><strong>Say where the comparison breaks.</strong> "Unlike Airflow, there is no scheduler; you run the steps by hand" prevents the anchor from over-teaching.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: DOCS ARE A TEAM SPORT ============ -->
+  <section class="section" id="team">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Write the Docs "beginner's guide" + "mindshare"</span>
+      <h2>Why write docs at all <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Write the Docs' beginner's guide makes the selfish case first: writing docs improves your own code and buys back your own time. The altruistic case (onboarding, bus factor) is real, but the selfish case is what gets docs written on a Tuesday afternoon.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The selfish case for documentation<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Four returns you collect personally, before anyone else benefits:</p>
+        <ul>
+          <li><strong>Writing docs finds design flaws.</strong> Explaining an interface in prose is the cheapest usability test that exists. If the run order is hard to explain, the run order is the bug.</li>
+          <li><strong>Docs answer questions while you sleep.</strong> Every question a doc answers is a DM you never receive. The README you write once outworks the explanation you give weekly.</li>
+          <li><strong>Future you is a stranger.</strong> Six months from now you will know none of what you know today. The doc is a letter to that person.</li>
+          <li><strong>Docs make work legible to the people who rate it.</strong> An undocumented system is invisible in a promo packet; a documented one is an asset someone else can point at.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Data team tip</strong>
+          For pipelines specifically, the question "why is today's number weird?" arrives on a schedule. A doc that explains the alert threshold and the known failure modes converts a recurring meeting into a link.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Building doc mindshare in a team<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Write the Docs has a change-management playbook for teams where "we should document this" always loses to the sprint. The moves, in order:</p>
+        <ul>
+          <li><strong>State the problem with receipts:</strong> count the repeated questions, the onboarding weeks, the incident minutes lost to tribal knowledge. Make the cost visible before proposing the cure.</li>
+          <li><strong>Start where you are:</strong> one team, one system, one good doc set as the demo. Pulse plays exactly this role in this course.</li>
+          <li><strong>Make writing easy:</strong> templates, a known home for docs, and a norm that docs ship with the change (Session 7 wires this into CI).</li>
+          <li><strong>Keep a rhythm:</strong> docs reviewed in the same meetings as code, dead pages deleted on sight. A small set of fresh docs beats a large set of stale ones.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Meet Pulse, and feel the pain <span class="tag demo">★ 7 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">Pulse lives in this repo under <a href="https://github.com/phoebefu6/learn-tech-writing-with-phoebe/tree/main/pulse">pulse/</a>: three Python scripts, a config file, sample data, and one NOTES.txt someone left behind. It works. It is also completely undocumented - on purpose. Your first job is to experience it as the newcomer.</p>
+
+    <div class="steps">
+      <div class="step"><p>Open the <code>pulse/</code> folder and look at the file list only - no opening files yet. Guess: what does this thing do, and how would you run it?</p></div>
+      <div class="step"><p>Now try to answer three questions a new teammate would actually have, using anything in the folder: <strong>How do I run it, and in what order? Which event types are valid? What does the LOW alert on a day mean?</strong></p></div>
+      <div class="step"><p>Time yourself. Note WHERE each answer was hiding: run order is implied by nothing, valid types hide in <code>config.yaml</code>, the alert logic hides in <code>metrics.py</code>.</p></div>
+      <div class="step"><p>Read <code>NOTES.txt</code>, the only prose in the folder. Every fact in it is true. Count how many times you have to re-read a clause to extract one fact - we fix exactly this in Session 2.</p></div>
+    </div>
+
+    <div class="callout win">
+      <strong>★ The point of the pain</strong>
+      Everything you just felt - the guessing, the code-reading, the unparseable notes - is what every newcomer feels in every undocumented repo, including yours. Keep that feeling. It is the audience-empathy engine for the next seven sessions.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Write Pulse's audience statement <span class="tag demo">★ 7 min · build your own</span></h2>
+    </div>
+    <p class="lede">Apply Part 1 for real: decide who Pulse's docs serve, in writing. This file becomes the first commit of the doc set, and every later doc gets checked against it.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>docs/AUDIENCE.md</code> in your copy of the repo (or any scratch file if you're reading along).</p></div>
+      <div class="step"><p>Fill in the template below. Be honest in the "already know" column - that honesty is the formula working.</p></div>
+      <div class="step"><p>Sanity-check with the gap test: for each audience, name one thing you must NOT waste their time explaining, and one thing you must never skip.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/AUDIENCE.md template</span># Who Pulse docs are for
+
+## Primary: new data analyst on the team
+- Already knows: Python basics, CSVs, what a metric is
+- Does not know: our repo layout, run order, alert conventions
+- Needs to do: run the pipeline locally and interpret daily_metrics.csv
+
+## Secondary: on-call engineer, 2am
+- Already knows: everything above, plus our infra
+- Needs to do: diagnose a LOW alert day and decide whether to escalate
+
+## Also serving: future maintainers (including future us)
+- Needs to do: change config or add an event type without archaeology</div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      Notice what the template forces: an action verb for every audience. "Needs to understand the architecture" is not an action; "needs to add an event type without breaking clean.py" is.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>The doc plan: what Pulse needs, and when we build it <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">With the audience written down, the doc list almost writes itself: match each audience action to the doc that serves it. This plan is also your map of the course - every line lands in a specific session.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>docs/PLAN.md</code> and copy the skeleton below.</p></div>
+      <div class="step"><p>For each doc, write one line: which audience it serves and what they can DO after reading. If you can't fill the action column, cut the doc.</p></div>
+      <div class="step"><p>Mark the one doc you'd write first if you only had an hour. (Almost everyone picks the README - which is why it's Session 4's milestone.)</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/PLAN.md skeleton</span># Pulse documentation plan
+
+| Doc | Serves | After reading, they can... | Built in |
+|-----|--------|---------------------------|----------|
+| README | new analyst | run the pipeline end to end | Session 4 |
+| How-to: diagnose a LOW day | on-call | resolve or escalate an alert | Session 5 |
+| Reference: config.yaml | maintainers | change any setting safely | Session 6 |
+| ADR-001: why UTC everywhere | maintainers | understand the tz decision | Session 6 |
+| CHANGELOG | everyone | see what changed between runs | Session 6 |
+
+Rule: no doc without an action. No audience without a doc.</div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The plan that killed a wiki.</strong> A team ran this exercise on their 40-page wiki and found 28 pages served no audience action at all - meeting notes fossilized as "documentation". They archived them, kept 12, and search suddenly worked. A doc plan is as much about what you refuse to write as what you write.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Run the two <strong>★ Try it now</strong> exercises from Parts 1 and 2 on a doc you actually owe someone: the three audience questions, then the three scope statements.</li>
+      <li>Finish <code>docs/AUDIENCE.md</code> and <code>docs/PLAN.md</code> for Pulse if you didn't complete them live.</li>
+      <li>Find one doc at work with two audiences fighting inside it. Write the one-line split you'd propose (no need to actually split it yet).</li>
+      <li>Read the two Self-study cards: global audience and doc mindshare. The mindshare playbook is the one you'll want the day your team asks "why are you spending time on docs?"</li>
+      <li>Optional depth: Google's Technical Writing One audience and documents units are free at <a href="https://developers.google.com/tech-writing/one">developers.google.com/tech-writing/one</a> - this page covers their working content; the original has extra worked exercises.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these source units. What stays with the originals: Google's in-class facilitated exercises (facilitator guides are free) and the full Write the Docs guide prose.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Audience</span><span class="note">10 min unit · Part 1: the formula, curse of knowledge, global audience</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Documents</span><span class="note">10 min unit · Part 2: scope, non-scope, audience statements, front-loading</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google TW One · Introduction</span><span class="note">3 min unit · Part 0 framing</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Write the Docs · A beginner's guide to writing documentation</span><span class="note">Part 3: the selfish case, what docs buy you</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Write the Docs · Building documentation mindshare</span><span class="note">Self-study card: the change-management playbook; full essay at writethedocs.org</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · The good-docs formula says a document should contain...</p>
+      <button class="qopt" type="button">A · Everything you know about the system, for completeness</button>
+      <button class="qopt" type="button">B · What the reader needs to know to do the task</button>
+      <button class="qopt" type="button">C · What the reader needs to know, MINUS what they already know</button>
+      <p class="qwhy">The subtraction is the whole trick. Option B without the subtraction is how you end up explaining CSVs to data engineers.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · Your doc keeps getting "quick question" DMs from people who clearly opened it. Most likely missing?</p>
+      <button class="qopt" type="button">A · More detail in the middle sections</button>
+      <button class="qopt" type="button">B · Scope, non-scope and audience statements at the top</button>
+      <button class="qopt" type="button">C · A nicer diagram</button>
+      <p class="qwhy">Readers who can't tell in 30 seconds whether the doc answers their question fall back to DMing the author. The declarations at the top are the fix.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Which line in a doc plan should make you CUT the doc?</p>
+      <button class="qopt" type="button">A · You can't name what the reader can do after reading it</button>
+      <button class="qopt" type="button">B · It serves the on-call engineer, a small audience</button>
+      <button class="qopt" type="button">C · It would be shorter than one page</button>
+      <p class="qwhy">No action, no doc - that's Demo 3's rule. Small audiences and short docs are both fine; actionless docs are diaries.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 1 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The formula</b><span>Doc content = what readers need to know - what they already know. Every cut and every inclusion is this subtraction.</span></div>
+      <div class="cheat-item"><b>Audience analysis</b><span>Who are they · what do they know · what must they DO after reading. In writing, before drafting.</span></div>
+      <div class="cheat-item"><b>Curse of knowledge</b><span>You can't unknow what you know. Name assumptions, test on a newcomer, ban "just" and "simply".</span></div>
+      <div class="cheat-item"><b>Three declarations</b><span>"This explains..." · "This does not cover..." · "This assumes you...". Top of every doc.</span></div>
+      <div class="cheat-item"><b>Front-load</b><span>Key point in the first paragraph. Half your readers read only page one - serve them anyway.</span></div>
+      <div class="cheat-item"><b>The selfish case</b><span>Writing docs finds design flaws, answers questions while you sleep, and briefs future you.</span></div>
+      <div class="cheat-item"><b>No action, no doc</b><span>Every planned doc names what the reader can do afterwards. Otherwise it's a diary - cut it.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>Audience statement ✓ · doc plan ✓ · everything else still painfully undocumented. README lands in Session 4.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 1 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="02-sentences-that-work.html">Next: Sentences that work →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

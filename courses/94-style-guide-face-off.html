@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep dive · Style-guide face-off: Google vs Microsoft - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Deep dive 4 of 4</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Deep dive 4 of 4</div>
+    <h1>Style-guide <span class="accent">face-off</span></h1>
+    <p class="sub">Google and Microsoft each publish a developer style guide, and teams burn real hours arguing which to adopt. The surprise: they agree on almost everything. Here is exactly where they overlap, where they part, and how to pick.</p>
+    <div class="chip-row">
+      <span class="chip level">🟣 Deep dive</span>
+      <span class="chip audience">Self-paced</span>
+      <span class="chip audience">Doc owners &amp; team leads</span>
+      <span class="chip time">45-60 min self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-10 · Why adopt one</span>
+      <span class="a2" style="flex:2">10-30 · Consensus core</span>
+      <span class="a3" style="flex:2">30-50 · The deltas</span>
+      <span class="a4" style="flex:1">50-60 · Pick yours</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this deep dive exists</h2>
+    </div>
+    <p class="lede">Every doc team eventually has the comma argument. And the "is it e-mail or email" argument. And the "do we capitalize the product name mid-sentence" argument. A style guide ends all of them at once, not by being right, but by being decided. This deep dive helps you decide fast and get back to writing.</p>
+    <div class="legend">
+      <span class="pill solid">Self-study - read at your pace</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Google + Microsoft style guides</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with</strong>
+      A clear map of the consensus core (stop debating these), the handful of real differences between the two guides, a decision rule for your context, and a 5-line project style sheet template that sits on top of whichever you adopt.
+    </div>
+  </section>
+
+  <section class="section" id="why-adopt">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the case for a style guide</span>
+      <h2>Why adopt one at all <span class="tag concept">10 min</span></h2>
+    </div>
+    <p class="lede">A style guide's value is not correctness. It is the end of relitigation. Once "serial comma, always" is written down, no reviewer spends a comment on it ever again.</p>
+
+    <details class="card" open>
+      <summary><span class="mode self">Self-study</span>Adopting beats authoring<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Writing your own full style guide is a multi-month project that produces a document nobody reads. Adopting an existing one takes an afternoon and comes with a linter package for free. Both Google and Microsoft ship as Vale packages, so from Session 7 your CI can enforce either the day you pick it.</p>
+        <ul>
+          <li><strong>The reference hierarchy:</strong> a short project style sheet (your local exceptions) sits on top of the adopted guide, which sits on top of a dictionary. Check the most specific first.</li>
+          <li><strong>Editing becomes mechanical.</strong> With a guide adopted, most review comments become "see the style guide" instead of a debate. That is the whole point.</li>
+          <li><strong>Consistency reads as competence.</strong> A doc set that handles commas, capitalization, and code font the same way everywhere feels trustworthy, even before anyone judges the content.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="consensus">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the shared core</span>
+      <h2>The consensus core <span class="tag concept">10 min</span></h2>
+    </div>
+    <p class="lede">Here is the good news that saves the argument: on the mechanics, Google and Microsoft agree almost completely. These are industry consensus. Adopt them from either guide and stop debating them forever.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Google and Microsoft style guides share a large consensus core, with a few guide-specific items on each side">
+        <style>
+          .d4vT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .d4vS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .d4vC { font: 700 14px Inter, sans-serif; fill: #7E2718; }
+          .d4vX { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+          .d4vB { font: 700 13px Inter, sans-serif; fill: #1C1B18; }
+          .d4vN { font: 600 13px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <rect x="20" y="30" width="215" height="220" rx="14" fill="#C2402A"/>
+        <text class="d4vT" x="40" y="58">Google only</text>
+        <text class="d4vS" x="40" y="84">anti-hype, no</text>
+        <text class="d4vS" x="40" y="102">pre-announcing</text>
+        <text class="d4vS" x="40" y="124">timeless docs</text>
+        <text class="d4vS" x="40" y="146">conditions first</text>
+        <text class="d4vS" x="40" y="168">placeholders</text>
+        <text class="d4vS" x="40" y="190">(PROJECT_ID)</text>
+        <text class="d4vS" x="40" y="212">deep CLI + API depth</text>
+
+        <rect x="255" y="30" width="290" height="220" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="d4vC" x="278" y="58">Shared core (adopt from either)</text>
+        <text class="d4vX" x="278" y="84">second person "you" · active voice</text>
+        <text class="d4vX" x="278" y="104">present tense · sentence-case headings</text>
+        <text class="d4vX" x="278" y="124">serial comma · contractions OK</text>
+        <text class="d4vX" x="278" y="144">bold UI · code font for code</text>
+        <text class="d4vX" x="278" y="164">alt text · never color alone</text>
+        <text class="d4vX" x="278" y="184">US spelling · plain global English</text>
+        <text class="d4vX" x="278" y="204">descriptive links · no heading periods</text>
+        <text class="d4vB" x="278" y="230">the arguments you can stop having</text>
+
+        <rect x="565" y="30" width="295" height="220" rx="14" fill="#7E2718"/>
+        <text class="d4vT" x="585" y="58">Microsoft only</text>
+        <text class="d4vS" x="585" y="84">branded warm voice</text>
+        <text class="d4vS" x="585" y="106">Top-10 rewrite pedagogy</text>
+        <text class="d4vS" x="585" y="128">(before / after pairs)</text>
+        <text class="d4vS" x="585" y="150">per-topic checklists</text>
+        <text class="d4vS" x="585" y="172">bias-free comms section</text>
+        <text class="d4vS" x="585" y="194">bots, responsive, SEO</text>
+        <text class="d4vS" x="585" y="216">process pages</text>
+
+        <rect x="20" y="286" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="d4vN" x="44" y="298">The middle band is settled. The two edges are where you actually choose - and they map to your content type.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - most of the two guides overlap; the edges are where you decide</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The twelve settled mechanics<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Both guides say the same thing on all of these. Treat them as decided:</p>
+        <table class="clean">
+          <thead><tr><th>Rule</th><th>Both guides</th></tr></thead>
+          <tbody>
+            <tr><td>Person</td><td>Second person "you"</td></tr>
+            <tr><td>Voice</td><td>Active, actor first</td></tr>
+            <tr><td>Tense</td><td>Present; avoid "will" for behavior</td></tr>
+            <tr><td>Headings</td><td>Sentence case, no end punctuation</td></tr>
+            <tr><td>Commas</td><td>Serial / Oxford comma always</td></tr>
+            <tr><td>Contractions</td><td>Fine, and friendly</td></tr>
+            <tr><td>Code and UI</td><td>Code font for code, bold for UI elements</td></tr>
+            <tr><td>Accessibility</td><td>Alt text; never rely on color alone</td></tr>
+            <tr><td>Spelling</td><td>US spelling, plain global English</td></tr>
+            <tr><td>Links</td><td>Descriptive text, never "click here"</td></tr>
+          </tbody>
+        </table>
+        <p>If your team is arguing about any row above, the argument is already settled by both authorities. Point at the table and move on.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="deltas">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the real differences</span>
+      <h2>The deltas, and the decision <span class="tag concept">15 min</span></h2>
+    </div>
+    <p class="lede">The genuine differences are few, and they map cleanly to what you write. Know them and the choice makes itself.</p>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Google's edge: anti-hype and depth<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's guide is a pure developer-docs rulebook, and it carries a few disciplines Microsoft's does not emphasize:</p>
+        <ul>
+          <li><strong>Anti-hype and timeless docs.</strong> No marketing claims, no pre-announcing features, and avoid time-bound words like "currently", "new", or "soon". "Pulse currently supports four event types" ages the day a fifth ships; "Pulse supports these event types" stays true.</li>
+          <li><strong>Conditions before instructions.</strong> "If the staged folder is empty, run ingest.py" not "run ingest.py if the folder is empty". The reader needs the condition before the action.</li>
+          <li><strong>Placeholder convention and interface depth.</strong> Capitalized italic code for placeholders (PROJECT_ID), plus deep coverage of command-line syntax, API reference comments, and reserved example domains.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Microsoft's edge: voice and pedagogy<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Microsoft's guide covers all communication, not just developer docs, and teaches differently:</p>
+        <ul>
+          <li><strong>A branded voice.</strong> "Warm and relaxed, crisp and clear, ready to lend a hand" - useful when your docs sit next to product and marketing copy and need to sound like one company.</li>
+          <li><strong>Rewrite pedagogy.</strong> The Top 10 tips teach through before/after pairs. The classic: "If you're ready to purchase Office 365 for your organization, contact your Microsoft account representative" becomes "Ready to buy? Contact us." You learn by seeing the cut.</li>
+          <li><strong>Breadth.</strong> Per-topic checklists, a full bias-free communication section, and coverage of chatbots, responsive content, and SEO - plus process pages for planning and publishing review.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The decision rule<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>It comes down to what you mostly write:</p>
+        <ul>
+          <li><strong>Developer docs, APIs, CLIs, READMEs</strong> - adopt <strong>Google</strong>. It is built for exactly this, and its anti-hype and placeholder rules pay off immediately.</li>
+          <li><strong>Product UI text, help centers, mixed marketing-adjacent content</strong> - adopt <strong>Microsoft</strong>. Its voice and breadth cover the ground Google leaves out.</li>
+          <li><strong>Either way, adopt one.</strong> The worst choice is no choice. Vale ships both as packages, so enforcement costs nothing once you decide.</li>
+        </ul>
+        <div class="prompt-box good"><span class="label">docs/style.md - the 5-line project style sheet</span># Pulse style
+
+- Adopted guide: Google developer documentation style guide
+- Terminology: "event type" (not "event kind"); "pipeline" (not "job")
+- Product name: Pulse, capitalized, never all-caps
+- Dates: ISO 8601, YYYY-MM-DD, always
+- Local rule: docs use "run" for commands, "call" only for functions</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Decide it for Pulse<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Pulse is a developer pipeline documented for analysts and engineers - squarely developer docs. So the decision is Google, and you record it in one line of DOCS.md. The nice part: Vale has been linting Pulse's docs with the Google package since Session 7, so the choice was already half-made. This deep dive just names it and writes it down. Full circle.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The team that adopted both and shipped neither.</strong> One org spent two sprints comparing the guides line by line to build a "best of both" custom guide. It was never finished, so reviewers kept arguing anyway. A team next door adopted Google verbatim in an afternoon, added a 6-line project sheet, and never had the comma argument again. Decided beats perfect.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself <span class="tag exercise">◐ 30 min</span></h2>
+    </div>
+    <ul>
+      <li>Classify your team's writing: mostly developer docs, mostly product/UI, or a real mix. Let that pick your guide, then write the one-line adoption into your docs home.</li>
+      <li>Draft your 5-line project style sheet: adopted guide, terminology exceptions, product-name rule, date format, and the one local rule your team fights about most.</li>
+      <li>Wire the matching Vale package into CI (you set the pattern up in Session 7). Run it on one real doc and read the output.</li>
+      <li>Optional depth: skim the highlights pages - <a href="https://developers.google.com/style/highlights">developers.google.com/style/highlights</a> and Microsoft's Top 10 tips at <a href="https://learn.microsoft.com/en-us/style-guide/top-10-tips-style-voice">learn.microsoft.com/style-guide</a>.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This deep dive synthesizes both style guides into a decision. The full A-to-Z word lists stay with the originals - they are reference works, not reading.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google developer documentation style guide - highlights</span><span class="note">Parts 2-3: consensus core + Google-only deltas</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft Writing Style Guide - Top 10 tips</span><span class="note">Part 3: rewrite pedagogy, before/after pairs</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Microsoft brand voice</span><span class="note">Part 3: the warm-voice differentiator</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Agree / differ analysis</span><span class="note">Parts 2-3: course-original synthesis of the two guides</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Full A-Z word lists</span><span class="note">Reference only; see developers.google.com/style and learn.microsoft.com/style-guide</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Your team argues about the serial comma. What's true?</p>
+      <button class="qopt" type="button">A · Google says yes, Microsoft says no - pick a side</button>
+      <button class="qopt" type="button">B · Both guides say yes - it's settled, stop debating</button>
+      <button class="qopt" type="button">C · Neither guide has an opinion</button>
+      <p class="qwhy">The serial comma is in the consensus core. Both authorities agree, so the argument is already over.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · You mostly write API and CLI reference docs. Which guide?</p>
+      <button class="qopt" type="button">A · Google - it's built for developer docs, with placeholder and anti-hype rules</button>
+      <button class="qopt" type="button">B · Microsoft - it has a warmer voice</button>
+      <button class="qopt" type="button">C · Write your own from scratch</button>
+      <p class="qwhy">Developer docs, APIs, and CLIs map to Google. Microsoft's edge is product/UI/mixed content.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">3 · Which sentence violates Google's timeless-docs rule?</p>
+      <button class="qopt" type="button">A · "Pulse supports four event types."</button>
+      <button class="qopt" type="button">B · "To add a type, edit config.yaml."</button>
+      <button class="qopt" type="button">C · "Pulse currently supports four event types, with more coming soon."</button>
+      <p class="qwhy">"Currently" and "coming soon" date the doc. Timeless docs avoid time-bound words that age the moment things change.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <section class="cheat" id="cheatsheet">
+    <h3>Style-guide cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Adopt, don't author</b><span>An afternoon, not a quarter. Both guides ship as Vale packages - free enforcement.</span></div>
+      <div class="cheat-item"><b>The consensus core</b><span>You/active/present, sentence case, serial comma, code font, alt text, US spelling. Settled by both.</span></div>
+      <div class="cheat-item"><b>Google's edge</b><span>Anti-hype, timeless docs, conditions-first, placeholders, deep CLI/API depth.</span></div>
+      <div class="cheat-item"><b>Microsoft's edge</b><span>Warm branded voice, before/after pedagogy, checklists, bias-free section, bots/SEO.</span></div>
+      <div class="cheat-item"><b>Decision rule</b><span>Developer docs → Google. Product/UI/mixed → Microsoft. Either way, decide.</span></div>
+      <div class="cheat-item"><b>5-line project sheet</b><span>Adopted guide · terminology · product name · date format · the one local rule.</span></div>
+      <div class="cheat-item"><b>Reference hierarchy</b><span>Project sheet → adopted guide → dictionary. Check most specific first.</span></div>
+      <div class="cheat-item"><b>Decided beats perfect</b><span>No choice is the worst choice. "Best of both" custom guides never ship.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Deep dive 4 of 4 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="93-runbooks.html">← Runbooks</a> &nbsp;·&nbsp; <a href="../index.html">Back to all sessions →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

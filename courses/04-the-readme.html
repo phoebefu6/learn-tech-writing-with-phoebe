@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 · The README: milestone 1 - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 4 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 4 of 8</div>
+    <h1>The README: <span class="accent">milestone 1</span></h1>
+    <p class="sub">The README is the most-read document in any repository and the front door for the 30-second reader you met in Session 1. Today everything from Sessions 1-3 lands on one page: Pulse gets a complete, honest README, assembled from material you already wrote.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Core</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">Every repo visitor opens the README first, and most open nothing else. It is where Session 1's 30-second reader makes the read-or-leave call, where Session 2's crisp sentences earn their keep, and where Session 3's scannable structure gets its hardest test. You have already written the raw material: an audience statement, scope statements, a numbered run procedure, a config table. Today we assemble it.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: makeareadme.com + Google style guide</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A complete, honest README.md for Pulse - name, description, install, quickstart with expected output, usage tables, configuration reference, project status - built from Sessions 1-3 material and verified with a timed 30-second test. This is the course's first shipped milestone.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: ANATOMY OF A README ============ -->
+  <section class="section" id="anatomy">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers makeareadme.com</span>
+      <h2>Anatomy of a README <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">makeareadme.com gives the canonical section order: Name, Description, Badges, Visuals, Installation, Usage, Support, Roadmap, Contributing, Authors and acknowledgment, License, Project status. The craft is not filling all twelve - it is choosing which your reader needs, in that order, and skipping the rest on purpose.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="README anatomy as a stacked page skeleton: name and description band on top, then quickstart, usage, configuration and status bands, with the top band winning the 30-second scan">
+        <style>
+          .s4aT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .s4aS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s4aG { font: 700 15px Inter, sans-serif; fill: #7E2718; }
+          .s4aX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s4aN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s4Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="240" y="20" width="400" height="285" rx="12" fill="#FCFAF4" stroke="#CFC8B9" stroke-width="1.5"/>
+        <rect x="258" y="34" width="364" height="62" rx="10" fill="#C2402A"/>
+        <text class="s4aT" x="276" y="60">Name + description</text>
+        <text class="s4aS" x="276" y="82">what it is · who it's for · scope + non-scope</text>
+        <rect x="258" y="104" width="364" height="50" rx="10" fill="#7E2718"/>
+        <text class="s4aT" x="276" y="126">Quickstart</text>
+        <text class="s4aS" x="276" y="144">prerequisites · install · 3 commands</text>
+        <rect x="258" y="162" width="364" height="50" rx="10" fill="#D4664E"/>
+        <text class="s4aT" x="276" y="184">Usage</text>
+        <text class="s4aS" x="276" y="202">commands + expected output · output columns</text>
+        <rect x="258" y="220" width="364" height="38" rx="10" fill="#E5A08F"/>
+        <text class="s4aG" x="276" y="244">Configuration - every key, one table</text>
+        <rect x="258" y="266" width="364" height="30" rx="10" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="s4aG" x="276" y="286">Project status - honest, dated</text>
+        <line x1="172" y1="65" x2="250" y2="65" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s4Ah)"/>
+        <text class="s4aX" x="20" y="52">The 30-second scan</text>
+        <text class="s4aX" x="20" y="70">lands HERE and</text>
+        <text class="s4aX" x="20" y="88">rarely goes deeper</text>
+        <text class="s4aX" x="660" y="120">Order = reader priority:</text>
+        <text class="s4aX" x="660" y="138">run it first, tune it later,</text>
+        <text class="s4aX" x="660" y="156">history last</text>
+        <rect x="240" y="318" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s4aN" x="264" y="330">The top band wins or loses the whole page. Spend your best sentences there.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - README anatomy as a page skeleton: the bands Pulse needs, in the canonical order</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The section order, and what Pulse skips<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>makeareadme.com's advice is blunt: write the README before you publish, keep it in Markdown at the top of the repo, and when in doubt, too long beats too short. But "long" means depth in the sections you keep, not keeping every section. Pulse is an internal pipeline, so we choose:</p>
+        <table class="clean">
+          <thead><tr><th>Section</th><th>Pulse verdict</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Name, Description</td><td>Keep</td><td>The 30-second scan lives here</td></tr>
+            <tr><td>Installation, Usage</td><td>Keep</td><td>The primary audience action: run it</td></tr>
+            <tr><td>Configuration</td><td>Keep (added)</td><td>Pipelines live and die by their config</td></tr>
+            <tr><td>Project status</td><td>Keep</td><td>Tells a newcomer this repo is alive</td></tr>
+            <tr><td>Badges, Visuals</td><td>Skip</td><td>No CI to badge, nothing visual to show - decoration</td></tr>
+            <tr><td>Roadmap, Contributing, License</td><td>Skip</td><td>Internal repo: no external contributors, no license question</td></tr>
+          </tbody>
+        </table>
+        <p>Every skip is a decision, not an omission. If Pulse ever goes open source, the Self-study card below has the full template waiting.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Description = your Session 1 statements, landing<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You do not write the description from scratch - you already wrote it. Session 1's scope, non-scope and audience statements ARE the description paragraph:</p>
+        <ul>
+          <li><strong>Scope:</strong> "Pulse turns raw event CSVs into daily metrics with a LOW-volume alert."</li>
+          <li><strong>Non-scope:</strong> "It does not schedule itself and does not serve dashboards - it produces one CSV."</li>
+          <li><strong>Audience:</strong> "Written for analysts new to the team; assumes you can run Python scripts from a terminal."</li>
+        </ul>
+        <p>Three sentences, and the 30-second reader knows what this is, what it is not, and whether it is for them. That is the entire job of the top band.</p>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Take a repo you own. Write its description as exactly three sentences:
+1. What it does (scope)
+2. What it deliberately does not do (non-scope)
+3. Who it assumes you are (audience)
+
+If sentence 2 is hard, your repo has a scope problem, not a writing problem.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The full 12-section template, for open-source repos<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>When a repo faces the public, the sections Pulse skipped start earning their place. The full makeareadme.com order: Name, Description, Badges, Visuals, Installation, Usage, Support, Roadmap, Contributing, Authors and acknowledgment, License, Project status.</p>
+        <ul>
+          <li><strong>Badges</strong> answer "is this maintained and passing?" at a glance - build status, coverage, package version.</li>
+          <li><strong>Visuals</strong> earn their place for anything with a UI or an output worth seeing; a screenshot beats three paragraphs.</li>
+          <li><strong>Contributing</strong> matters the moment a stranger can send a pull request: how to set up a dev environment, run tests, and what you will and will not merge.</li>
+          <li><strong>License</strong> is non-negotiable for open source - no license means nobody can legally use it, which is usually not what you meant.</li>
+          <li><strong>Project status</strong> is the kindest section in the template: "development has slowed, looking for maintainers" saves a stranger a month of betting on abandonware.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: CODE ON THE PAGE ============ -->
+  <section class="section" id="code-on-page">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Google style guide, computer interfaces</span>
+      <h2>Code on the page <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">A README full of commands lives or dies on whether those commands actually work when pasted. Google's developer documentation style guide has precise rules for text that touches code - fonts, placeholders, samples - and they all serve one goal: the reader can copy, paste, run, and verify.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Code font, bold UI, and CAPS placeholders<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three visual conventions carry almost all of Google's computer-interface style:</p>
+        <ul>
+          <li><strong>Code font for anything code-related:</strong> filenames (<code>config.yaml</code>), commands (<code>python3 pulse/ingest.py</code>), column names (<code>event_id</code>), values (<code>LOW</code>). The font itself tells the reader "this string is literal - type it exactly".</li>
+          <li><strong>Bold for UI elements:</strong> "click <strong>Run</strong>", "open the <strong>Settings</strong> tab". Pulse has no UI, so this rule mostly waits - but your BI tools and cloud consoles need it constantly.</li>
+          <li><strong>Placeholders in capitalized italic code font:</strong> <code>PULSE_RAW_DIR</code>, <code>PROJECT_ID</code>. The capitals scream "replace me"; regular code font whispers "type me literally". Confusing the two is how a reader ends up with a folder literally named PULSE_RAW_DIR.</li>
+        </ul>
+        <p>The companion rule: commands must be exactly copy-pasteable, and every command shows its expected output. For Pulse's sample data the run prints 10 rows staged, then 8 rows kept, then the metrics path - so the README says so, and the reader knows within a minute whether their setup works.</p>
+        <div class="prompt-box bad"><span class="label">Before - unverifiable</span>Run the scripts in order (adjust paths as needed):
+
+  python ingest.py
+  python clean.py
+  python metrics.py
+
+You should see some output if it worked.</div>
+        <div class="prompt-box good"><span class="label">After - copy, paste, verify</span>Run the three steps from the repo root, in this order:
+
+  python3 pulse/ingest.py
+  # expected: 10 rows read, 10 rows staged
+
+  python3 pulse/clean.py
+  # expected: 8 rows kept (1 duplicate + 1 invalid type removed)
+
+  python3 pulse/metrics.py
+  # expected: wrote pulse/data/metrics/daily_metrics.csv</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Example hygiene: safe names, teaching data<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's rules for examples are safety rules as much as style rules:</p>
+        <ul>
+          <li><strong>Reserved example domains only:</strong> <code>example.com</code> and friends exist precisely so your docs never point readers at a real site. Never a colleague's real email, never a real customer ID, never production data pasted "just to show the shape".</li>
+          <li><strong>Code samples must be runnable</strong> and follow the language's own conventions; comments explain why, not what. A sample that errors on paste teaches the reader to distrust the whole doc.</li>
+          <li><strong>Teaching data is designed, not sampled.</strong> Pulse's <code>events_2026-07-01.csv</code> has exactly 10 rows and deliberately includes one duplicate <code>event_id</code>, one invalid <code>click</code> event type, and one timezone-naive timestamp. That is not sloppiness - it is a fixture. It guarantees every reader sees the pipeline actually filter something: 10 in, 8 out, every time.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The demo that paged a stranger.</strong> A team's onboarding doc used a real internal service URL as its example. New hires dutifully pasted it, and the service owner got a small wave of malformed test traffic every onboarding week - and eventually an alert at 3am. One find-and-replace to <code>example.com</code> ended it. Example hygiene is incident prevention.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Links that say where they go<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's linking rule fits in one line: link text describes the destination, never "click here" or "this page". "See the configuration reference" tells the reader what they get before they commit a click; "click here" tells them nothing and reads terribly in a screen reader's link list.</p>
+        <ul>
+          <li><strong>Make the destination's name the link:</strong> "see <em>How to diagnose a LOW alert day</em>" - the title is the description.</li>
+          <li><strong>Link nouns, not verbs:</strong> link "the config table", not "look at" the config table.</li>
+          <li><strong>One link per destination per section</strong> is plenty; a paragraph with six links is a paragraph nobody finishes.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Assemble the README's top half <span class="tag demo">★ 8 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">Create <code>README.md</code> at the top of the repo and build the bands that win the scan: name, description, prerequisites, install, quickstart. Almost every line already exists in <code>docs/AUDIENCE.md</code> and Session 3's numbered run procedure - this is assembly, not authorship.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>README.md</code> in the repo root. Title: <code># Pulse</code>, then one plain-words subtitle line: "CSV events in, daily metrics out."</p></div>
+      <div class="step"><p>Write the description as the three Session 1 sentences: scope ("turns raw event CSVs into daily metrics with a LOW-volume alert"), non-scope ("no scheduler, no dashboard - it produces one CSV"), audience ("assumes you can run Python scripts from a terminal").</p></div>
+      <div class="step"><p>Prerequisites: Python 3.10+ and <code>pyyaml</code>. Install is one copy-pasteable line: <code>pip install pyyaml</code>.</p></div>
+      <div class="step"><p>Quickstart: the three commands in fixed order - <code>python3 pulse/ingest.py</code>, <code>python3 pulse/clean.py</code>, <code>python3 pulse/metrics.py</code> - each with its expected output: 10 rows staged, 8 rows kept, then <code>pulse/data/metrics/daily_metrics.csv</code> written.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Writing tip</strong>
+      The expected-output lines are the difference between a quickstart and a hope. "10, then 8, then the file path" gives the reader three checkpoints; if they see 10, 10, they know exactly where reality diverged from the doc.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Usage, configuration, and the full skeleton <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">The bottom half serves the reader who is past "does it run" and into "what does it mean": paste Session 3's config table, add an output-columns table, and document what a <code>LOW</code> alert actually says. Here is the complete skeleton, real commands and real config keys included.</p>
+
+    <div class="steps">
+      <div class="step"><p>Usage: one line per script saying what it validates, keeps, or writes - lifted from Session 2's rewritten notes.</p></div>
+      <div class="step"><p>Configuration: paste the S3 config table covering <code>paths</code>, <code>events.valid_types</code>, and <code>alerts.min_daily_events</code>.</p></div>
+      <div class="step"><p>Output: a columns table for <code>daily_metrics.csv</code>, and one sentence defining <code>LOW</code>: fewer than 50 events on that day after cleaning.</p></div>
+      <div class="step"><p>Project status: one honest dated line. Then commit - milestone 1 ships.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">README.md - the full skeleton</span># Pulse
+
+CSV events in, daily metrics out.
+
+Pulse turns raw event CSVs into daily metrics with a LOW-volume alert.
+It does not schedule itself and does not serve dashboards - it produces
+one CSV. Written for analysts new to the team; assumes you can run
+Python scripts from a terminal.
+
+## Prerequisites
+
+- Python 3.10+
+- pyyaml: pip install pyyaml
+
+## Quickstart
+
+Run from the repo root, in this order:
+
+    python3 pulse/ingest.py
+    # expected: 10 rows read, 10 rows staged
+
+    python3 pulse/clean.py
+    # expected: 8 rows kept (1 duplicate + 1 invalid type removed)
+
+    python3 pulse/metrics.py
+    # expected: wrote pulse/data/metrics/daily_metrics.csv
+
+## Usage
+
+| Script | What it does |
+|--------|--------------|
+| ingest.py | Validates headers (needs event_id, user_id, event_type, ts, value), drops rows missing event_id or ts, writes to staged |
+| clean.py | Dedups on event_id, keeps only valid event types, converts timestamps to UTC ISO, formats value to 2 decimals |
+| metrics.py | Writes daily_metrics.csv, one row per day |
+
+## Configuration (config.yaml)
+
+| Key | Default | Meaning |
+|-----|---------|---------|
+| paths | pulse/data/... | Where each stage reads and writes |
+| events.valid_types | page_view, signup, purchase, api_call | Event types clean.py keeps |
+| alerts.min_daily_events | 50 | Days under this get alert=LOW |
+
+## Output columns (daily_metrics.csv)
+
+| Column | Meaning |
+|--------|---------|
+| day | UTC date |
+| events | Rows that survived cleaning that day |
+| active_users | Distinct user_id count |
+| total_value | Sum of value, 2 decimals |
+| alert | LOW when events is under 50, else empty |
+
+A LOW alert means the day had fewer than 50 cleaned events. It signals
+"look at this day", not "the pipeline failed" - see the how-to guide
+for diagnosing one.
+
+## Project status
+
+Actively maintained as course material, 2026-07.</div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>The 30-second test <span class="tag demo">★ 6 min · pairs</span></h2>
+    </div>
+    <p class="lede">Session 1 opened with three questions a newcomer asks of Pulse. The README's exit exam: can a fresh reader answer all three from the README alone, fast?</p>
+
+    <div class="steps">
+      <div class="step"><p>Swap screens with a partner (or close the README for ten minutes and return with fresh eyes).</p></div>
+      <div class="step"><p>Start a timer. Using ONLY the README, answer: <strong>How do I run it, and in what order? Which event types are valid? What does the LOW alert mean?</strong></p></div>
+      <div class="step"><p>Score it: all three inside 30 seconds of scanning each is a pass. For any miss, note WHERE the reader looked first - that is where the answer belongs, regardless of where you put it.</p></div>
+      <div class="step"><p>Fix the misses by moving content up or renaming a heading - not by adding more prose. Scan failures are structure failures.</p></div>
+    </div>
+
+    <div class="callout win">
+      <strong>★ Milestone 1, shipped</strong>
+      In Session 1 those three questions took minutes of code-reading and a trip through NOTES.txt. Now they take one scan of one page. That delta is the entire value of documentation, measured.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Finish the Pulse <code>README.md</code> if you didn't complete it live, and run the 30-second test on someone who has never seen the repo.</li>
+      <li>Open the README of a repo you own. Check three things: does the top band declare scope, non-scope and audience? Does every command show expected output? Are placeholders visibly different from literal text? Fix the worst offender.</li>
+      <li>Run the <strong>★ Try it now</strong> three-sentence description exercise on your team's main repo.</li>
+      <li>Read the Self-study cards: the full 12-section template and the linking rules.</li>
+      <li>Optional depth: <a href="https://www.makeareadme.com/">makeareadme.com</a> for the template with rationale, and Google's developer documentation style guide for the full computer-interface rules.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these sources. What stays with the originals: makeareadme.com's full FAQ and history, and the Google style guide's exhaustive word-level entries.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">makeareadme.com · the README template</span><span class="note">Part 1 + Demos: section order, what to keep and skip, "too long beats too short"</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google style guide · Code samples</span><span class="note">Part 2: runnable samples, why-not-what comments, expected output</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google style guide · Placeholders</span><span class="note">Part 2: capitalized italic code font, PULSE_RAW_DIR style</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Write the Docs · beginner's guide, "what to include"</span><span class="note">Part 1 + Demo 2: the minimum viable doc set for a repo's front door</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Microsoft style guide · Formatting developer text</span><span class="note">Overlaps Google's rules; skim for the differences if your org follows Microsoft style</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Which part of a README decides whether the 30-second reader stays?</p>
+      <button class="qopt" type="button">A · The configuration reference - it has the most detail</button>
+      <button class="qopt" type="button">B · The name + description band at the very top</button>
+      <button class="qopt" type="button">C · The project status line at the bottom</button>
+      <p class="qwhy">The scan lands on the top band and rarely goes deeper. Scope, non-scope and audience in the first paragraph is how the right reader stays and the wrong reader leaves happy.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · How should a replace-me value like a project ID appear in a doc?</p>
+      <button class="qopt" type="button">A · In regular code font, like any other command text</button>
+      <button class="qopt" type="button">B · In bold, like a UI element</button>
+      <button class="qopt" type="button">C · In capitalized italic code font, like PROJECT_ID</button>
+      <p class="qwhy">Capitals plus italics visually separate "replace me" from "type me literally". In plain code font, readers paste the placeholder as-is and get a folder named PULSE_RAW_DIR.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Why does the Pulse quickstart print "10, then 8, then a file path" in the README?</p>
+      <button class="qopt" type="button">A · Expected output after each command lets readers verify each step worked</button>
+      <button class="qopt" type="button">B · To show off that the cleaning step removes rows</button>
+      <button class="qopt" type="button">C · Because READMEs should always include numbers</button>
+      <p class="qwhy">Every command gets its expected output so the reader has a checkpoint. A quickstart without output is a hope; with output it's a test the reader runs on their own setup.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 4 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Canonical order</b><span>Name · Description · (Badges · Visuals) · Installation · Usage · Support · Roadmap · Contributing · Authors · License · Status.</span></div>
+      <div class="cheat-item"><b>Skip on purpose</b><span>Internal pipeline: no badges, visuals, roadmap, license. Every skipped section is a decision, not an omission.</span></div>
+      <div class="cheat-item"><b>Description = 3 sentences</b><span>Scope, non-scope, audience - straight from Session 1. The top band wins or loses the scan.</span></div>
+      <div class="cheat-item"><b>Copy-paste-verify</b><span>Commands exactly pasteable, each followed by expected output. 10, then 8, then the metrics path.</span></div>
+      <div class="cheat-item"><b>Three fonts, three meanings</b><span>Code font = literal. Bold = UI element. CAPS italic code = placeholder, replace me.</span></div>
+      <div class="cheat-item"><b>Example hygiene</b><span>example.com only, never real user data. Teaching data is designed: Pulse's dupe + invalid row exist to be filtered.</span></div>
+      <div class="cheat-item"><b>Links say where they go</b><span>Link the destination's name, never "click here". Nouns, not verbs.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>README shipped ✓ and 30-second tested. Next gap: nothing serves the on-call engineer at 2am - Session 5 fixes that.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 4 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="03-structure-readers-scan.html">← Session 3</a> &nbsp;·&nbsp; <a href="05-diataxis.html">Next: Diátaxis →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep dive · Runbooks and ops docs - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Deep dive 3 of 4</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Deep dive 3 of 4</div>
+    <h1>Runbooks and <span class="accent">ops docs</span></h1>
+    <p class="sub">The on-call engineer at 2am is the reader you named in Session 1's audience statement, made literal. A runbook is the doc you write for them: a how-to guide under operational pressure, with the stakes turned all the way up.</p>
+    <div class="chip-row">
+      <span class="chip level">🟣 Deep dive</span>
+      <span class="chip audience">Self-paced</span>
+      <span class="chip audience">On-call engineers &amp; data teams</span>
+      <span class="chip time">60-90 min self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-10 · Why</span>
+      <span class="a2" style="flex:2">10-35 · Anatomy</span>
+      <span class="a3" style="flex:4">35-75 · Build the Pulse runbook</span>
+      <span class="a4" style="flex:1">75-90 · Keep it alive</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this deep dive exists</h2>
+    </div>
+    <p class="lede">When a pipeline breaks, the clock starts. Every minute of confusion is a minute of wrong data, a paged engineer, or a missed SLA. Google's SRE teams treat the doc that ends that confusion - the runbook - as infrastructure, not paperwork. This deep dive upgrades Pulse's Session 5 how-to into a real one.</p>
+    <div class="legend">
+      <span class="pill solid">Self-study - read at your pace</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Source: SRE practice + Diátaxis how-to</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with</strong>
+      The canonical runbook anatomy, the one rule that separates a runbook from an ordinary how-to (verify after every action), and docs/runbook-low-alert.md built from Pulse's real commands, ready to link from the LOW alert itself.
+    </div>
+  </section>
+
+  <section class="section" id="pressure">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers SRE doc practice</span>
+      <h2>Docs under pressure <span class="tag concept">10 min</span></h2>
+    </div>
+    <p class="lede">A how-to guide assumes a calm, competent reader working through a task by choice. A runbook assumes a stressed reader who was just woken up. Same Diátaxis quadrant, stricter rules.</p>
+
+    <details class="card" open>
+      <summary><span class="mode self">Self-study</span>Runbooks are infrastructure<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's SRE writing makes a blunt economic case: a good runbook lowers MTTR - mean time to recovery - by handing the responder a proven path instead of asking them to reinvent one under stress. The doc is part of the system's reliability, the same way monitoring and alerting are.</p>
+        <ul>
+          <li><strong>The 2am reader is your primary audience.</strong> This is Session 1's audience statement made concrete: they know your infra but not this specific failure, and they need to act, not learn.</li>
+          <li><strong>Every alert should link to its runbook.</strong> An alert that fires with no linked recovery doc is half an alert - it announces a problem and abandons the responder.</li>
+          <li><strong>A stale runbook is worse than none.</strong> A wrong command at 2am costs more than an honest blank. Runbooks get reviewed on a schedule, exactly like the delete-dead-docs rule from Session 7.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>A runbook is a how-to with stricter rules<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>From Session 5 you know a how-to guide: prerequisites, actionable steps, no teaching. A runbook keeps all of that and adds three constraints the pressure demands:</p>
+        <ul>
+          <li><strong>Exact commands, not descriptions.</strong> "Check the raw folder" becomes <code>ls -la pulse/data/raw</code>. The reader copies and pastes; they do not translate.</li>
+          <li><strong>Verify after every action.</strong> Each step says how to confirm it worked before moving on. This is the defining trait - more on it below.</li>
+          <li><strong>Decision rules, not options.</strong> A how-to can say "you might also...". A runbook says "if the count is 0, go to step 4; otherwise go to step 5". No branching left to judgment.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="anatomy">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the runbook template</span>
+      <h2>Anatomy of a runbook <span class="tag concept">15 min</span></h2>
+    </div>
+    <p class="lede">The canonical structure is stable across SRE teams. Read it top to bottom the way a responder does: what fired, what I need, what to do, how to know it worked, what if it did not, who to call.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Runbook anatomy as a vertical skeleton: trigger, prerequisites, steps with verify loop, troubleshooting, escalation">
+        <style>
+          .d3rT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .d3rS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .d3rC { font: 700 14px Inter, sans-serif; fill: #7E2718; }
+          .d3rX { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+          .d3rN { font: 600 13px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="d3rAh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="250" y="20" width="380" height="46" rx="12" fill="#7E2718"/>
+        <text class="d3rT" x="270" y="41">Metadata + trigger</text>
+        <text class="d3rS" x="270" y="58">owner · last-reviewed · which alert fires this</text>
+
+        <rect x="250" y="84" width="380" height="46" rx="12" fill="#C2402A"/>
+        <text class="d3rT" x="270" y="105">Prerequisites</text>
+        <text class="d3rS" x="270" y="122">access, tools, the repo checked out</text>
+
+        <rect x="250" y="148" width="380" height="70" rx="12" fill="#D4664E"/>
+        <text class="d3rT" x="270" y="176">Steps, each with a verify line</text>
+        <text class="d3rS" x="270" y="196">exact command → confirm result → next</text>
+        <path d="M636,183 C700,183 700,150 645,150" fill="none" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#d3rAh)"/>
+        <text class="d3rX" x="660" y="205">loop</text>
+
+        <rect x="250" y="236" width="380" height="46" rx="12" fill="#E5A08F"/>
+        <text class="d3rC" x="270" y="257">Troubleshooting</text>
+        <text class="d3rX" x="270" y="274" fill="#7E2718">common failure modes → what each means</text>
+
+        <rect x="250" y="300" width="380" height="46" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+        <text class="d3rC" x="270" y="321">Escalation</text>
+        <text class="d3rX" x="270" y="338">who to page when the steps run out</text>
+
+        <rect x="250" y="368" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="d3rN" x="274" y="380">The verify line after every action is what separates a runbook from a how-to guide.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the runbook skeleton, read top to bottom under pressure</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The eight parts<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every reliable runbook carries these, in order:</p>
+        <table class="clean">
+          <thead><tr><th>Part</th><th>What it answers</th></tr></thead>
+          <tbody>
+            <tr><td>Title + unique ID + short description</td><td>What is this and can I search for it</td></tr>
+            <tr><td>Scope, owner, last-reviewed date</td><td>Who owns it, is it still trustworthy</td></tr>
+            <tr><td>Trigger / when to use</td><td>Which alert or symptom brings me here</td></tr>
+            <tr><td>Prerequisites</td><td>What access and tools I need first</td></tr>
+            <tr><td>Steps with exact commands</td><td>What do I run, precisely</td></tr>
+            <tr><td>Verification after each step</td><td>How do I know that worked</td></tr>
+            <tr><td>Troubleshooting</td><td>What if a step does not go as expected</td></tr>
+            <tr><td>Escalation contacts</td><td>Who do I page when I am out of steps</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why the verify line matters<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The verify line is the runbook's whole reason to exist. Under stress, people skip ahead and assume a step worked. A runbook that says "re-run the pipeline" and stops has failed; one that says "re-run, then confirm daily_metrics.csv shows the day with events above 50" catches the case where the re-run silently changed nothing.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The restart that fixed nothing.</strong> A responder followed a runbook that said "restart the ingest service" and closed the incident. The service restarted fine, but the upstream feed was still down, so no data flowed. There was no verify line, so nobody checked. The alert re-fired 40 minutes later. One line - "confirm new rows arrive within 5 minutes" - would have caught it the first time.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Build the Pulse LOW-alert runbook <span class="tag demo">★ 30 min · build your own</span></h2>
+    </div>
+    <p class="lede">Session 5 gave you docs/how-to-diagnose-low-day.md - a solid how-to. Now upgrade it into docs/runbook-low-alert.md by adding the metadata, exact commands, a verify line per step, a troubleshooting table, and escalation.</p>
+
+    <div class="steps">
+      <div class="step"><p>Add the metadata block: owner, last-reviewed date, and the trigger - the alert column reads LOW in daily_metrics.csv.</p></div>
+      <div class="step"><p>Turn each diagnostic into an exact command with a verify line. "Check raw files arrived" becomes a command plus what a healthy result looks like.</p></div>
+      <div class="step"><p>Write the troubleshooting table: three common causes, each with what it means and where it points.</p></div>
+      <div class="step"><p>Add the escalation line: who to page when the steps run out, and with what evidence in hand.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">docs/runbook-low-alert.md</span># Runbook: LOW daily-events alert
+
+- ID: RB-001
+- Owner: data-platform team
+- Last reviewed: 2026-07-17
+- Trigger: the `alert` column reads `LOW` for any day in daily_metrics.csv
+  (fires when a day has fewer than `alerts.min_daily_events` events)
+
+## Prerequisites
+- Repo checked out, Python 3.10+, pyyaml installed
+- Read access to pulse/data/raw
+
+## Steps
+
+1. Identify the LOW day.
+   Run: `grep LOW pulse/data/metrics/daily_metrics.csv`
+   Verify: you have one or more dates. Note the earliest.
+
+2. Check the raw files for that day arrived.
+   Run: `ls -la pulse/data/raw`
+   Verify: a CSV covering the LOW date exists and is non-empty.
+   If it is missing or 0 bytes, the source did not deliver - go to Troubleshooting row 1.
+
+3. Check how many rows survived cleaning.
+   Run: `wc -l pulse/data/cleaned/*.csv`
+   Verify: compare against the raw row count. A large gap means heavy filtering.
+
+4. Check for a spike in filtered event types.
+   Run: `cut -d, -f3 pulse/data/raw/*.csv | sort | uniq -c`
+   Verify: every high-count type appears in config.yaml &gt; events.valid_types.
+   An unlisted type with a high count means a source changed - Troubleshooting row 2.
+
+5. Decide: data problem or real traffic drop.
+   Re-run the pipeline: `python3 pulse/ingest.py &amp;&amp; python3 pulse/clean.py &amp;&amp; python3 pulse/metrics.py`
+   Verify: re-open daily_metrics.csv. If the day is still LOW and raw data looked healthy,
+   it is a real traffic drop, not a pipeline fault.
+
+## Troubleshooting
+
+| Symptom | Likely cause | Action |
+|---------|--------------|--------|
+| No raw file for the day | upstream feed did not deliver | escalate to the source team; do not re-run |
+| High count of an unlisted event type | a source started sending a new type | add it to valid_types if legitimate, re-run |
+| LOW only on weekends | threshold too high for low-traffic days | propose a weekday/weekend threshold |
+
+## Escalation
+If steps 1-5 do not explain the LOW day, page the data-platform on-call
+with: the LOW date, the raw row count, and the cleaned row count.</div>
+
+    <div class="callout tip">
+      <strong>Ops tip</strong>
+      Link this runbook from the alert itself. The moment metrics.py writes LOW, the reader should be one click from RB-001 - that is the every-alert-links-a-runbook rule in practice.
+    </div>
+  </section>
+
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself <span class="tag exercise">◐ 30-45 min</span></h2>
+    </div>
+    <ul>
+      <li>Pick one alert your team actually gets paged for. Write its runbook using the eight-part skeleton. If you cannot name the exact commands, that gap IS the runbook's value.</li>
+      <li>Audit an existing runbook for missing verify lines. Every "do X" with no "confirm X worked" is a restart-that-fixed-nothing waiting to happen.</li>
+      <li>Add a last-reviewed date to your team's runbooks and a calendar reminder to re-verify them. A runbook with no review date is a runbook nobody trusts.</li>
+      <li>Optional depth: the ACM Queue article "Why SRE Documents Matter" and the Google SRE workbook cover runbook practice at scale.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This deep dive combines SRE documentation practice with the Diátaxis how-to model, applied to Pulse. Organization-specific incident tooling stays with each team.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">ACM Queue: Why SRE Documents Matter</span><span class="note">Part 1: runbooks as infrastructure, MTTR, review cadence</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Squadcast runbook template</span><span class="note">Part 2: the eight-part anatomy</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Diátaxis how-to guides (applied under pressure)</span><span class="note">Part 1: the stricter-how-to framing</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google documentation best practices: review cadence</span><span class="note">Part 1: stale runbook = wrong runbook</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What upgrades an ordinary how-to into a runbook?</p>
+      <button class="qopt" type="button">A · Longer prose and more background</button>
+      <button class="qopt" type="button">B · Exact commands, a verify line after each step, decision rules not options</button>
+      <button class="qopt" type="button">C · A nicer diagram</button>
+      <p class="qwhy">Pressure demands precision: copy-paste commands, confirmation after every action, and no branching left to a tired reader's judgment.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · An alert fires with no linked runbook. What's the problem?</p>
+      <button class="qopt" type="button">A · It announces a problem and abandons the responder</button>
+      <button class="qopt" type="button">B · Nothing, alerts don't need docs</button>
+      <button class="qopt" type="button">C · The alert threshold is wrong</button>
+      <p class="qwhy">Every alert should link its runbook. Without one, the responder starts from zero at the worst possible time.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">3 · Why is a stale runbook worse than no runbook?</p>
+      <button class="qopt" type="button">A · It takes up disk space</button>
+      <button class="qopt" type="button">B · It looks unprofessional</button>
+      <button class="qopt" type="button">C · A wrong command at 2am costs more than an honest blank</button>
+      <p class="qwhy">A confident but outdated instruction sends the responder down a broken path. Review on a schedule, like deleting dead docs.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <section class="cheat" id="cheatsheet">
+    <h3>Runbook cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Eight parts</b><span>Title+ID · owner+reviewed · trigger · prerequisites · steps · verify · troubleshooting · escalation.</span></div>
+      <div class="cheat-item"><b>Verify every step</b><span>The defining trait. "Do X" always followed by "confirm X worked" before moving on.</span></div>
+      <div class="cheat-item"><b>Exact commands</b><span>Copy-paste, not "check the folder". The reader translates nothing under stress.</span></div>
+      <div class="cheat-item"><b>Decision rules</b><span>"If count is 0, go to step 4." No options left to a tired responder's judgment.</span></div>
+      <div class="cheat-item"><b>Link from the alert</b><span>Every alert is one click from its runbook. An alert with no runbook is half an alert.</span></div>
+      <div class="cheat-item"><b>Last-reviewed date</b><span>A runbook with no review date is a runbook nobody trusts. Re-verify on a schedule.</span></div>
+      <div class="cheat-item"><b>Stale beats blank? No</b><span>A wrong command at 2am costs more than honest silence. Prune like dead docs.</span></div>
+      <div class="cheat-item"><b>The 2am reader</b><span>Knows the infra, not this failure, needs to act not learn. Session 1's audience, made literal.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Deep dive 3 of 4 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="92-accessible-writing.html">← Accessible writing</a> &nbsp;·&nbsp; <a href="94-style-guide-face-off.html">Next: Style-guide face-off →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

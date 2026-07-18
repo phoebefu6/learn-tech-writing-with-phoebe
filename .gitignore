@@ -1,0 +1,6 @@
+pulse/data/staged/
+pulse/data/cleaned/
+pulse/data/metrics/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 7 · Docs as code: milestone 3 - learn tech writing with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-writing-with-phoebe</a> / Session 7 of 8</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Writing with Phoebe · Session 7 of 8</div>
+    <h1>Docs <span class="accent">as code</span>: milestone 3</h1>
+    <p class="sub">Pulse now has an audience statement, a README, a how-to, a reference, an ADR and a changelog - all markdown, all in git. Surprise: you've been doing docs as code since Session 1. Today we add the machinery that keeps those docs alive after you stop paying attention: linting, CI checks, and a review culture with teeth.</p>
+    <div class="chip-row">
+      <span class="chip level">🟠 Deeper</span>
+      <span class="chip audience">Practitioners</span>
+      <span class="chip audience">Data &amp; AI teams</span>
+      <span class="chip time">45 min live + self-study depth</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts (live cards)</span>
+      <span class="a3" style="flex:5">18-40 · Build-along on Pulse</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this session exists</h2>
+    </div>
+    <p class="lede">Every doc you've written in this course is plain text, in the repo, versioned by git. That IS docs as code - you just haven't been collecting the benefits yet. The benefits arrive when the machinery around the text starts working for you: a linter that catches style drift while you sleep, a CI gate that refuses to merge features without their docs, and a review habit that treats a doc bug exactly like a code bug. Without the machinery, docs rot the moment the author gets busy. With it, the repo defends its own documentation.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">★ Try it now exercise</span>
+      <span class="pill inkpill">Sources: Write the Docs + Vale + Google docguide</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Milestone 3: Vale linting Pulse's docs with Google's own style rules, a doc-review exercise done PR-style, and a four-line team contract that makes "no doc, no merge" a norm instead of a wish. Cards marked "Live" are what we do together; "Self-study" cards give you full source depth at your own pace.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE PHILOSOPHY AND THE LOOP ============ -->
+  <section class="section" id="loop">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Write the Docs "Docs as Code"</span>
+      <h2>The philosophy and the loop <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Write the Docs defines docs as code as "a philosophy that you should be writing documentation with the same tools as code": issue trackers, version control, plain-text markup, code reviews, automated tests. It is not a tool you install. It is a decision that documentation gets the same production pipeline your code already earned.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The docs-as-code loop: write in a branch, PR and review, CI checks, merge deploys, reader hits a gap, issue filed, back to writing">
+        <style>
+          .s7lT { font: 700 16px Inter, sans-serif; fill: #FFFFFF; }
+          .s7lS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s7lG { font: 700 16px Inter, sans-serif; fill: #7E2718; }
+          .s7lI { font: 700 16px Inter, sans-serif; fill: #1C1B18; }
+          .s7lX { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+          .s7lN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s7Ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <rect x="40" y="40" width="230" height="72" rx="14" fill="#C2402A"/>
+        <text class="s7lT" x="60" y="70">1 · Write in a branch</text>
+        <text class="s7lS" x="60" y="92">docs are plain text in the repo</text>
+        <line x1="272" y1="76" x2="320" y2="76" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="325" y="40" width="230" height="72" rx="14" fill="#7E2718"/>
+        <text class="s7lT" x="345" y="70">2 · PR + peer review</text>
+        <text class="s7lS" x="345" y="92">docs reviewed exactly like code</text>
+        <line x1="557" y1="76" x2="605" y2="76" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="610" y="40" width="230" height="72" rx="14" fill="#D4664E"/>
+        <text class="s7lT" x="630" y="70">3 · CI checks run</text>
+        <text class="s7lS" x="630" y="92">build · links · prose lint · spell</text>
+        <line x1="725" y1="114" x2="725" y2="183" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="610" y="188" width="230" height="72" rx="14" fill="#C2402A"/>
+        <text class="s7lT" x="630" y="218">4 · Merge deploys</text>
+        <text class="s7lS" x="630" y="240">publish happens on push</text>
+        <line x1="608" y1="224" x2="560" y2="224" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="325" y="188" width="230" height="72" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <text class="s7lG" x="345" y="218">5 · Reader hits a gap</text>
+        <text class="s7lX" x="345" y="240">a doc bug is a real bug</text>
+        <line x1="323" y1="224" x2="275" y2="224" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="40" y="188" width="230" height="72" rx="14" fill="#E5A08F"/>
+        <text class="s7lI" x="60" y="218">6 · Issue filed</text>
+        <text class="s7lX" x="60" y="240">queued like any other fix</text>
+        <line x1="155" y1="186" x2="155" y2="117" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Ah)"/>
+        <rect x="40" y="296" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s7lN" x="64" y="308">Every step already exists for your code. Docs as code means docs ride the same loop, not a wiki beside it.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the docs-as-code loop: the doc change rides the exact rails your code changes already use</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The definition and the six-step workflow<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The whole workflow, end to end - notice that every step is one you already know from shipping code:</p>
+        <ul>
+          <li><strong>Docs live as plain text in the repo</strong> (Markdown, reST, AsciiDoc), next to the code they describe.</li>
+          <li><strong>A change is a branch and a commit</strong> - no edit button on a live page, no "who changed this?" mystery. Git remembers.</li>
+          <li><strong>A PR opens and the docs get peer review</strong>, at the same bar as code. A reviewer can block a misleading sentence the same way they block a misleading variable name.</li>
+          <li><strong>CI runs checks:</strong> the site builds, links resolve, prose passes the linter, spelling passes the dictionary.</li>
+          <li><strong>Merge triggers build and deploy.</strong> The published docs are always exactly what's on main.</li>
+          <li><strong>Doc updates ship in the SAME PR as the feature.</strong> This is the load-bearing rule: "no doc, no merge". Everything else is tooling; this one is culture.</li>
+        </ul>
+        <p>Write the Docs names the payoff plainly: writers integrate into product teams instead of orbiting them, developers write first drafts because the doc file is right there in their editor, and doc requirements become enforceable before merge instead of negotiable after release.</p>
+        <div class="prompt-box good"><span class="label">★ Try it now</span>Score your team's current doc home against the six steps. One point each:
+
+1. Plain text in version control?
+2. Changes go through branches?
+3. Docs get reviewed before publish?
+4. Any automated check at all?
+5. Publish happens automatically?
+6. Docs required in the same change as the code?
+
+0-2: you have a wiki. 3-4: halfway there. 5-6: docs as code - guard it.</div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Why the loop beats the wiki<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Wikis fail predictably, and each failure maps to a loop step the wiki is missing:</p>
+        <ul>
+          <li><strong>No review.</strong> Wiki edits publish instantly, so the first reader of a wrong sentence is a user in trouble. In the loop, a reviewer sees it first.</li>
+          <li><strong>No history you can use.</strong> Git blame tells you which commit, which PR, and which discussion changed a line. Wiki history tells you a name and a date, if that.</li>
+          <li><strong>No dead-doc detection.</strong> When code moves, a doc in the repo shows up in the same grep, the same refactor, the same PR diff. A wiki page just quietly stops being true.</li>
+          <li><strong>Docs live next to the code they describe.</strong> The person editing <code>metrics.py</code> sees <code>docs/reference-config.md</code> in the same file tree. Proximity is the cheapest freshness mechanism ever invented.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The wiki nobody could delete.</strong> A data team kept a wiki with three conflicting versions of the same onboarding page - nobody knew which was current, so nobody dared remove any. After migrating docs into the repo, the duplicate problem became impossible: one file, one path, one git history. The wiki stayed up for a year as a read-only museum, then someone finally turned it off and nothing broke.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The tooling landscape<span class="mini">3 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every docs-as-code stack is the same four choices; Write the Docs' guidance on choosing tools boils down to "pick what your team already uses for code":</p>
+        <ul>
+          <li><strong>Version control:</strong> git, hosted on GitHub or GitLab. The PR/MR machinery is the review system - you don't build one.</li>
+          <li><strong>Markup:</strong> Markdown for approachability, reStructuredText or AsciiDoc when you need cross-references and structured metadata at scale.</li>
+          <li><strong>Generator:</strong> Sphinx (Python-native, reST-first), MkDocs (Markdown, fast start), Docusaurus (React sites), Hugo (speed at volume). All turn plain text into a website on push.</li>
+          <li><strong>Checks:</strong> prose linters (Vale, next section), link checkers, spell checkers - wired into the same CI that runs your tests. The operational discipline of running docs like a production system even has a name: DocOps.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Meta note</strong>
+          The course site you are reading right now is docs as code: static HTML files in a public GitHub repo, published by GitHub Pages on every push. No CMS, no edit button, full git history. The medium has been practicing the message all along.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: ENFORCEMENT ============ -->
+  <section class="section" id="enforcement">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Vale + Google documentation best practices</span>
+      <h2>Enforcement: linting and review culture <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">A philosophy without enforcement is a poster on a wall. Enforcement comes in two layers: a machine layer (Vale, catching style drift on every commit) and a human layer (Google's review-culture rules, catching everything the machine can't). You need both, and they catch different bugs.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two PR lanes: a PR carrying both a code change and a doc change passes peer review and the Vale CI gate and merges; a code-only PR below is rejected with changes requested">
+        <style>
+          .s7pT { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .s7pS { font: 400 12px Inter, sans-serif; fill: #FAECE7; }
+          .s7pG { font: 700 14px Inter, sans-serif; fill: #7E2718; }
+          .s7pC { font: 600 12px Inter, sans-serif; fill: #FFFFFF; }
+          .s7pX { font: 400 13px Inter, sans-serif; fill: #6E675C; }
+          .s7pN { font: 600 14px Inter, sans-serif; fill: #33270A; }
+        </style>
+        <defs>
+          <marker id="s7Bh" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L8,4.5 L0,9 z" fill="#CFC8B9"/>
+          </marker>
+        </defs>
+        <text class="s7pG" x="40" y="30">PR #42 · feature + its docs, one change</text>
+        <rect x="40" y="42" width="250" height="92" rx="14" fill="#FAECE7" stroke="#C2402A" stroke-width="2"/>
+        <rect x="58" y="58" width="214" height="26" rx="8" fill="#D4664E"/>
+        <text class="s7pC" x="70" y="76">code · metrics.py +14 -3</text>
+        <rect x="58" y="94" width="214" height="26" rx="8" fill="#C2402A"/>
+        <text class="s7pC" x="70" y="112">docs · reference-config.md +9</text>
+        <line x1="292" y1="88" x2="336" y2="88" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Bh)"/>
+        <rect x="340" y="42" width="180" height="92" rx="14" fill="#7E2718"/>
+        <text class="s7pT" x="358" y="80">Peer review</text>
+        <text class="s7pS" x="358" y="102">human judgment</text>
+        <line x1="522" y1="88" x2="566" y2="88" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Bh)"/>
+        <rect x="570" y="42" width="150" height="92" rx="14" fill="#C2402A"/>
+        <text class="s7pT" x="588" y="80">Vale CI gate</text>
+        <text class="s7pS" x="588" y="102">errors block merge</text>
+        <line x1="722" y1="88" x2="766" y2="88" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Bh)"/>
+        <rect x="770" y="42" width="90" height="92" rx="14" fill="#D4664E"/>
+        <text class="s7pT" x="786" y="82">Merged</text>
+        <text class="s7pS" x="786" y="102">deployed</text>
+        <text class="s7pX" x="40" y="185">PR #43 · code only, "docs later"</text>
+        <rect x="40" y="197" width="250" height="58" rx="14" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <rect x="58" y="213" width="214" height="26" rx="8" fill="#D4664E"/>
+        <text class="s7pC" x="70" y="231">code · metrics.py +14 -3</text>
+        <line x1="292" y1="226" x2="336" y2="226" stroke="#CFC8B9" stroke-width="2.5" marker-end="url(#s7Bh)"/>
+        <rect x="340" y="197" width="380" height="58" rx="14" fill="#FCFAF4" stroke="#CFC8B9" stroke-dasharray="5 4"/>
+        <text class="s7pX" x="358" y="222">Changes requested: where are the docs?</text>
+        <text class="s7pX" x="358" y="242">"docs later" is where docs go to die</text>
+        <rect x="40" y="282" width="14" height="14" rx="3" fill="#B98A1C"/>
+        <text class="s7pN" x="64" y="294">One PR carries both chips. The reviewer checks the prose; Vale checks the style; the gate checks the pairing.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the same-PR rule as a pipeline: code and docs travel together, or the PR doesn't travel at all</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Vale in 5 minutes<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Vale (vale.sh) is a prose linter: it does for your sentences what ruff does for your Python. Rules live in YAML, config lives in a <code>.vale.ini</code> at the repo root, and it runs anywhere - your editor, a pre-commit hook, or a GitHub Action in CI.</p>
+        <ul>
+          <li><strong>It ships the famous style guides as packages.</strong> One line in <code>.vale.ini</code> and you're linting against Google's or Microsoft's published style guide - the same rules their own writers follow, with zero rule-writing on day one.</li>
+          <li><strong>It's syntax-aware.</strong> Vale knows Markdown, so it lints your prose and skips your code blocks. Your <code>snake_case_variables</code> never get flagged as spelling errors.</li>
+          <li><strong>Three alert levels - suggestion, warning, error</strong> - and CI can be set to fail on errors only. That's the pragmatic setting: hard rules block the merge, soft rules educate without nagging.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Adoption tip</strong>
+          Start with everything at suggestion level for two weeks. Let the team see what Vale sees without a single blocked PR, then promote the rules everyone already agrees with to error. A linter imposed overnight gets uninstalled; a linter phased in gets defended.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Google's three review-culture rules<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google's documentation best practices guide is short and ruthless. Three rules do most of the work:</p>
+        <ul>
+          <li><strong>Docs change in the same PR as the code, and get reviewed at the same bar.</strong> Not a follow-up ticket, not "I'll circle back". The diff that changes the behavior changes the description of the behavior, and a reviewer signs off on both.</li>
+          <li><strong>Minimum viable documentation.</strong> "A small set of fresh and accurate docs is better than a large assembly of documentation in various states of disrepair." Write less, keep it true, and prune like a bonsai - deliberate small cuts, continuously, instead of a heroic yearly rewrite.</li>
+          <li><strong>Delete dead docs.</strong> Wrong docs are not neutral; they actively harm, because readers trust them and act on them. Google's default on any migration is deletion, backed by regular team doc audits ("doc fixits") to find the pages nobody wants to admit are dead.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The runbook that paged the wrong team.</strong> An on-call engineer followed a stale runbook to escalate an alert - to a team that had been dissolved eight months earlier. Forty minutes of 3am confusion later, the fix wasn't updating the runbook. It was deleting it: the alert itself had been superseded, and the doc's only remaining function was to mislead. Deletion is a documentation act.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>What to automate, what needs humans<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The trap after installing Vale is believing the green check means the doc is good. Linters and reviewers catch disjoint bug classes:</p>
+        <ul>
+          <li><strong>Machines catch what's checkable:</strong> spelling, passive voice, "simply" and friends, sentence length, banned words, broken links, a site that won't build. Fast, tireless, and consistent - perfect for the style layer this course built in Sessions 2 and 3.</li>
+          <li><strong>Only humans catch what's judgeable:</strong> the doc is written for the wrong audience, the non-scope statement is missing, the example no longer matches the code's behavior, the steps are correct but in a baffling order. Everything Sessions 1, 4, 5 and 6 taught lives above the linter's ceiling.</li>
+          <li><strong>Division of labor:</strong> let Vale own the mechanical comments so human reviewers never type "passive voice" again - their whole attention goes to the questions only they can answer. That is Session 8's editing pass, institutionalized.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 1 of 3</span>
+      <h2>Point Vale at Pulse's docs <span class="tag demo">★ 8 min · everyone follows</span></h2>
+    </div>
+    <p class="lede">We give the Pulse repo a <code>.vale.ini</code>, pull in Google's packaged style, and lint the oldest prose in the doc set: <code>docs/notes-rewrite.md</code> from Session 2. Watching a linter grade your own writing is the fastest style lesson there is.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>.vale.ini</code> at the repo root with the config below. It says: rules live in <code>.vale/styles</code>, report everything down to suggestions, fetch the Google package, and apply Vale's core rules plus Google's to every markdown file.</p></div>
+      <div class="step"><p>Run <code>vale sync</code> once - it downloads the Google style package into <code>.vale/styles</code>.</p></div>
+      <div class="step"><p>Run <code>vale docs/notes-rewrite.md</code> and read the output bottom-up: the summary line first, then the errors, then the warnings.</p></div>
+      <div class="step"><p>Fix one error, rerun, watch the count drop. That tight loop - lint, fix, relint - is the whole developer experience of docs as code.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">.vale.ini - the whole config</span>StylesPath = .vale/styles
+MinAlertLevel = suggestion
+Packages = Google
+
+[*.md]
+BasedOnStyles = Vale, Google</div>
+
+    <div class="prompt-box good"><span class="label">What Vale's output looks like</span>docs/notes-rewrite.md
+ 3:18   warning     Try to avoid using          Google.We
+                    first-person plural like
+                    'we'.
+ 11:1   error       Did you really mean         Vale.Spelling
+                    'metrcs'?
+ 14:22  warning     'is triggered' may be       Google.Passive
+                    passive voice.
+ 20:9   suggestion  In general, use active      Google.Acronyms
+                    voice... spell out 'UTC',
+                    if it's unfamiliar.
+
+✖ 1 error, 2 warnings, 1 suggestion in 1 file.</div>
+
+    <div class="callout tip">
+      <strong>CI wiring, one sentence each</strong>
+      GitHub Action: the official <code>errata-ai/vale-action</code> annotates the PR diff with Vale's findings inline. Pre-commit hook: Vale runs on staged markdown before the commit even exists. Gate setting: fail CI on errors only, so suggestions educate and errors enforce.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 2 of 3</span>
+      <h2>Review a doc like a PR <span class="tag demo">★ 8 min · build your own</span></h2>
+    </div>
+    <p class="lede">Vale would pass most of the paragraph below - and it's still a bad doc. This is the human layer: review the paragraph the way you'd review code, with line comments that name the problem and propose the fix. Everything you need was taught in Sessions 1-5.</p>
+
+    <div class="steps">
+      <div class="step"><p>Read the flawed paragraph below once as a newcomer. Note where you'd stop, scroll back, or DM the author.</p></div>
+      <div class="step"><p>Write review comments PR-style: quote the line, name the problem, propose the concrete rewrite. Aim for four comments before you peek at ours.</p></div>
+      <div class="step"><p>Compare with the sample review. The goal isn't matching wording - it's that every comment is actionable. "This is unclear" is not a review comment; "unclear WHICH script - name it" is.</p></div>
+    </div>
+
+    <div class="prompt-box bad"><span class="label">The paragraph under review - from a fictional PR to docs/how-to-rerun.md</span>## Rerunning the pipeline
+
+The pipeline is run by executing the scripts. Simply activate
+the environment first and it will work. After that is done, the
+metrics can be found in the output folder and it should be checked
+before telling stakeholders the numbers are final.</div>
+
+    <div class="prompt-box good"><span class="label">Review comments, PR-style</span>Line 3 · "The pipeline is run by executing the scripts."
+Passive voice hides the actor and the order. Rewrite:
+"Run the three scripts in order: ingest.py, clean.py, metrics.py."
+
+Line 3 · "Simply activate the environment"
+Two problems. "Simply" is a curse-of-knowledge alarm - delete it.
+And WHICH environment? Missing prerequisite. Add:
+"Prerequisite: the pulse conda env, activated (conda activate pulse)."
+
+Line 4 · "After that is done"
+After WHAT is done - the activation or the run? Vague pronoun.
+Name the step: "After metrics.py finishes..."
+
+Line 5 · "it should be checked"
+Who checks it, checked for what, and which file is "it"?
+Rewrite: "Check daily_metrics.csv for LOW flags before sharing
+(see docs/how-to-diagnose-low-day.md)."
+
+Verdict: request changes. Structure is fine; every sentence
+needs a named actor and a named object.</div>
+
+    <div class="callout win">
+      <strong>★ Notice what just happened</strong>
+      Not one of those four comments could have come from Vale - well, it flags "simply" and the passive, but it cannot know the env name, the script order, or which doc to cross-link. That's why the review culture matters even after the linter is green: machines check style, humans check truth.
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along 3 of 3</span>
+      <h2>Write the team norm: DOCS.md <span class="tag demo">★ 6 min · build your own</span></h2>
+    </div>
+    <p class="lede">Machinery without a written norm decays into "that check we always skip". The last artifact of milestone 3 is four lines that make the rules explicit, visible, and quotable in a PR comment. Short on purpose: a contract nobody reads is not a contract.</p>
+
+    <div class="steps">
+      <div class="step"><p>Create <code>DOCS.md</code> at the Pulse repo root with the four rules below.</p></div>
+      <div class="step"><p>Read each rule and check it's enforceable: rule 1 by reviewers, rule 2 by CI, rules 3 and 4 by reviewers with a one-line comment. A rule nobody can enforce is a hope.</p></div>
+      <div class="step"><p>Adapt the wording for your real team and open it as a PR - the contract about reviews should itself get reviewed. If anyone pushes back, that conversation IS the adoption process working.</p></div>
+    </div>
+
+    <div class="prompt-box good"><span class="label">DOCS.md - the four-line contract</"><span></span># How we do docs
+
+1. Docs change in the same PR as the code they describe. No doc, no merge.
+2. Vale errors block merge. Warnings and suggestions are advisory.
+3. Every alert or error a user can see links to a runbook or how-to.
+4. Dead docs are deleted on sight. Wrong docs are worse than no docs.</div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>The contract that survived its author.</strong> A data platform team wrote exactly this kind of four-line norm before their tech lead left. Two years and three team-composition changes later, PRs still get the comment "rule 1?" - from people who never met the person who wrote it. Culture you write down outlives culture you model.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 30-45 min total</span></h2>
+    </div>
+    <ul>
+      <li>Install Vale locally (<code>brew install vale</code> or the release binary), drop the demo's <code>.vale.ini</code> into your real docs repo, and run it on your three most-read docs. Count errors before fixing anything - that number is your baseline.</li>
+      <li>Run the six-step scorecard from Part 1's ★ Try it now on your team's actual doc home, and identify the single cheapest missing step to add.</li>
+      <li>Do one doc review this week using Demo 2's format: quote, problem, concrete rewrite. On a real PR if one exists; on an old doc as a self-review if not.</li>
+      <li>Draft your team's DOCS.md and float it with one colleague before proposing it widely. Rule 1 gets pushback everywhere - rehearse your answer to "but it slows us down" (answer: the DM you'd otherwise get later is slower).</li>
+      <li>Read the two Self-study cards: the tooling landscape and automate-vs-humans. Optional depth: writethedocs.org's Docs as Code guide and google.github.io/styleguide/docguide are both short and free.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES COVERED ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Official sources covered</h2>
+    </div>
+    <p class="lede">This session teaches the working content of these sources. What stays with the originals: Vale's full rule-authoring syntax and the complete Write the Docs guide prose.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Write the Docs · Docs as Code</span><span class="note">Part 1: the definition, the six-step workflow, the benefits</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Vale (vale.sh)</span><span class="note">Part 2 + Demo 1: .vale.ini, packaged Google/Microsoft styles, alert levels, CI wiring</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google · Documentation best practices</span><span class="note">Part 2: same-PR rule, minimum viable documentation, delete dead docs</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Write the Docs · DocOps</span><span class="note">Mentioned in the tooling card: running docs like a production system</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Write the Docs · Choosing tools</span><span class="note">Self-study card summary; the full comparison essay is at writethedocs.org</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Vale passes a doc with zero errors. What can you now be sure of?</p>
+      <button class="qopt" type="button">A · The doc is accurate and ready to ship</button>
+      <button class="qopt" type="button">B · The style layer is clean - audience fit and accuracy still need a human reviewer</button>
+      <button class="qopt" type="button">C · The doc follows the six-step workflow</button>
+      <p class="qwhy">Linters catch the checkable: spelling, passive voice, banned words. Wrong audience, missing non-scope, and stale facts all pass Vale with flying colors - only reviewers catch those.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Why do docs change in the SAME PR as the code, rather than a follow-up ticket?</p>
+      <button class="qopt" type="button">A · It makes the PR look bigger and more impressive</button>
+      <button class="qopt" type="button">B · Follow-up tickets are hard to create in most trackers</button>
+      <button class="qopt" type="button">C · It's the only enforceable moment - after merge, the doc update is optional and "later" usually means never</button>
+      <p class="qwhy">The merge gate is the one point where a reviewer can actually require the doc. Once the feature ships, the doc ticket competes with the sprint and loses - that's the lane where docs go to die.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Google's guidance says to DELETE dead docs rather than leave them up "just in case". Why?</p>
+      <button class="qopt" type="button">A · Wrong docs actively harm - readers trust them and act on them, unlike a missing doc which at least makes people ask</button>
+      <button class="qopt" type="button">B · Old docs slow down the documentation site build</button>
+      <button class="qopt" type="button">C · Deleting docs keeps the repo's line count low</button>
+      <p class="qwhy">A missing doc sends the reader to a colleague; a wrong doc sends them confidently in the wrong direction - like the runbook that paged a dissolved team. Deletion is a documentation act, and git remembers everything anyway.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 7 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Docs as code</b><span>Write documentation with the same tools as code: git, plain text, issues, reviews, automated tests. A philosophy, not a product.</span></div>
+      <div class="cheat-item"><b>The loop</b><span>Branch → PR + review → CI checks → merge deploys → reader files gaps as issues. Same rails as your code.</span></div>
+      <div class="cheat-item"><b>No doc, no merge</b><span>Doc changes ship in the SAME PR as the feature. The merge gate is the only enforceable moment; "later" means never.</span></div>
+      <div class="cheat-item"><b>Vale setup</b><span>.vale.ini at repo root: StylesPath, MinAlertLevel, Packages = Google, BasedOnStyles per file type. vale sync, then lint.</span></div>
+      <div class="cheat-item"><b>Alert levels</b><span>suggestion &lt; warning &lt; error. Gate CI on errors only: hard rules enforce, soft rules educate. Vale skips code blocks.</span></div>
+      <div class="cheat-item"><b>Minimum viable docs</b><span>A small set of fresh, accurate docs beats a large assembly in disrepair. Prune like a bonsai - small cuts, continuously.</span></div>
+      <div class="cheat-item"><b>Delete dead docs</b><span>Wrong docs actively harm; missing docs just prompt questions. Default to deletion, audit regularly, trust git to remember.</span></div>
+      <div class="cheat-item"><b>Pulse status</b><span>Full doc set ✓ · Vale linting ✓ · DOCS.md contract ✓. One session left: the editing pass that ships v1.0.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 7 of 8 · learn-tech-writing-with-phoebe · by Phoebe Fu</span>
+    <span><a href="06-reference-adrs-changelogs.html">← Prev</a> &nbsp;·&nbsp; <a href="08-edit-and-ship.html">Next: Edit like a pro, ship v1.0 →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
