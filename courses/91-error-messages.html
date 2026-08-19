@@ -185,6 +185,35 @@
       <h2>Rewrite ingest.py's message <span class="tag demo">★ 15 min · everyone follows</span></h2>
     </div>
     <p class="lede">Pulse's ingest.py prints a real, weak message when a CSV has the wrong columns. Run it through the 13 rules and watch it get useful.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after view of Pulse's ingest.py error message: the original bad header message explains nothing, while the rewrite names the cause header is missing required columns, echoes the exact header found, and gives two ordered fixes.">
+    <style>
+      .tw3aT { font: 700 13px Inter, sans-serif; fill: #1C1B18; }
+      .tw3aH { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+      .tw3aHg { font: 700 13px Inter, sans-serif; fill: #C2402A; }
+      .tw3aB { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+      .tw3aN { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#FAF5EC"/>
+    <text class="tw3aT" x="40" y="28">ingest.py's message, before and after the 13 rules</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+    <text class="tw3aH" x="58" y="84">&#10007; Error: bad header</text>
+    <text class="tw3aB" x="58" y="114">"bad header"</text>
+    <text class="tw3aB" x="58" y="134">says nothing about why</text>
+    <text class="tw3aB" x="58" y="154">sends reader to source at 2am</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+    <text class="tw3aHg" x="468" y="84">&#10003; Missing columns, named</text>
+    <text class="tw3aB" x="468" y="114">header is missing required columns</text>
+    <text class="tw3aB" x="468" y="134">shows the exact header found</text>
+    <text class="tw3aB" x="468" y="154">two fixes, most likely first</text>
+
+    <text class="tw3aN" x="40" y="276">Same failure, four missing rules added: cause, the bad value, the constraint, and the fix.</text>
+  </svg>
+  <figcaption>&#128269; Click to zoom - the same failure, rewritten with the 13 rules working</figcaption>
+</figure>
+
 
     <div class="prompt-box bad"><span class="label">What ingest.py prints today</span>skip events_2026-07-01.csv: bad header</div>
 
@@ -213,6 +242,35 @@
       <h2>Break the silence in clean.py <span class="tag demo">★ 15 min · build your own</span></h2>
     </div>
     <p class="lede">The harder fix. clean.py drops rows silently - the worst error-handling sin, because there is no message to improve, only an absence to fill. Give it a voice.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after view of Pulse's clean.py error handling: silently dropping rows with bad timestamps or invalid types leaves metrics quietly wrong, while the fix adds one summary line reporting counts kept and dropped grouped by reason, documented as a contract in reference-config.md.">
+    <style>
+      .tw3bT { font: 700 13px Inter, sans-serif; fill: #1C1B18; }
+      .tw3bH { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+      .tw3bHg { font: 700 13px Inter, sans-serif; fill: #C2402A; }
+      .tw3bB { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+      .tw3bN { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#FAF5EC"/>
+    <text class="tw3bT" x="40" y="28">clean.py: from silent drop to a summary line</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+    <text class="tw3bH" x="58" y="84">&#10007; Silent row drop</text>
+    <text class="tw3bB" x="58" y="114">clean.py drops bad rows</text>
+    <text class="tw3bB" x="58" y="134">no print, no log, no trace</text>
+    <text class="tw3bB" x="58" y="154">metrics quietly wrong</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+    <text class="tw3bHg" x="468" y="84">&#10003; Kept/dropped summary</text>
+    <text class="tw3bB" x="468" y="114">counts kept and dropped</text>
+    <text class="tw3bB" x="468" y="134">grouped by reason</text>
+    <text class="tw3bB" x="468" y="154">documented in reference-config.md</text>
+
+    <text class="tw3bN" x="40" y="276">The worst error-handling sin has no message to fix, only an absence to fill with one summary line.</text>
+  </svg>
+  <figcaption>&#128269; Click to zoom - an absence needs a summary line, not silence</figcaption>
+</figure>
+
 
     <div class="prompt-box bad"><span class="label">clean.py today - says nothing</span># rows with invalid event types or bad timestamps are dropped.
 # no message. metrics are quietly wrong. reader has no idea.</div>

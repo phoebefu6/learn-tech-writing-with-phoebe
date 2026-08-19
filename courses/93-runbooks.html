@@ -78,6 +78,36 @@
       <summary><span class="mode self">Self-study</span>A runbook is a how-to with stricter rules<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>From Session 5 you know a how-to guide: prerequisites, actionable steps, no teaching. A runbook keeps all of that and adds three constraints the pressure demands:</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after view of a runbook step: the how-to phrasing check the raw folder requires the reader to translate it into a command, while the runbook gives the exact command ls -la pulse data raw to copy and paste directly.">
+    <style>
+      .tw5aT { font: 700 13px Inter, sans-serif; fill: #1C1B18; }
+      .tw5aH { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+      .tw5aHg { font: 700 13px Inter, sans-serif; fill: #C2402A; }
+      .tw5aB { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+      .tw5aC { font: 400 11.5px monospace; fill: #171613; }
+      .tw5aN { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#FAF5EC"/>
+    <text class="tw5aT" x="40" y="28">Same step, described vs commanded</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+    <text class="tw5aH" x="58" y="84">&#10007; How-to: description</text>
+    <text class="tw5aB" x="58" y="114">"Check the raw folder"</text>
+    <text class="tw5aB" x="58" y="134">reader translates the step</text>
+    <text class="tw5aB" x="58" y="154">translation = a delay under stress</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+    <text class="tw5aHg" x="468" y="84">&#10003; Runbook: exact command</text>
+    <text class="tw5aC" x="468" y="114">ls -la pulse/data/raw</text>
+    <text class="tw5aB" x="468" y="134">copy, paste, run - no translating</text>
+    <text class="tw5aB" x="468" y="154">same command, every responder</text>
+
+    <text class="tw5aN" x="40" y="276">A runbook keeps a how-to's steps but swaps descriptions for exact, copy-pasteable commands.</text>
+  </svg>
+  <figcaption>&#128269; Click to zoom - runbooks give commands, not descriptions</figcaption>
+</figure>
+
         <ul>
           <li><strong>Exact commands, not descriptions.</strong> "Check the raw folder" becomes <code>ls -la pulse/data/raw</code>. The reader copies and pastes; they do not translate.</li>
           <li><strong>Verify after every action.</strong> Each step says how to confirm it worked before moving on. This is the defining trait - more on it below.</li>
@@ -163,6 +193,35 @@
         <div class="callout example">
           <span class="ex-pill">Real world</span>
           <p><strong>The restart that fixed nothing.</strong> A responder followed a runbook that said "restart the ingest service" and closed the incident. The service restarted fine, but the upstream feed was still down, so no data flowed. There was no verify line, so nobody checked. The alert re-fired 40 minutes later. One line - "confirm new rows arrive within 5 minutes" - would have caught it the first time.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after view of an incident runbook step: restarting the ingest service with no verify line let the incident close while the upstream feed stayed down, until the alert re-fired forty minutes later, while adding one line confirming new rows arrive within five minutes would have caught it immediately.">
+    <style>
+      .tw5bT { font: 700 13px Inter, sans-serif; fill: #1C1B18; }
+      .tw5bH { font: 700 13px Inter, sans-serif; fill: #7E2718; }
+      .tw5bHg { font: 700 13px Inter, sans-serif; fill: #C2402A; }
+      .tw5bB { font: 400 12px Inter, sans-serif; fill: #1C1B18; }
+      .tw5bN { font: 400 12px Inter, sans-serif; fill: #6E675C; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#FAF5EC"/>
+    <text class="tw5bT" x="40" y="28">The restart that fixed nothing, and the fix</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+    <text class="tw5bH" x="58" y="84">&#10007; No verify line</text>
+    <text class="tw5bB" x="58" y="114">"restart the ingest service"</text>
+    <text class="tw5bB" x="58" y="134">incident closed, feed still down</text>
+    <text class="tw5bB" x="58" y="154">alert re-fired 40 minutes later</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FAECE7" stroke="#C2402A" stroke-width="1.5"/>
+    <text class="tw5bHg" x="468" y="84">&#10003; Verify after every step</text>
+    <text class="tw5bB" x="468" y="114">restart, then confirm rows arrive</text>
+    <text class="tw5bB" x="468" y="134">"within 5 minutes"</text>
+    <text class="tw5bB" x="468" y="154">catches a silent no-op restart</text>
+
+    <text class="tw5bN" x="40" y="276">The verify line is the runbook's whole reason to exist: never assume a step worked.</text>
+  </svg>
+  <figcaption>&#128269; Click to zoom - never assume a step worked, verify it</figcaption>
+</figure>
+
         </div>
       </div>
     </details>
